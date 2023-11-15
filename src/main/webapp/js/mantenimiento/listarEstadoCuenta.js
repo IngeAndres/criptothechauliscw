@@ -3,7 +3,6 @@ $(document).ready(function () {
         url: '/CriptoTheChaulisCW/listarestadocuenta',
         type: 'GET',
         success: function (response) {
-            console.log('Respuesta del servidor:', response);
 
             try {
                 var estado = JSON.parse(response);
@@ -15,7 +14,7 @@ $(document).ready(function () {
                         var option = document.createElement("option");
                         option.text = listarEstado.NOMBRE;
                         combobox.appendChild(option);
-                        console.log("Nombre del distrito: " + listarEstado.NOMBRE);
+                     
                     }
                 }
             } catch (error) {

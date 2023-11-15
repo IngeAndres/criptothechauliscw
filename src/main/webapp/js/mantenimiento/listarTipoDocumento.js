@@ -3,7 +3,6 @@ $(document).ready(function () {
         url: '/CriptoTheChaulisCW/listartipodocumento',
         type: 'GET',
         success: function (response) {
-            console.log('Respuesta del servidor:', response);
 
             try {
                 var documento = JSON.parse(response);
@@ -15,11 +14,11 @@ $(document).ready(function () {
                         var option = document.createElement("option");
                         option.text = listarDocumento.NOMBRE;
                         combobox.appendChild(option);
-                        console.log("Nombre del distrito: " + listarDocumento.NOMBRE);
+                      
                     }
                 }
             } catch (error) {
-                console.log('Error ', error);
+              
             }
         },
         error: function (xhr, status, error) {

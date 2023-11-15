@@ -3,7 +3,7 @@ $(document).ready(function () {
         url: '/CriptoTheChaulisCW/listartipocuenta',
         type: 'GET',
         success: function (response) {
-            console.log('Respuesta del servidor:', response);
+           
 
             try {
                 var tipoCuenta = JSON.parse(response);
@@ -15,7 +15,7 @@ $(document).ready(function () {
                         var option = document.createElement("option");
                         option.text = listarTipoCuenta.NOMBRE;
                         combobox.appendChild(option);
-                        console.log("Nombre del distrito: " + listarTipoCuenta.NOMBRE);
+                       
                     }
                 }
             } catch (error) {

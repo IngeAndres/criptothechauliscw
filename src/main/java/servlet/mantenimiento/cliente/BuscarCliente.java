@@ -67,7 +67,6 @@ public class BuscarCliente extends HttpServlet {
 
             Gson gson = new Gson();
 
-            // Convertir a JSON y retornamos
             String jsonClientes = gson.toJson(clientesMapList);
             out.print(jsonClientes);
         }

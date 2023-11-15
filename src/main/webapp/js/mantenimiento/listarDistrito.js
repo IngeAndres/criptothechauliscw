@@ -3,7 +3,7 @@ $(document).ready(function () {
         url: '/CriptoTheChaulisCW/listardistrito',
         type: 'GET',
         success: function (response) {
-            console.log('Respuesta del servidor:', response);
+            
 
             try {
                 var distritos = JSON.parse(response);
@@ -15,7 +15,7 @@ $(document).ready(function () {
                         var option = document.createElement("option");
                         option.text = distrito.NOMBRE;
                         combobox.appendChild(option);
-                        console.log("Nombre del distrito: " + distrito.NOMBRE);
+                   
                     }
                 }
             } catch (error) {
