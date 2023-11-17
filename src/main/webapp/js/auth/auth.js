@@ -60,10 +60,12 @@ $(document).ready(function () {
                     data: JSON.stringify(parametros),
                     dataType: "json",
                     success: function (data) {
-                        if (data.resultado === "ok") {
+                        if (data.resultado === true) {
                             window.location.href = "principal.html";
-                        } else {
+                        } else if(data.resultado === false) {
                             showErrorMessage("El código de autenticación es incorrecto.");
+                        }else if (data.resultado === "error") {
+                            $("#sesionExpiradaModal").modal("show");
                         }
                     },
                     error: function () {

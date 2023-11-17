@@ -46,7 +46,7 @@ $(document).ready(function () {
                     return;
                 }
                 if (data.resultado === "error") {
-                    showErrorMessage("Error interno del servidor. Inténtelo más tarde.");
+                    $("#sesionExpiradaModal").modal("show");
                     return;
                 }
                 if (data.resultado === "ok") {
