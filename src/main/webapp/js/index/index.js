@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    sessionStorage.clear();
+    document.cookie = "logi=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     $("#btnIniciar").click(function () {
         const logi = $("#txtLogi").val();
@@ -14,15 +15,16 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/login",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/iniciarsesion",
             contentType: "application/json",
             data: JSON.stringify(parametros),
             dataType: "json",
             success: function (data) {
                 switch (data.status) {
                     case 200:
-                        sessionStorage.setItem("logi", logi);
-                        sessionStorage.setItem("token", data.token);
+                        document.cookie = "logi=" + logi + "; path=/";
+                        document.cookie = "token=" + data.token + "; path=/";
+
                         window.location.href = "autenticacion.html";
                         break;
                     case 401:

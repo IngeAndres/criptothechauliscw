@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    const logi = sessionStorage.getItem("logi");
-    const token = sessionStorage.getItem("token");
+    const logi = getCookie("logi");
+    const token = getCookie("token");
 
     if (!logi || !token) {
         window.location.href = "index.html";
@@ -52,19 +52,22 @@ $(document).ready(function () {
         if (code.length === 6) {
             $("#btnVerificar").removeClass("btn-primary").addClass("btn-secondary");
             setTimeout(function () {
-                let parametros = {logi: logi, code: code, token: token};
+                let parametros = {logi: logi, code: code};
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/auth",
+                    url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/autenticacion",
                     contentType: "application/json",
                     data: JSON.stringify(parametros),
                     dataType: "json",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
                     success: function (data) {
                         if (data.resultado === true) {
                             window.location.href = "principal.html";
-                        } else if(data.resultado === false) {
+                        } else if (data.resultado === false) {
                             showErrorMessage("El código de autenticación es incorrecto.");
-                        }else if (data.resultado === "error") {
+                        } else if (data.resultado === "error") {
                             $("#sesionExpiradaModal").modal("show");
                         }
                     },
@@ -80,13 +83,12 @@ $(document).ready(function () {
         }
     }
 
-
     function generarCodigoQR() {
         $("#codigoQR").empty();
         let parametros = {logi: logi};
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/otpauthurl",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/generarurl",
             contentType: "application/json",
             data: JSON.stringify(parametros),
             dataType: "json",
@@ -112,6 +114,15 @@ $(document).ready(function () {
             $("#alertaError").fadeOut();
         }, 3000);
     }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
+    }
 });
-
-

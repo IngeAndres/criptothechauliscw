@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    const logi = sessionStorage.getItem("logi");
-    const token = sessionStorage.getItem("token");
+    const logi = getCookie("logi");
+    const token = getCookie("token");
 
     if (!logi || !token) {
         window.location.href = "index.html";
@@ -22,23 +22,26 @@ $(document).ready(function () {
         let parametros = {
             logi: logi,
             pass: encrypt(pass),
-            newpass: encrypt(newPass1),
-            token: token
+            newpass1: encrypt(newPass1),
+            newpass2: encrypt(newPass2)
         };
 
         $.ajax({
             type: "PUT",
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/cambiarclave",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/cambiarcontrasena",
             contentType: "application/json",
             data: JSON.stringify(parametros),
             dataType: "json",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             success: function (data) {
                 if (data.resultado === "equals") {
                     showErrorMessage("La contraseña nueva es igual a la actual.");
                     return;
                 }
-                if (newPass1 !== newPass2) {
-                    showErrorMessage("La contraseña nueva no coincide.");
+                if (data.resultado === "newpassinc") {
+                    showErrorMessage("La contraseñas nuevas no coinciden.");
                     return;
                 }
                 if (data.resultado === "passinc") {
@@ -61,23 +64,33 @@ $(document).ready(function () {
             timeout: 3000
         });
     });
+
+    function limpiarCampos() {
+        $("#txtPass").val('');
+        $("#txtNewPass1").val('');
+        $("#txtNewPass2").val('');
+    }
+
+    function encrypt(message) {
+        return CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
+    }
+
+    function showErrorMessage(mensaje) {
+        $("#mensajeError").text(mensaje);
+        $("#alertaError").show();
+        setTimeout(function () {
+            $("#alertaError").fadeOut();
+        }, 3000);
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
+    }
 });
-
-function limpiarCampos() {
-    $("#txtPass").val('');
-    $("#txtNewPass1").val('');
-    $("#txtNewPass2").val('');
-}
-
-function encrypt(message) {
-    return CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
-}
-
-function showErrorMessage(mensaje) {
-    $("#mensajeError").text(mensaje);
-    $("#alertaError").show();
-    setTimeout(function () {
-        $("#alertaError").fadeOut();
-    }, 3000);
-}
-
