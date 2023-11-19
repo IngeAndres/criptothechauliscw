@@ -17,6 +17,7 @@ import dto.Operacionescuentaspropias;
 import dto.Prestamo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -24,10 +25,13 @@ import javax.persistence.EntityManagerFactory;
  */
 public class CuentaJpaController implements Serializable {
 
+    public CuentaJpaController() {
+    }
+
     public CuentaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();

@@ -12,6 +12,7 @@ import dto.Operacionescuentaspropias;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -19,10 +20,13 @@ import javax.persistence.EntityManagerFactory;
  */
 public class OperacionescuentaspropiasJpaController implements Serializable {
 
+    public OperacionescuentaspropiasJpaController() {
+    }
+
     public OperacionescuentaspropiasJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -188,5 +192,5 @@ public class OperacionescuentaspropiasJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

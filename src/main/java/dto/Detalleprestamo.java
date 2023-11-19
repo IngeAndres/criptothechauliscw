@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Detalleprestamo.findAll", query = "SELECT d FROM Detalleprestamo d"),
     @NamedQuery(name = "Detalleprestamo.findByIdDetallePrestamo", query = "SELECT d FROM Detalleprestamo d WHERE d.idDetallePrestamo = :idDetallePrestamo"),
     @NamedQuery(name = "Detalleprestamo.findByCuotasAdicionales", query = "SELECT d FROM Detalleprestamo d WHERE d.cuotasAdicionales = :cuotasAdicionales"),
+    @NamedQuery(name = "Detalleprestamo.findByFechaPago", query = "SELECT d FROM Detalleprestamo d WHERE d.fechaPago = :fechaPago"),
     @NamedQuery(name = "Detalleprestamo.findByMonto", query = "SELECT d FROM Detalleprestamo d WHERE d.monto = :monto"),
     @NamedQuery(name = "Detalleprestamo.findByMoneda", query = "SELECT d FROM Detalleprestamo d WHERE d.moneda = :moneda"),
     @NamedQuery(name = "Detalleprestamo.findByTasa", query = "SELECT d FROM Detalleprestamo d WHERE d.tasa = :tasa"),
@@ -47,6 +51,11 @@ public class Detalleprestamo implements Serializable {
     @NotNull
     @Column(name = "CuotasAdicionales")
     private Character cuotasAdicionales;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FechaPago")
+    @Temporal(TemporalType.DATE)
+    private Date fechaPago;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Monto")
@@ -77,9 +86,10 @@ public class Detalleprestamo implements Serializable {
         this.idDetallePrestamo = idDetallePrestamo;
     }
 
-    public Detalleprestamo(Integer idDetallePrestamo, Character cuotasAdicionales, double monto, String moneda, double tasa, int tiempo) {
+    public Detalleprestamo(Integer idDetallePrestamo, Character cuotasAdicionales, Date fechaPago, double monto, String moneda, double tasa, int tiempo) {
         this.idDetallePrestamo = idDetallePrestamo;
         this.cuotasAdicionales = cuotasAdicionales;
+        this.fechaPago = fechaPago;
         this.monto = monto;
         this.moneda = moneda;
         this.tasa = tasa;
@@ -100,6 +110,14 @@ public class Detalleprestamo implements Serializable {
 
     public void setCuotasAdicionales(Character cuotasAdicionales) {
         this.cuotasAdicionales = cuotasAdicionales;
+    }
+
+    public Date getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(Date fechaPago) {
+        this.fechaPago = fechaPago;
     }
 
     public double getMonto() {

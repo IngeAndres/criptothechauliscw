@@ -74,12 +74,12 @@ public class Cuenta implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "FechaApertura")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaApertura;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FechaCierre")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCierre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCuentaOrigen")
     private List<Operacionesotrascuentas> operacionesotrascuentasList;

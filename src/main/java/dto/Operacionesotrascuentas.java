@@ -52,7 +52,7 @@ public class Operacionesotrascuentas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "FechaOperacionOC")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaOperacionOC;
     @JoinColumn(name = "IdTipoOperacion", referencedColumnName = "IdTipoOperacion")
     @ManyToOne(optional = false)
