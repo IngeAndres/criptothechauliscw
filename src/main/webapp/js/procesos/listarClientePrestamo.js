@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    const logi = getCookie("logi");
+    const token = getCookie("token");
+
     $('#dataTable').DataTable({
         "language": {
             "url": "/CriptoTheChaulisCW/json/es-ES.json"
@@ -15,5 +18,16 @@ $(document).ready(function () {
             {"data": "NOMBRE"}
         ]
     });
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
+    }
 });
- 
+

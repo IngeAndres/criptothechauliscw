@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    const logi = getCookie("logi");
+    const token = getCookie("token");
+
     var urlParams = new URLSearchParams(window.location.search);
     var codigoCliente = urlParams.get('codigoCliente');
 
@@ -30,5 +33,16 @@ $(document).ready(function () {
     if (!sessionStorage.getItem('reloaded')) {
         location.reload();
         sessionStorage.setItem('reloaded', 'true');
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
     }
 });

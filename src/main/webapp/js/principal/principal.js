@@ -36,26 +36,24 @@ $(document).ready(function () {
                 Authorization: `Bearer ${token}`
             },
             success: function (data) {
-                if (data.resultado === "equals") {
-                    showErrorMessage("La contraseña nueva es igual a la actual.");
-                    return;
-                }
-                if (data.resultado === "newpassinc") {
-                    showErrorMessage("La contraseñas nuevas no coinciden.");
-                    return;
-                }
-                if (data.resultado === "passinc") {
-                    showErrorMessage("La contraseña actual es incorrecta.");
-                    return;
-                }
-                if (data.resultado === "error") {
-                    $("#sesionExpiradaModal").modal("show");
-                    return;
-                }
-                if (data.resultado === "ok") {
-                    $("#cambiarClaveModal").modal("hide");
-                    $("#modalClaveActualizada").modal("show");
-                    limpiarCampos();
+                switch (data.resultado) {
+                    case "equals":
+                        showErrorMessage("La contraseña nueva es igual a la actual.");
+                        break;
+                    case "newpassinc":
+                        showErrorMessage("Las contraseñas nuevas no coinciden.");
+                        break;
+                    case "passinc":
+                        showErrorMessage("La contraseña actual es incorrecta.");
+                        break;
+                    case "error":
+                        $("#sesionExpiradaModal").modal("show");
+                        break;
+                    case "ok":
+                        $("#cambiarClaveModal").modal("hide");
+                        $("#modalClaveActualizada").modal("show");
+                        limpiarCampos();
+                        break;
                 }
             },
             error: function () {

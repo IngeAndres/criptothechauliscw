@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var codigocuenta = localStorage.getItem("codigocuenta");
-    const logi = sessionStorage.getItem("logi");
-    const token = sessionStorage.getItem("token");
+    const logi = getCookie("logi");
+    const token = getCookie("token");
 
     if (!logi || !token) {
         window.location.href = "index.html";
@@ -44,4 +44,15 @@ $(document).ready(function () {
             {"data": "TOTALPRESTAMO"}
         ]
     });
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
+    }
 });

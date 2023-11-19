@@ -32,6 +32,7 @@ $(document).ready(function () {
                         break;
                     case 404:
                         showErrorMessage("El usuario no existe.");
+                        break;
                 }
             },
             error: function () {
