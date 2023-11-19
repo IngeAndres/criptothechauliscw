@@ -1,8 +1,9 @@
 $(document).ready(function () {
     const logi = getCookie("logi");
     const token = getCookie("token");
+    const auth = getCookie("auth");
 
-    if (!logi || !token) {
+    if (!logi || !token || !auth) {
         window.location.href = "index.html";
         return;
     }
@@ -75,10 +76,7 @@ $(document).ready(function () {
 
     function showErrorMessage(mensaje) {
         $("#mensajeError").text(mensaje);
-        $("#alertaError").show();
-        setTimeout(function () {
-            $("#alertaError").fadeOut();
-        }, 3000);
+        $("#alertaError").show().delay(3000).fadeOut();
     }
 
     function getCookie(name) {

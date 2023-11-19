@@ -64,6 +64,7 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         if (data.resultado === true) {
+                            document.cookie = "auth= verificado; path=/";
                             window.location.href = "principal.html";
                         } else if (data.resultado === false) {
                             showErrorMessage("El código de autenticación es incorrecto.");
@@ -109,10 +110,7 @@ $(document).ready(function () {
 
     function showErrorMessage(message) {
         $("#mensajeError").text(message);
-        $("#alertaError").show();
-        setTimeout(function () {
-            $("#alertaError").fadeOut();
-        }, 3000);
+        $("#alertaError").show().delay(3000).fadeOut();
     }
 
     function getCookie(name) {

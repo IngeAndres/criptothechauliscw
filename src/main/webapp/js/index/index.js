@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    document.cookie = "logi=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    ["logi", "token", "auth"].forEach(cookie => {
+        document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    });
 
     $("#btnIniciar").click(function () {
         const logi = $("#txtLogi").val();
@@ -48,10 +49,7 @@ $(document).ready(function () {
 
     function showErrorMessage(message) {
         $("#mensajeError").text(message);
-        $("#alertaError").show();
-        setTimeout(function () {
-            $("#alertaError").fadeOut();
-        }, 3000);
+        $("#alertaError").show().delay(3000).fadeOut();
     }
 });
 
