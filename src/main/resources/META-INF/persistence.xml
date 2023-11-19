@@ -12,6 +12,16 @@
     <class>dto.Cliente</class>
     <class>dto.Cuenta</class>
     <class>dto.Transferencia</class>
+    <class>dto.Tipooperacion</class>
+    <class>dto.Usuario</class>
+    <class>dto.Tipoprestamo</class>
+    <class>dto.Operacionescuentaspropias</class>
+    <class>dto.Tipousuario</class>
+    <class>dto.Tipoinformacionbien</class>
+    <class>dto.Datospersonales</class>
+    <class>dto.Detalleprestamo</class>
+    <class>dto.Operacionesotrascuentas</class>
+    <class>dto.Tipocomprobante</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/criptothechaulis?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

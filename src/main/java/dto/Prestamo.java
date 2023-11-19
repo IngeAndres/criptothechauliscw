@@ -1,7 +1,10 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dto;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,122 +27,79 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Prestamo.findAll", query = "SELECT p FROM Prestamo p"),
-    @NamedQuery(name = "Prestamo.findByCodigoPrestamo", query = "SELECT p FROM Prestamo p WHERE p.codigoPrestamo = :codigoPrestamo"),
-    @NamedQuery(name = "Prestamo.findByPlazoPrestamo", query = "SELECT p FROM Prestamo p WHERE p.plazoPrestamo = :plazoPrestamo"),
-    @NamedQuery(name = "Prestamo.findByTasasPrestamo", query = "SELECT p FROM Prestamo p WHERE p.tasasPrestamo = :tasasPrestamo"),
-    @NamedQuery(name = "Prestamo.findByTotalPedidoPrestamo", query = "SELECT p FROM Prestamo p WHERE p.totalPedidoPrestamo = :totalPedidoPrestamo"),
-    @NamedQuery(name = "Prestamo.findByTotalPagarPrestamo", query = "SELECT p FROM Prestamo p WHERE p.totalPagarPrestamo = :totalPagarPrestamo"),
-    @NamedQuery(name = "Prestamo.findByFechPrestamo", query = "SELECT p FROM Prestamo p WHERE p.fechPrestamo = :fechPrestamo")})
+    @NamedQuery(name = "Prestamo.findByIdPrestamo", query = "SELECT p FROM Prestamo p WHERE p.idPrestamo = :idPrestamo")})
 public class Prestamo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "codigoPrestamo")
-    private Integer codigoPrestamo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "plazoPrestamo")
-    private String plazoPrestamo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "tasasPrestamo")
-    private double tasasPrestamo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "totalPedidoPrestamo")
-    private double totalPedidoPrestamo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "totalPagarPrestamo")
-    private double totalPagarPrestamo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fechPrestamo")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechPrestamo;
-    @JoinColumn(name = "codigoCliente", referencedColumnName = "codigoCliente")
+    @Column(name = "IdPrestamo")
+    private Integer idPrestamo;
+    @JoinColumn(name = "IdTipoPrestamo", referencedColumnName = "IdTipoPrestamo")
     @ManyToOne(optional = false)
-    private Cliente codigoCliente;
+    private Tipoprestamo idTipoPrestamo;
+    @JoinColumn(name = "IdCuenta", referencedColumnName = "IdCuenta")
+    @ManyToOne(optional = false)
+    private Cuenta idCuenta;
+    @JoinColumn(name = "IdTipoComprobante", referencedColumnName = "IdTipoComprobante")
+    @ManyToOne(optional = false)
+    private Tipocomprobante idTipoComprobante;
+    @JoinColumn(name = "IdDetallePrestamo", referencedColumnName = "IdDetallePrestamo")
+    @ManyToOne(optional = false)
+    private Detalleprestamo idDetallePrestamo;
 
     public Prestamo() {
     }
 
-    public Prestamo(Integer codigoPrestamo) {
-        this.codigoPrestamo = codigoPrestamo;
+    public Prestamo(Integer idPrestamo) {
+        this.idPrestamo = idPrestamo;
     }
 
-    public Prestamo(Integer codigoPrestamo, String plazoPrestamo, double tasasPrestamo, double totalPedidoPrestamo, double totalPagarPrestamo, Date fechPrestamo) {
-        this.codigoPrestamo = codigoPrestamo;
-        this.plazoPrestamo = plazoPrestamo;
-        this.tasasPrestamo = tasasPrestamo;
-        this.totalPedidoPrestamo = totalPedidoPrestamo;
-        this.totalPagarPrestamo = totalPagarPrestamo;
-        this.fechPrestamo = fechPrestamo;
+    public Integer getIdPrestamo() {
+        return idPrestamo;
     }
 
-    public Integer getCodigoPrestamo() {
-        return codigoPrestamo;
+    public void setIdPrestamo(Integer idPrestamo) {
+        this.idPrestamo = idPrestamo;
     }
 
-    public void setCodigoPrestamo(Integer codigoPrestamo) {
-        this.codigoPrestamo = codigoPrestamo;
+    public Tipoprestamo getIdTipoPrestamo() {
+        return idTipoPrestamo;
     }
 
-    public String getPlazoPrestamo() {
-        return plazoPrestamo;
+    public void setIdTipoPrestamo(Tipoprestamo idTipoPrestamo) {
+        this.idTipoPrestamo = idTipoPrestamo;
     }
 
-    public void setPlazoPrestamo(String plazoPrestamo) {
-        this.plazoPrestamo = plazoPrestamo;
+    public Cuenta getIdCuenta() {
+        return idCuenta;
     }
 
-    public double getTasasPrestamo() {
-        return tasasPrestamo;
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
-    public void setTasasPrestamo(double tasasPrestamo) {
-        this.tasasPrestamo = tasasPrestamo;
+    public Tipocomprobante getIdTipoComprobante() {
+        return idTipoComprobante;
     }
 
-    public double getTotalPedidoPrestamo() {
-        return totalPedidoPrestamo;
+    public void setIdTipoComprobante(Tipocomprobante idTipoComprobante) {
+        this.idTipoComprobante = idTipoComprobante;
     }
 
-    public void setTotalPedidoPrestamo(double totalPedidoPrestamo) {
-        this.totalPedidoPrestamo = totalPedidoPrestamo;
+    public Detalleprestamo getIdDetallePrestamo() {
+        return idDetallePrestamo;
     }
 
-    public double getTotalPagarPrestamo() {
-        return totalPagarPrestamo;
-    }
-
-    public void setTotalPagarPrestamo(double totalPagarPrestamo) {
-        this.totalPagarPrestamo = totalPagarPrestamo;
-    }
-
-    public Date getFechPrestamo() {
-        return fechPrestamo;
-    }
-
-    public void setFechPrestamo(Date fechPrestamo) {
-        this.fechPrestamo = fechPrestamo;
-    }
-
-    public Cliente getCodigoCliente() {
-        return codigoCliente;
-    }
-
-    public void setCodigoCliente(Cliente codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setIdDetallePrestamo(Detalleprestamo idDetallePrestamo) {
+        this.idDetallePrestamo = idDetallePrestamo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoPrestamo != null ? codigoPrestamo.hashCode() : 0);
+        hash += (idPrestamo != null ? idPrestamo.hashCode() : 0);
         return hash;
     }
 
@@ -154,7 +110,7 @@ public class Prestamo implements Serializable {
             return false;
         }
         Prestamo other = (Prestamo) object;
-        if ((this.codigoPrestamo == null && other.codigoPrestamo != null) || (this.codigoPrestamo != null && !this.codigoPrestamo.equals(other.codigoPrestamo))) {
+        if ((this.idPrestamo == null && other.idPrestamo != null) || (this.idPrestamo != null && !this.idPrestamo.equals(other.idPrestamo))) {
             return false;
         }
         return true;
@@ -162,7 +118,7 @@ public class Prestamo implements Serializable {
 
     @Override
     public String toString() {
-        return "dto.Prestamo[ codigoPrestamo=" + codigoPrestamo + " ]";
+        return "dto.Prestamo[ idPrestamo=" + idPrestamo + " ]";
     }
     
 }

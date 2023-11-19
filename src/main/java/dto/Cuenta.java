@@ -36,164 +36,208 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c"),
-    @NamedQuery(name = "Cuenta.findByCodigoCuenta", query = "SELECT c FROM Cuenta c WHERE c.codigoCuenta = :codigoCuenta"),
-    @NamedQuery(name = "Cuenta.findByNumeCuenta", query = "SELECT c FROM Cuenta c WHERE c.numeCuenta = :numeCuenta"),
-    @NamedQuery(name = "Cuenta.findBySaldoCuenta", query = "SELECT c FROM Cuenta c WHERE c.saldoCuenta = :saldoCuenta"),
-    @NamedQuery(name = "Cuenta.findByFechApertCuenta", query = "SELECT c FROM Cuenta c WHERE c.fechApertCuenta = :fechApertCuenta"),
-    @NamedQuery(name = "Cuenta.listar", query = "SELECT c.codigoCuenta, c.codigoCliente.docuClie, c.numeCuenta, c.codigoTipoCuenta.nombTipoCuenta, c.saldoCuenta, c.fechApertCuenta, c.codigoEstado.nombEsta FROM Cuenta c"),
-
-    //listar por codigocuenta
-    @NamedQuery(name = "Cuenta.listarporcodigo", query = "SELECT c.codigoCuenta, c.codigoCliente.docuClie, c.numeCuenta, c.codigoTipoCuenta.nombTipoCuenta, c.saldoCuenta, c.fechApertCuenta, c.codigoEstado.nombEsta FROM Cuenta c WHERE c.codigoCuenta = :codigoCuenta")})
+    @NamedQuery(name = "Cuenta.findByIdCuenta", query = "SELECT c FROM Cuenta c WHERE c.idCuenta = :idCuenta"),
+    @NamedQuery(name = "Cuenta.findByNumbCuenta", query = "SELECT c FROM Cuenta c WHERE c.numbCuenta = :numbCuenta"),
+    @NamedQuery(name = "Cuenta.findByCci", query = "SELECT c FROM Cuenta c WHERE c.cci = :cci"),
+    @NamedQuery(name = "Cuenta.findBySaldoDisponible", query = "SELECT c FROM Cuenta c WHERE c.saldoDisponible = :saldoDisponible"),
+    @NamedQuery(name = "Cuenta.findBySaldoContable", query = "SELECT c FROM Cuenta c WHERE c.saldoContable = :saldoContable"),
+    @NamedQuery(name = "Cuenta.findByEstadoCuenta", query = "SELECT c FROM Cuenta c WHERE c.estadoCuenta = :estadoCuenta"),
+    @NamedQuery(name = "Cuenta.findByFechaApertura", query = "SELECT c FROM Cuenta c WHERE c.fechaApertura = :fechaApertura"),
+    @NamedQuery(name = "Cuenta.findByFechaCierre", query = "SELECT c FROM Cuenta c WHERE c.fechaCierre = :fechaCierre")})
 public class Cuenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "codigoCuenta")
-    private Integer codigoCuenta;
+    @Column(name = "IdCuenta")
+    private Integer idCuenta;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "numeCuenta")
-    private String numeCuenta;
+    @Size(min = 1, max = 16)
+    @Column(name = "NumbCuenta")
+    private String numbCuenta;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "saldoCuenta")
-    private double saldoCuenta;
+    @Size(min = 1, max = 20)
+    @Column(name = "CCI")
+    private String cci;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fechApertCuenta")
+    @Column(name = "SaldoDisponible")
+    private double saldoDisponible;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SaldoContable")
+    private double saldoContable;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "EstadoCuenta")
+    private String estadoCuenta;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FechaApertura")
     @Temporal(TemporalType.DATE)
-    private Date fechApertCuenta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCuentaOrigen")
-    private List<Transferencia> transferenciaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCuentaDestino")
-    private List<Transferencia> transferenciaList1;
-    @JoinColumn(name = "codigoCliente", referencedColumnName = "codigoCliente")
+    private Date fechaApertura;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FechaCierre")
+    @Temporal(TemporalType.DATE)
+    private Date fechaCierre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCuentaOrigen")
+    private List<Operacionesotrascuentas> operacionesotrascuentasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCuentaDestino")
+    private List<Operacionesotrascuentas> operacionesotrascuentasList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCuenta")
+    private List<Operacionescuentaspropias> operacionescuentaspropiasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCuenta")
+    private List<Prestamo> prestamoList;
+    @JoinColumn(name = "IdUsuario", referencedColumnName = "IdUsuario")
     @ManyToOne(optional = false)
-    private Cliente codigoCliente;
-    @JoinColumn(name = "codigoTipoCuenta", referencedColumnName = "codigoTipoCuenta")
+    private Usuario idUsuario;
+    @JoinColumn(name = "IdTipoCuenta", referencedColumnName = "IdTipoCuenta")
     @ManyToOne(optional = false)
-    private Tipocuenta codigoTipoCuenta;
-    @JoinColumn(name = "codigoEstado", referencedColumnName = "codigoEstado")
-    @ManyToOne(optional = false)
-    private Estado codigoEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCuenta")
-    private List<Deposito> depositoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCuenta")
-    private List<Retiro> retiroList;
+    private Tipocuenta idTipoCuenta;
 
     public Cuenta() {
     }
 
-    public Cuenta(Integer codigoCuenta) {
-        this.codigoCuenta = codigoCuenta;
+    public Cuenta(Integer idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
-    public Cuenta(Integer codigoCuenta, String numeCuenta, double saldoCuenta, Date fechApertCuenta) {
-        this.codigoCuenta = codigoCuenta;
-        this.numeCuenta = numeCuenta;
-        this.saldoCuenta = saldoCuenta;
-        this.fechApertCuenta = fechApertCuenta;
+    public Cuenta(Integer idCuenta, String numbCuenta, String cci, double saldoDisponible, double saldoContable, String estadoCuenta, Date fechaApertura, Date fechaCierre) {
+        this.idCuenta = idCuenta;
+        this.numbCuenta = numbCuenta;
+        this.cci = cci;
+        this.saldoDisponible = saldoDisponible;
+        this.saldoContable = saldoContable;
+        this.estadoCuenta = estadoCuenta;
+        this.fechaApertura = fechaApertura;
+        this.fechaCierre = fechaCierre;
     }
 
-    public Integer getCodigoCuenta() {
-        return codigoCuenta;
+    public Integer getIdCuenta() {
+        return idCuenta;
     }
 
-    public void setCodigoCuenta(Integer codigoCuenta) {
-        this.codigoCuenta = codigoCuenta;
+    public void setIdCuenta(Integer idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
-    public String getNumeCuenta() {
-        return numeCuenta;
+    public String getNumbCuenta() {
+        return numbCuenta;
     }
 
-    public void setNumeCuenta(String numeCuenta) {
-        this.numeCuenta = numeCuenta;
+    public void setNumbCuenta(String numbCuenta) {
+        this.numbCuenta = numbCuenta;
     }
 
-    public double getSaldoCuenta() {
-        return saldoCuenta;
+    public String getCci() {
+        return cci;
     }
 
-    public void setSaldoCuenta(double saldoCuenta) {
-        this.saldoCuenta = saldoCuenta;
+    public void setCci(String cci) {
+        this.cci = cci;
     }
 
-    public Date getFechApertCuenta() {
-        return fechApertCuenta;
+    public double getSaldoDisponible() {
+        return saldoDisponible;
     }
 
-    public void setFechApertCuenta(Date fechApertCuenta) {
-        this.fechApertCuenta = fechApertCuenta;
+    public void setSaldoDisponible(double saldoDisponible) {
+        this.saldoDisponible = saldoDisponible;
     }
 
-    @XmlTransient
-    public List<Transferencia> getTransferenciaList() {
-        return transferenciaList;
+    public double getSaldoContable() {
+        return saldoContable;
     }
 
-    public void setTransferenciaList(List<Transferencia> transferenciaList) {
-        this.transferenciaList = transferenciaList;
+    public void setSaldoContable(double saldoContable) {
+        this.saldoContable = saldoContable;
     }
 
-    @XmlTransient
-    public List<Transferencia> getTransferenciaList1() {
-        return transferenciaList1;
+    public String getEstadoCuenta() {
+        return estadoCuenta;
     }
 
-    public void setTransferenciaList1(List<Transferencia> transferenciaList1) {
-        this.transferenciaList1 = transferenciaList1;
+    public void setEstadoCuenta(String estadoCuenta) {
+        this.estadoCuenta = estadoCuenta;
     }
 
-    public Cliente getCodigoCliente() {
-        return codigoCliente;
+    public Date getFechaApertura() {
+        return fechaApertura;
     }
 
-    public void setCodigoCliente(Cliente codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setFechaApertura(Date fechaApertura) {
+        this.fechaApertura = fechaApertura;
     }
 
-    public Tipocuenta getCodigoTipoCuenta() {
-        return codigoTipoCuenta;
+    public Date getFechaCierre() {
+        return fechaCierre;
     }
 
-    public void setCodigoTipoCuenta(Tipocuenta codigoTipoCuenta) {
-        this.codigoTipoCuenta = codigoTipoCuenta;
-    }
-
-    public Estado getCodigoEstado() {
-        return codigoEstado;
-    }
-
-    public void setCodigoEstado(Estado codigoEstado) {
-        this.codigoEstado = codigoEstado;
+    public void setFechaCierre(Date fechaCierre) {
+        this.fechaCierre = fechaCierre;
     }
 
     @XmlTransient
-    public List<Deposito> getDepositoList() {
-        return depositoList;
+    public List<Operacionesotrascuentas> getOperacionesotrascuentasList() {
+        return operacionesotrascuentasList;
     }
 
-    public void setDepositoList(List<Deposito> depositoList) {
-        this.depositoList = depositoList;
+    public void setOperacionesotrascuentasList(List<Operacionesotrascuentas> operacionesotrascuentasList) {
+        this.operacionesotrascuentasList = operacionesotrascuentasList;
     }
 
     @XmlTransient
-    public List<Retiro> getRetiroList() {
-        return retiroList;
+    public List<Operacionesotrascuentas> getOperacionesotrascuentasList1() {
+        return operacionesotrascuentasList1;
     }
 
-    public void setRetiroList(List<Retiro> retiroList) {
-        this.retiroList = retiroList;
+    public void setOperacionesotrascuentasList1(List<Operacionesotrascuentas> operacionesotrascuentasList1) {
+        this.operacionesotrascuentasList1 = operacionesotrascuentasList1;
+    }
+
+    @XmlTransient
+    public List<Operacionescuentaspropias> getOperacionescuentaspropiasList() {
+        return operacionescuentaspropiasList;
+    }
+
+    public void setOperacionescuentaspropiasList(List<Operacionescuentaspropias> operacionescuentaspropiasList) {
+        this.operacionescuentaspropiasList = operacionescuentaspropiasList;
+    }
+
+    @XmlTransient
+    public List<Prestamo> getPrestamoList() {
+        return prestamoList;
+    }
+
+    public void setPrestamoList(List<Prestamo> prestamoList) {
+        this.prestamoList = prestamoList;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Tipocuenta getIdTipoCuenta() {
+        return idTipoCuenta;
+    }
+
+    public void setIdTipoCuenta(Tipocuenta idTipoCuenta) {
+        this.idTipoCuenta = idTipoCuenta;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoCuenta != null ? codigoCuenta.hashCode() : 0);
+        hash += (idCuenta != null ? idCuenta.hashCode() : 0);
         return hash;
     }
 
@@ -204,7 +248,7 @@ public class Cuenta implements Serializable {
             return false;
         }
         Cuenta other = (Cuenta) object;
-        if ((this.codigoCuenta == null && other.codigoCuenta != null) || (this.codigoCuenta != null && !this.codigoCuenta.equals(other.codigoCuenta))) {
+        if ((this.idCuenta == null && other.idCuenta != null) || (this.idCuenta != null && !this.idCuenta.equals(other.idCuenta))) {
             return false;
         }
         return true;
@@ -212,7 +256,7 @@ public class Cuenta implements Serializable {
 
     @Override
     public String toString() {
-        return "dto.Cuenta[ codigoCuenta=" + codigoCuenta + " ]";
+        return "dto.Cuenta[ idCuenta=" + idCuenta + " ]";
     }
-
+    
 }
