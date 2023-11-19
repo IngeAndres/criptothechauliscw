@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import dao.exceptions.IllegalOrphanException;
@@ -17,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -25,13 +20,10 @@ import javax.persistence.Persistence;
  */
 public class TipocuentaJpaController implements Serializable {
 
-    public TipocuentaJpaController() {
-    }
-
     public TipocuentaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -47,18 +39,18 @@ public class TipocuentaJpaController implements Serializable {
             em.getTransaction().begin();
             List<Cuenta> attachedCuentaList = new ArrayList<Cuenta>();
             for (Cuenta cuentaListCuentaToAttach : tipocuenta.getCuentaList()) {
-                cuentaListCuentaToAttach = em.getReference(cuentaListCuentaToAttach.getClass(), cuentaListCuentaToAttach.getCodigoCuenta());
+                cuentaListCuentaToAttach = em.getReference(cuentaListCuentaToAttach.getClass(), cuentaListCuentaToAttach.getIdCuenta());
                 attachedCuentaList.add(cuentaListCuentaToAttach);
             }
             tipocuenta.setCuentaList(attachedCuentaList);
             em.persist(tipocuenta);
             for (Cuenta cuentaListCuenta : tipocuenta.getCuentaList()) {
-                Tipocuenta oldCodigoTipoCuentaOfCuentaListCuenta = cuentaListCuenta.getCodigoTipoCuenta();
-                cuentaListCuenta.setCodigoTipoCuenta(tipocuenta);
+                Tipocuenta oldIdTipoCuentaOfCuentaListCuenta = cuentaListCuenta.getIdTipoCuenta();
+                cuentaListCuenta.setIdTipoCuenta(tipocuenta);
                 cuentaListCuenta = em.merge(cuentaListCuenta);
-                if (oldCodigoTipoCuentaOfCuentaListCuenta != null) {
-                    oldCodigoTipoCuentaOfCuentaListCuenta.getCuentaList().remove(cuentaListCuenta);
-                    oldCodigoTipoCuentaOfCuentaListCuenta = em.merge(oldCodigoTipoCuentaOfCuentaListCuenta);
+                if (oldIdTipoCuentaOfCuentaListCuenta != null) {
+                    oldIdTipoCuentaOfCuentaListCuenta.getCuentaList().remove(cuentaListCuenta);
+                    oldIdTipoCuentaOfCuentaListCuenta = em.merge(oldIdTipoCuentaOfCuentaListCuenta);
                 }
             }
             em.getTransaction().commit();
@@ -74,7 +66,7 @@ public class TipocuentaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tipocuenta persistentTipocuenta = em.find(Tipocuenta.class, tipocuenta.getCodigoTipoCuenta());
+            Tipocuenta persistentTipocuenta = em.find(Tipocuenta.class, tipocuenta.getIdTipoCuenta());
             List<Cuenta> cuentaListOld = persistentTipocuenta.getCuentaList();
             List<Cuenta> cuentaListNew = tipocuenta.getCuentaList();
             List<String> illegalOrphanMessages = null;
@@ -83,7 +75,7 @@ public class TipocuentaJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Cuenta " + cuentaListOldCuenta + " since its codigoTipoCuenta field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Cuenta " + cuentaListOldCuenta + " since its idTipoCuenta field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -91,7 +83,7 @@ public class TipocuentaJpaController implements Serializable {
             }
             List<Cuenta> attachedCuentaListNew = new ArrayList<Cuenta>();
             for (Cuenta cuentaListNewCuentaToAttach : cuentaListNew) {
-                cuentaListNewCuentaToAttach = em.getReference(cuentaListNewCuentaToAttach.getClass(), cuentaListNewCuentaToAttach.getCodigoCuenta());
+                cuentaListNewCuentaToAttach = em.getReference(cuentaListNewCuentaToAttach.getClass(), cuentaListNewCuentaToAttach.getIdCuenta());
                 attachedCuentaListNew.add(cuentaListNewCuentaToAttach);
             }
             cuentaListNew = attachedCuentaListNew;
@@ -99,12 +91,12 @@ public class TipocuentaJpaController implements Serializable {
             tipocuenta = em.merge(tipocuenta);
             for (Cuenta cuentaListNewCuenta : cuentaListNew) {
                 if (!cuentaListOld.contains(cuentaListNewCuenta)) {
-                    Tipocuenta oldCodigoTipoCuentaOfCuentaListNewCuenta = cuentaListNewCuenta.getCodigoTipoCuenta();
-                    cuentaListNewCuenta.setCodigoTipoCuenta(tipocuenta);
+                    Tipocuenta oldIdTipoCuentaOfCuentaListNewCuenta = cuentaListNewCuenta.getIdTipoCuenta();
+                    cuentaListNewCuenta.setIdTipoCuenta(tipocuenta);
                     cuentaListNewCuenta = em.merge(cuentaListNewCuenta);
-                    if (oldCodigoTipoCuentaOfCuentaListNewCuenta != null && !oldCodigoTipoCuentaOfCuentaListNewCuenta.equals(tipocuenta)) {
-                        oldCodigoTipoCuentaOfCuentaListNewCuenta.getCuentaList().remove(cuentaListNewCuenta);
-                        oldCodigoTipoCuentaOfCuentaListNewCuenta = em.merge(oldCodigoTipoCuentaOfCuentaListNewCuenta);
+                    if (oldIdTipoCuentaOfCuentaListNewCuenta != null && !oldIdTipoCuentaOfCuentaListNewCuenta.equals(tipocuenta)) {
+                        oldIdTipoCuentaOfCuentaListNewCuenta.getCuentaList().remove(cuentaListNewCuenta);
+                        oldIdTipoCuentaOfCuentaListNewCuenta = em.merge(oldIdTipoCuentaOfCuentaListNewCuenta);
                     }
                 }
             }
@@ -112,7 +104,7 @@ public class TipocuentaJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = tipocuenta.getCodigoTipoCuenta();
+                Integer id = tipocuenta.getIdTipoCuenta();
                 if (findTipocuenta(id) == null) {
                     throw new NonexistentEntityException("The tipocuenta with id " + id + " no longer exists.");
                 }
@@ -133,7 +125,7 @@ public class TipocuentaJpaController implements Serializable {
             Tipocuenta tipocuenta;
             try {
                 tipocuenta = em.getReference(Tipocuenta.class, id);
-                tipocuenta.getCodigoTipoCuenta();
+                tipocuenta.getIdTipoCuenta();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The tipocuenta with id " + id + " no longer exists.", enfe);
             }
@@ -143,7 +135,7 @@ public class TipocuentaJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Tipocuenta (" + tipocuenta + ") cannot be destroyed since the Cuenta " + cuentaListOrphanCheckCuenta + " in its cuentaList field has a non-nullable codigoTipoCuenta field.");
+                illegalOrphanMessages.add("This Tipocuenta (" + tipocuenta + ") cannot be destroyed since the Cuenta " + cuentaListOrphanCheckCuenta + " in its cuentaList field has a non-nullable idTipoCuenta field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -202,33 +194,5 @@ public class TipocuentaJpaController implements Serializable {
             em.close();
         }
     }
-
-    public List<Tipocuenta> listarTipoCuenta() {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Tipocuenta.findAll");
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Tipocuenta obtenerTipoCuenta(String tipoCuenta) {
-        EntityManager em = getEntityManager();
-        try {
-
-            Query query = em.createNamedQuery("Tipocuenta.findByNombTipoCuenta");
-            query.setParameter("nombTipoCuenta", tipoCuenta);
-
-            List<Tipocuenta> results = query.getResultList();
-
-            if (!results.isEmpty()) {
-                return results.get(0);
-            } else {
-                return null;
-            }
-        } finally {
-            em.close();
-        }
-    }
+    
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import dao.exceptions.IllegalOrphanException;
@@ -11,13 +7,12 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import dto.Cliente;
+import dto.Datospersonales;
 import dto.Tipodocumento;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -25,40 +20,37 @@ import javax.persistence.Persistence;
  */
 public class TipodocumentoJpaController implements Serializable {
 
-    public TipodocumentoJpaController() {
-    }
-
     public TipodocumentoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
     public void create(Tipodocumento tipodocumento) {
-        if (tipodocumento.getClienteList() == null) {
-            tipodocumento.setClienteList(new ArrayList<Cliente>());
+        if (tipodocumento.getDatospersonalesList() == null) {
+            tipodocumento.setDatospersonalesList(new ArrayList<Datospersonales>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Cliente> attachedClienteList = new ArrayList<Cliente>();
-            for (Cliente clienteListClienteToAttach : tipodocumento.getClienteList()) {
-                clienteListClienteToAttach = em.getReference(clienteListClienteToAttach.getClass(), clienteListClienteToAttach.getCodigoCliente());
-                attachedClienteList.add(clienteListClienteToAttach);
+            List<Datospersonales> attachedDatospersonalesList = new ArrayList<Datospersonales>();
+            for (Datospersonales datospersonalesListDatospersonalesToAttach : tipodocumento.getDatospersonalesList()) {
+                datospersonalesListDatospersonalesToAttach = em.getReference(datospersonalesListDatospersonalesToAttach.getClass(), datospersonalesListDatospersonalesToAttach.getIdPersona());
+                attachedDatospersonalesList.add(datospersonalesListDatospersonalesToAttach);
             }
-            tipodocumento.setClienteList(attachedClienteList);
+            tipodocumento.setDatospersonalesList(attachedDatospersonalesList);
             em.persist(tipodocumento);
-            for (Cliente clienteListCliente : tipodocumento.getClienteList()) {
-                Tipodocumento oldCodigoTipoDocumentoOfClienteListCliente = clienteListCliente.getCodigoTipoDocumento();
-                clienteListCliente.setCodigoTipoDocumento(tipodocumento);
-                clienteListCliente = em.merge(clienteListCliente);
-                if (oldCodigoTipoDocumentoOfClienteListCliente != null) {
-                    oldCodigoTipoDocumentoOfClienteListCliente.getClienteList().remove(clienteListCliente);
-                    oldCodigoTipoDocumentoOfClienteListCliente = em.merge(oldCodigoTipoDocumentoOfClienteListCliente);
+            for (Datospersonales datospersonalesListDatospersonales : tipodocumento.getDatospersonalesList()) {
+                Tipodocumento oldIdTipoDocumentoOfDatospersonalesListDatospersonales = datospersonalesListDatospersonales.getIdTipoDocumento();
+                datospersonalesListDatospersonales.setIdTipoDocumento(tipodocumento);
+                datospersonalesListDatospersonales = em.merge(datospersonalesListDatospersonales);
+                if (oldIdTipoDocumentoOfDatospersonalesListDatospersonales != null) {
+                    oldIdTipoDocumentoOfDatospersonalesListDatospersonales.getDatospersonalesList().remove(datospersonalesListDatospersonales);
+                    oldIdTipoDocumentoOfDatospersonalesListDatospersonales = em.merge(oldIdTipoDocumentoOfDatospersonalesListDatospersonales);
                 }
             }
             em.getTransaction().commit();
@@ -74,37 +66,37 @@ public class TipodocumentoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tipodocumento persistentTipodocumento = em.find(Tipodocumento.class, tipodocumento.getCodigoTipoDocumento());
-            List<Cliente> clienteListOld = persistentTipodocumento.getClienteList();
-            List<Cliente> clienteListNew = tipodocumento.getClienteList();
+            Tipodocumento persistentTipodocumento = em.find(Tipodocumento.class, tipodocumento.getIdTipoDocumento());
+            List<Datospersonales> datospersonalesListOld = persistentTipodocumento.getDatospersonalesList();
+            List<Datospersonales> datospersonalesListNew = tipodocumento.getDatospersonalesList();
             List<String> illegalOrphanMessages = null;
-            for (Cliente clienteListOldCliente : clienteListOld) {
-                if (!clienteListNew.contains(clienteListOldCliente)) {
+            for (Datospersonales datospersonalesListOldDatospersonales : datospersonalesListOld) {
+                if (!datospersonalesListNew.contains(datospersonalesListOldDatospersonales)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Cliente " + clienteListOldCliente + " since its codigoTipoDocumento field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Datospersonales " + datospersonalesListOldDatospersonales + " since its idTipoDocumento field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<Cliente> attachedClienteListNew = new ArrayList<Cliente>();
-            for (Cliente clienteListNewClienteToAttach : clienteListNew) {
-                clienteListNewClienteToAttach = em.getReference(clienteListNewClienteToAttach.getClass(), clienteListNewClienteToAttach.getCodigoCliente());
-                attachedClienteListNew.add(clienteListNewClienteToAttach);
+            List<Datospersonales> attachedDatospersonalesListNew = new ArrayList<Datospersonales>();
+            for (Datospersonales datospersonalesListNewDatospersonalesToAttach : datospersonalesListNew) {
+                datospersonalesListNewDatospersonalesToAttach = em.getReference(datospersonalesListNewDatospersonalesToAttach.getClass(), datospersonalesListNewDatospersonalesToAttach.getIdPersona());
+                attachedDatospersonalesListNew.add(datospersonalesListNewDatospersonalesToAttach);
             }
-            clienteListNew = attachedClienteListNew;
-            tipodocumento.setClienteList(clienteListNew);
+            datospersonalesListNew = attachedDatospersonalesListNew;
+            tipodocumento.setDatospersonalesList(datospersonalesListNew);
             tipodocumento = em.merge(tipodocumento);
-            for (Cliente clienteListNewCliente : clienteListNew) {
-                if (!clienteListOld.contains(clienteListNewCliente)) {
-                    Tipodocumento oldCodigoTipoDocumentoOfClienteListNewCliente = clienteListNewCliente.getCodigoTipoDocumento();
-                    clienteListNewCliente.setCodigoTipoDocumento(tipodocumento);
-                    clienteListNewCliente = em.merge(clienteListNewCliente);
-                    if (oldCodigoTipoDocumentoOfClienteListNewCliente != null && !oldCodigoTipoDocumentoOfClienteListNewCliente.equals(tipodocumento)) {
-                        oldCodigoTipoDocumentoOfClienteListNewCliente.getClienteList().remove(clienteListNewCliente);
-                        oldCodigoTipoDocumentoOfClienteListNewCliente = em.merge(oldCodigoTipoDocumentoOfClienteListNewCliente);
+            for (Datospersonales datospersonalesListNewDatospersonales : datospersonalesListNew) {
+                if (!datospersonalesListOld.contains(datospersonalesListNewDatospersonales)) {
+                    Tipodocumento oldIdTipoDocumentoOfDatospersonalesListNewDatospersonales = datospersonalesListNewDatospersonales.getIdTipoDocumento();
+                    datospersonalesListNewDatospersonales.setIdTipoDocumento(tipodocumento);
+                    datospersonalesListNewDatospersonales = em.merge(datospersonalesListNewDatospersonales);
+                    if (oldIdTipoDocumentoOfDatospersonalesListNewDatospersonales != null && !oldIdTipoDocumentoOfDatospersonalesListNewDatospersonales.equals(tipodocumento)) {
+                        oldIdTipoDocumentoOfDatospersonalesListNewDatospersonales.getDatospersonalesList().remove(datospersonalesListNewDatospersonales);
+                        oldIdTipoDocumentoOfDatospersonalesListNewDatospersonales = em.merge(oldIdTipoDocumentoOfDatospersonalesListNewDatospersonales);
                     }
                 }
             }
@@ -112,7 +104,7 @@ public class TipodocumentoJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = tipodocumento.getCodigoTipoDocumento();
+                Integer id = tipodocumento.getIdTipoDocumento();
                 if (findTipodocumento(id) == null) {
                     throw new NonexistentEntityException("The tipodocumento with id " + id + " no longer exists.");
                 }
@@ -133,17 +125,17 @@ public class TipodocumentoJpaController implements Serializable {
             Tipodocumento tipodocumento;
             try {
                 tipodocumento = em.getReference(Tipodocumento.class, id);
-                tipodocumento.getCodigoTipoDocumento();
+                tipodocumento.getIdTipoDocumento();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The tipodocumento with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Cliente> clienteListOrphanCheck = tipodocumento.getClienteList();
-            for (Cliente clienteListOrphanCheckCliente : clienteListOrphanCheck) {
+            List<Datospersonales> datospersonalesListOrphanCheck = tipodocumento.getDatospersonalesList();
+            for (Datospersonales datospersonalesListOrphanCheckDatospersonales : datospersonalesListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Tipodocumento (" + tipodocumento + ") cannot be destroyed since the Cliente " + clienteListOrphanCheckCliente + " in its clienteList field has a non-nullable codigoTipoDocumento field.");
+                illegalOrphanMessages.add("This Tipodocumento (" + tipodocumento + ") cannot be destroyed since the Datospersonales " + datospersonalesListOrphanCheckDatospersonales + " in its datospersonalesList field has a non-nullable idTipoDocumento field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -202,33 +194,5 @@ public class TipodocumentoJpaController implements Serializable {
             em.close();
         }
     }
-
-    public List<Tipodocumento> listarTipoDoc() {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Tipodocumento.findAll");
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Tipodocumento obtenerCodigoTipoDoc(String nombreDocumento) {
-        EntityManager em = getEntityManager();
-        try {
-
-            Query query = em.createNamedQuery("Tipodocumento.findByNombTipoDocumento");
-            query.setParameter("nombTipoDocumento", nombreDocumento);
-
-            List<Tipodocumento> results = query.getResultList();
-
-            if (!results.isEmpty()) {
-                return results.get(0);
-            } else {
-                return null;
-            }
-        } finally {
-            em.close();
-        }
-    }
+    
 }

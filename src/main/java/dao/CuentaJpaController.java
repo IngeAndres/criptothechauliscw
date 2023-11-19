@@ -1,30 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import dao.exceptions.IllegalOrphanException;
 import dao.exceptions.NonexistentEntityException;
+import dto.Cuenta;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import dto.Cliente;
-import dto.Cuenta;
+import dto.Usuario;
 import dto.Tipocuenta;
-import dto.Estado;
-import dto.Transferencia;
+import dto.Operacionesotrascuentas;
 import java.util.ArrayList;
 import java.util.List;
-import dto.Deposito;
-import dto.Retiro;
-import java.util.Arrays;
+import dto.Operacionescuentaspropias;
+import dto.Prestamo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -32,121 +24,109 @@ import javax.persistence.Persistence;
  */
 public class CuentaJpaController implements Serializable {
 
-    public CuentaJpaController() {
-    }
-
     public CuentaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
     public void create(Cuenta cuenta) {
-        if (cuenta.getTransferenciaList() == null) {
-            cuenta.setTransferenciaList(new ArrayList<Transferencia>());
+        if (cuenta.getOperacionesotrascuentasList() == null) {
+            cuenta.setOperacionesotrascuentasList(new ArrayList<Operacionesotrascuentas>());
         }
-        if (cuenta.getTransferenciaList1() == null) {
-            cuenta.setTransferenciaList1(new ArrayList<Transferencia>());
+        if (cuenta.getOperacionesotrascuentasList1() == null) {
+            cuenta.setOperacionesotrascuentasList1(new ArrayList<Operacionesotrascuentas>());
         }
-        if (cuenta.getDepositoList() == null) {
-            cuenta.setDepositoList(new ArrayList<Deposito>());
+        if (cuenta.getOperacionescuentaspropiasList() == null) {
+            cuenta.setOperacionescuentaspropiasList(new ArrayList<Operacionescuentaspropias>());
         }
-        if (cuenta.getRetiroList() == null) {
-            cuenta.setRetiroList(new ArrayList<Retiro>());
+        if (cuenta.getPrestamoList() == null) {
+            cuenta.setPrestamoList(new ArrayList<Prestamo>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cliente codigoCliente = cuenta.getCodigoCliente();
-            if (codigoCliente != null) {
-                codigoCliente = em.getReference(codigoCliente.getClass(), codigoCliente.getCodigoCliente());
-                cuenta.setCodigoCliente(codigoCliente);
+            Usuario idUsuario = cuenta.getIdUsuario();
+            if (idUsuario != null) {
+                idUsuario = em.getReference(idUsuario.getClass(), idUsuario.getIdUsuario());
+                cuenta.setIdUsuario(idUsuario);
             }
-            Tipocuenta codigoTipoCuenta = cuenta.getCodigoTipoCuenta();
-            if (codigoTipoCuenta != null) {
-                codigoTipoCuenta = em.getReference(codigoTipoCuenta.getClass(), codigoTipoCuenta.getCodigoTipoCuenta());
-                cuenta.setCodigoTipoCuenta(codigoTipoCuenta);
+            Tipocuenta idTipoCuenta = cuenta.getIdTipoCuenta();
+            if (idTipoCuenta != null) {
+                idTipoCuenta = em.getReference(idTipoCuenta.getClass(), idTipoCuenta.getIdTipoCuenta());
+                cuenta.setIdTipoCuenta(idTipoCuenta);
             }
-            Estado codigoEstado = cuenta.getCodigoEstado();
-            if (codigoEstado != null) {
-                codigoEstado = em.getReference(codigoEstado.getClass(), codigoEstado.getCodigoEstado());
-                cuenta.setCodigoEstado(codigoEstado);
+            List<Operacionesotrascuentas> attachedOperacionesotrascuentasList = new ArrayList<Operacionesotrascuentas>();
+            for (Operacionesotrascuentas operacionesotrascuentasListOperacionesotrascuentasToAttach : cuenta.getOperacionesotrascuentasList()) {
+                operacionesotrascuentasListOperacionesotrascuentasToAttach = em.getReference(operacionesotrascuentasListOperacionesotrascuentasToAttach.getClass(), operacionesotrascuentasListOperacionesotrascuentasToAttach.getIdOperacionOC());
+                attachedOperacionesotrascuentasList.add(operacionesotrascuentasListOperacionesotrascuentasToAttach);
             }
-            List<Transferencia> attachedTransferenciaList = new ArrayList<Transferencia>();
-            for (Transferencia transferenciaListTransferenciaToAttach : cuenta.getTransferenciaList()) {
-                transferenciaListTransferenciaToAttach = em.getReference(transferenciaListTransferenciaToAttach.getClass(), transferenciaListTransferenciaToAttach.getCodigoTransferencia());
-                attachedTransferenciaList.add(transferenciaListTransferenciaToAttach);
+            cuenta.setOperacionesotrascuentasList(attachedOperacionesotrascuentasList);
+            List<Operacionesotrascuentas> attachedOperacionesotrascuentasList1 = new ArrayList<Operacionesotrascuentas>();
+            for (Operacionesotrascuentas operacionesotrascuentasList1OperacionesotrascuentasToAttach : cuenta.getOperacionesotrascuentasList1()) {
+                operacionesotrascuentasList1OperacionesotrascuentasToAttach = em.getReference(operacionesotrascuentasList1OperacionesotrascuentasToAttach.getClass(), operacionesotrascuentasList1OperacionesotrascuentasToAttach.getIdOperacionOC());
+                attachedOperacionesotrascuentasList1.add(operacionesotrascuentasList1OperacionesotrascuentasToAttach);
             }
-            cuenta.setTransferenciaList(attachedTransferenciaList);
-            List<Transferencia> attachedTransferenciaList1 = new ArrayList<Transferencia>();
-            for (Transferencia transferenciaList1TransferenciaToAttach : cuenta.getTransferenciaList1()) {
-                transferenciaList1TransferenciaToAttach = em.getReference(transferenciaList1TransferenciaToAttach.getClass(), transferenciaList1TransferenciaToAttach.getCodigoTransferencia());
-                attachedTransferenciaList1.add(transferenciaList1TransferenciaToAttach);
+            cuenta.setOperacionesotrascuentasList1(attachedOperacionesotrascuentasList1);
+            List<Operacionescuentaspropias> attachedOperacionescuentaspropiasList = new ArrayList<Operacionescuentaspropias>();
+            for (Operacionescuentaspropias operacionescuentaspropiasListOperacionescuentaspropiasToAttach : cuenta.getOperacionescuentaspropiasList()) {
+                operacionescuentaspropiasListOperacionescuentaspropiasToAttach = em.getReference(operacionescuentaspropiasListOperacionescuentaspropiasToAttach.getClass(), operacionescuentaspropiasListOperacionescuentaspropiasToAttach.getIdOperacionCP());
+                attachedOperacionescuentaspropiasList.add(operacionescuentaspropiasListOperacionescuentaspropiasToAttach);
             }
-            cuenta.setTransferenciaList1(attachedTransferenciaList1);
-            List<Deposito> attachedDepositoList = new ArrayList<Deposito>();
-            for (Deposito depositoListDepositoToAttach : cuenta.getDepositoList()) {
-                depositoListDepositoToAttach = em.getReference(depositoListDepositoToAttach.getClass(), depositoListDepositoToAttach.getCodigoDeposito());
-                attachedDepositoList.add(depositoListDepositoToAttach);
+            cuenta.setOperacionescuentaspropiasList(attachedOperacionescuentaspropiasList);
+            List<Prestamo> attachedPrestamoList = new ArrayList<Prestamo>();
+            for (Prestamo prestamoListPrestamoToAttach : cuenta.getPrestamoList()) {
+                prestamoListPrestamoToAttach = em.getReference(prestamoListPrestamoToAttach.getClass(), prestamoListPrestamoToAttach.getIdPrestamo());
+                attachedPrestamoList.add(prestamoListPrestamoToAttach);
             }
-            cuenta.setDepositoList(attachedDepositoList);
-            List<Retiro> attachedRetiroList = new ArrayList<Retiro>();
-            for (Retiro retiroListRetiroToAttach : cuenta.getRetiroList()) {
-                retiroListRetiroToAttach = em.getReference(retiroListRetiroToAttach.getClass(), retiroListRetiroToAttach.getCodigoRetiro());
-                attachedRetiroList.add(retiroListRetiroToAttach);
-            }
-            cuenta.setRetiroList(attachedRetiroList);
+            cuenta.setPrestamoList(attachedPrestamoList);
             em.persist(cuenta);
-            if (codigoCliente != null) {
-                codigoCliente.getCuentaList().add(cuenta);
-                codigoCliente = em.merge(codigoCliente);
+            if (idUsuario != null) {
+                idUsuario.getCuentaList().add(cuenta);
+                idUsuario = em.merge(idUsuario);
             }
-            if (codigoTipoCuenta != null) {
-                codigoTipoCuenta.getCuentaList().add(cuenta);
-                codigoTipoCuenta = em.merge(codigoTipoCuenta);
+            if (idTipoCuenta != null) {
+                idTipoCuenta.getCuentaList().add(cuenta);
+                idTipoCuenta = em.merge(idTipoCuenta);
             }
-            if (codigoEstado != null) {
-                codigoEstado.getCuentaList().add(cuenta);
-                codigoEstado = em.merge(codigoEstado);
-            }
-            for (Transferencia transferenciaListTransferencia : cuenta.getTransferenciaList()) {
-                Cuenta oldCodigoCuentaOrigenOfTransferenciaListTransferencia = transferenciaListTransferencia.getCodigoCuentaOrigen();
-                transferenciaListTransferencia.setCodigoCuentaOrigen(cuenta);
-                transferenciaListTransferencia = em.merge(transferenciaListTransferencia);
-                if (oldCodigoCuentaOrigenOfTransferenciaListTransferencia != null) {
-                    oldCodigoCuentaOrigenOfTransferenciaListTransferencia.getTransferenciaList().remove(transferenciaListTransferencia);
-                    oldCodigoCuentaOrigenOfTransferenciaListTransferencia = em.merge(oldCodigoCuentaOrigenOfTransferenciaListTransferencia);
+            for (Operacionesotrascuentas operacionesotrascuentasListOperacionesotrascuentas : cuenta.getOperacionesotrascuentasList()) {
+                Cuenta oldIdCuentaOrigenOfOperacionesotrascuentasListOperacionesotrascuentas = operacionesotrascuentasListOperacionesotrascuentas.getIdCuentaOrigen();
+                operacionesotrascuentasListOperacionesotrascuentas.setIdCuentaOrigen(cuenta);
+                operacionesotrascuentasListOperacionesotrascuentas = em.merge(operacionesotrascuentasListOperacionesotrascuentas);
+                if (oldIdCuentaOrigenOfOperacionesotrascuentasListOperacionesotrascuentas != null) {
+                    oldIdCuentaOrigenOfOperacionesotrascuentasListOperacionesotrascuentas.getOperacionesotrascuentasList().remove(operacionesotrascuentasListOperacionesotrascuentas);
+                    oldIdCuentaOrigenOfOperacionesotrascuentasListOperacionesotrascuentas = em.merge(oldIdCuentaOrigenOfOperacionesotrascuentasListOperacionesotrascuentas);
                 }
             }
-            for (Transferencia transferenciaList1Transferencia : cuenta.getTransferenciaList1()) {
-                Cuenta oldCodigoCuentaDestinoOfTransferenciaList1Transferencia = transferenciaList1Transferencia.getCodigoCuentaDestino();
-                transferenciaList1Transferencia.setCodigoCuentaDestino(cuenta);
-                transferenciaList1Transferencia = em.merge(transferenciaList1Transferencia);
-                if (oldCodigoCuentaDestinoOfTransferenciaList1Transferencia != null) {
-                    oldCodigoCuentaDestinoOfTransferenciaList1Transferencia.getTransferenciaList1().remove(transferenciaList1Transferencia);
-                    oldCodigoCuentaDestinoOfTransferenciaList1Transferencia = em.merge(oldCodigoCuentaDestinoOfTransferenciaList1Transferencia);
+            for (Operacionesotrascuentas operacionesotrascuentasList1Operacionesotrascuentas : cuenta.getOperacionesotrascuentasList1()) {
+                Cuenta oldIdCuentaDestinoOfOperacionesotrascuentasList1Operacionesotrascuentas = operacionesotrascuentasList1Operacionesotrascuentas.getIdCuentaDestino();
+                operacionesotrascuentasList1Operacionesotrascuentas.setIdCuentaDestino(cuenta);
+                operacionesotrascuentasList1Operacionesotrascuentas = em.merge(operacionesotrascuentasList1Operacionesotrascuentas);
+                if (oldIdCuentaDestinoOfOperacionesotrascuentasList1Operacionesotrascuentas != null) {
+                    oldIdCuentaDestinoOfOperacionesotrascuentasList1Operacionesotrascuentas.getOperacionesotrascuentasList1().remove(operacionesotrascuentasList1Operacionesotrascuentas);
+                    oldIdCuentaDestinoOfOperacionesotrascuentasList1Operacionesotrascuentas = em.merge(oldIdCuentaDestinoOfOperacionesotrascuentasList1Operacionesotrascuentas);
                 }
             }
-            for (Deposito depositoListDeposito : cuenta.getDepositoList()) {
-                Cuenta oldCodigoCuentaOfDepositoListDeposito = depositoListDeposito.getCodigoCuenta();
-                depositoListDeposito.setCodigoCuenta(cuenta);
-                depositoListDeposito = em.merge(depositoListDeposito);
-                if (oldCodigoCuentaOfDepositoListDeposito != null) {
-                    oldCodigoCuentaOfDepositoListDeposito.getDepositoList().remove(depositoListDeposito);
-                    oldCodigoCuentaOfDepositoListDeposito = em.merge(oldCodigoCuentaOfDepositoListDeposito);
+            for (Operacionescuentaspropias operacionescuentaspropiasListOperacionescuentaspropias : cuenta.getOperacionescuentaspropiasList()) {
+                Cuenta oldIdCuentaOfOperacionescuentaspropiasListOperacionescuentaspropias = operacionescuentaspropiasListOperacionescuentaspropias.getIdCuenta();
+                operacionescuentaspropiasListOperacionescuentaspropias.setIdCuenta(cuenta);
+                operacionescuentaspropiasListOperacionescuentaspropias = em.merge(operacionescuentaspropiasListOperacionescuentaspropias);
+                if (oldIdCuentaOfOperacionescuentaspropiasListOperacionescuentaspropias != null) {
+                    oldIdCuentaOfOperacionescuentaspropiasListOperacionescuentaspropias.getOperacionescuentaspropiasList().remove(operacionescuentaspropiasListOperacionescuentaspropias);
+                    oldIdCuentaOfOperacionescuentaspropiasListOperacionescuentaspropias = em.merge(oldIdCuentaOfOperacionescuentaspropiasListOperacionescuentaspropias);
                 }
             }
-            for (Retiro retiroListRetiro : cuenta.getRetiroList()) {
-                Cuenta oldCodigoCuentaOfRetiroListRetiro = retiroListRetiro.getCodigoCuenta();
-                retiroListRetiro.setCodigoCuenta(cuenta);
-                retiroListRetiro = em.merge(retiroListRetiro);
-                if (oldCodigoCuentaOfRetiroListRetiro != null) {
-                    oldCodigoCuentaOfRetiroListRetiro.getRetiroList().remove(retiroListRetiro);
-                    oldCodigoCuentaOfRetiroListRetiro = em.merge(oldCodigoCuentaOfRetiroListRetiro);
+            for (Prestamo prestamoListPrestamo : cuenta.getPrestamoList()) {
+                Cuenta oldIdCuentaOfPrestamoListPrestamo = prestamoListPrestamo.getIdCuenta();
+                prestamoListPrestamo.setIdCuenta(cuenta);
+                prestamoListPrestamo = em.merge(prestamoListPrestamo);
+                if (oldIdCuentaOfPrestamoListPrestamo != null) {
+                    oldIdCuentaOfPrestamoListPrestamo.getPrestamoList().remove(prestamoListPrestamo);
+                    oldIdCuentaOfPrestamoListPrestamo = em.merge(oldIdCuentaOfPrestamoListPrestamo);
                 }
             }
             em.getTransaction().commit();
@@ -162,163 +142,149 @@ public class CuentaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cuenta persistentCuenta = em.find(Cuenta.class, cuenta.getCodigoCuenta());
-            Cliente codigoClienteOld = persistentCuenta.getCodigoCliente();
-            Cliente codigoClienteNew = cuenta.getCodigoCliente();
-            Tipocuenta codigoTipoCuentaOld = persistentCuenta.getCodigoTipoCuenta();
-            Tipocuenta codigoTipoCuentaNew = cuenta.getCodigoTipoCuenta();
-            Estado codigoEstadoOld = persistentCuenta.getCodigoEstado();
-            Estado codigoEstadoNew = cuenta.getCodigoEstado();
-            List<Transferencia> transferenciaListOld = persistentCuenta.getTransferenciaList();
-            List<Transferencia> transferenciaListNew = cuenta.getTransferenciaList();
-            List<Transferencia> transferenciaList1Old = persistentCuenta.getTransferenciaList1();
-            List<Transferencia> transferenciaList1New = cuenta.getTransferenciaList1();
-            List<Deposito> depositoListOld = persistentCuenta.getDepositoList();
-            List<Deposito> depositoListNew = cuenta.getDepositoList();
-            List<Retiro> retiroListOld = persistentCuenta.getRetiroList();
-            List<Retiro> retiroListNew = cuenta.getRetiroList();
+            Cuenta persistentCuenta = em.find(Cuenta.class, cuenta.getIdCuenta());
+            Usuario idUsuarioOld = persistentCuenta.getIdUsuario();
+            Usuario idUsuarioNew = cuenta.getIdUsuario();
+            Tipocuenta idTipoCuentaOld = persistentCuenta.getIdTipoCuenta();
+            Tipocuenta idTipoCuentaNew = cuenta.getIdTipoCuenta();
+            List<Operacionesotrascuentas> operacionesotrascuentasListOld = persistentCuenta.getOperacionesotrascuentasList();
+            List<Operacionesotrascuentas> operacionesotrascuentasListNew = cuenta.getOperacionesotrascuentasList();
+            List<Operacionesotrascuentas> operacionesotrascuentasList1Old = persistentCuenta.getOperacionesotrascuentasList1();
+            List<Operacionesotrascuentas> operacionesotrascuentasList1New = cuenta.getOperacionesotrascuentasList1();
+            List<Operacionescuentaspropias> operacionescuentaspropiasListOld = persistentCuenta.getOperacionescuentaspropiasList();
+            List<Operacionescuentaspropias> operacionescuentaspropiasListNew = cuenta.getOperacionescuentaspropiasList();
+            List<Prestamo> prestamoListOld = persistentCuenta.getPrestamoList();
+            List<Prestamo> prestamoListNew = cuenta.getPrestamoList();
             List<String> illegalOrphanMessages = null;
-            for (Transferencia transferenciaListOldTransferencia : transferenciaListOld) {
-                if (!transferenciaListNew.contains(transferenciaListOldTransferencia)) {
+            for (Operacionesotrascuentas operacionesotrascuentasListOldOperacionesotrascuentas : operacionesotrascuentasListOld) {
+                if (!operacionesotrascuentasListNew.contains(operacionesotrascuentasListOldOperacionesotrascuentas)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Transferencia " + transferenciaListOldTransferencia + " since its codigoCuentaOrigen field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Operacionesotrascuentas " + operacionesotrascuentasListOldOperacionesotrascuentas + " since its idCuentaOrigen field is not nullable.");
                 }
             }
-            for (Transferencia transferenciaList1OldTransferencia : transferenciaList1Old) {
-                if (!transferenciaList1New.contains(transferenciaList1OldTransferencia)) {
+            for (Operacionesotrascuentas operacionesotrascuentasList1OldOperacionesotrascuentas : operacionesotrascuentasList1Old) {
+                if (!operacionesotrascuentasList1New.contains(operacionesotrascuentasList1OldOperacionesotrascuentas)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Transferencia " + transferenciaList1OldTransferencia + " since its codigoCuentaDestino field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Operacionesotrascuentas " + operacionesotrascuentasList1OldOperacionesotrascuentas + " since its idCuentaDestino field is not nullable.");
                 }
             }
-            for (Deposito depositoListOldDeposito : depositoListOld) {
-                if (!depositoListNew.contains(depositoListOldDeposito)) {
+            for (Operacionescuentaspropias operacionescuentaspropiasListOldOperacionescuentaspropias : operacionescuentaspropiasListOld) {
+                if (!operacionescuentaspropiasListNew.contains(operacionescuentaspropiasListOldOperacionescuentaspropias)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Deposito " + depositoListOldDeposito + " since its codigoCuenta field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Operacionescuentaspropias " + operacionescuentaspropiasListOldOperacionescuentaspropias + " since its idCuenta field is not nullable.");
                 }
             }
-            for (Retiro retiroListOldRetiro : retiroListOld) {
-                if (!retiroListNew.contains(retiroListOldRetiro)) {
+            for (Prestamo prestamoListOldPrestamo : prestamoListOld) {
+                if (!prestamoListNew.contains(prestamoListOldPrestamo)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Retiro " + retiroListOldRetiro + " since its codigoCuenta field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Prestamo " + prestamoListOldPrestamo + " since its idCuenta field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (codigoClienteNew != null) {
-                codigoClienteNew = em.getReference(codigoClienteNew.getClass(), codigoClienteNew.getCodigoCliente());
-                cuenta.setCodigoCliente(codigoClienteNew);
+            if (idUsuarioNew != null) {
+                idUsuarioNew = em.getReference(idUsuarioNew.getClass(), idUsuarioNew.getIdUsuario());
+                cuenta.setIdUsuario(idUsuarioNew);
             }
-            if (codigoTipoCuentaNew != null) {
-                codigoTipoCuentaNew = em.getReference(codigoTipoCuentaNew.getClass(), codigoTipoCuentaNew.getCodigoTipoCuenta());
-                cuenta.setCodigoTipoCuenta(codigoTipoCuentaNew);
+            if (idTipoCuentaNew != null) {
+                idTipoCuentaNew = em.getReference(idTipoCuentaNew.getClass(), idTipoCuentaNew.getIdTipoCuenta());
+                cuenta.setIdTipoCuenta(idTipoCuentaNew);
             }
-            if (codigoEstadoNew != null) {
-                codigoEstadoNew = em.getReference(codigoEstadoNew.getClass(), codigoEstadoNew.getCodigoEstado());
-                cuenta.setCodigoEstado(codigoEstadoNew);
+            List<Operacionesotrascuentas> attachedOperacionesotrascuentasListNew = new ArrayList<Operacionesotrascuentas>();
+            for (Operacionesotrascuentas operacionesotrascuentasListNewOperacionesotrascuentasToAttach : operacionesotrascuentasListNew) {
+                operacionesotrascuentasListNewOperacionesotrascuentasToAttach = em.getReference(operacionesotrascuentasListNewOperacionesotrascuentasToAttach.getClass(), operacionesotrascuentasListNewOperacionesotrascuentasToAttach.getIdOperacionOC());
+                attachedOperacionesotrascuentasListNew.add(operacionesotrascuentasListNewOperacionesotrascuentasToAttach);
             }
-            List<Transferencia> attachedTransferenciaListNew = new ArrayList<Transferencia>();
-            for (Transferencia transferenciaListNewTransferenciaToAttach : transferenciaListNew) {
-                transferenciaListNewTransferenciaToAttach = em.getReference(transferenciaListNewTransferenciaToAttach.getClass(), transferenciaListNewTransferenciaToAttach.getCodigoTransferencia());
-                attachedTransferenciaListNew.add(transferenciaListNewTransferenciaToAttach);
+            operacionesotrascuentasListNew = attachedOperacionesotrascuentasListNew;
+            cuenta.setOperacionesotrascuentasList(operacionesotrascuentasListNew);
+            List<Operacionesotrascuentas> attachedOperacionesotrascuentasList1New = new ArrayList<Operacionesotrascuentas>();
+            for (Operacionesotrascuentas operacionesotrascuentasList1NewOperacionesotrascuentasToAttach : operacionesotrascuentasList1New) {
+                operacionesotrascuentasList1NewOperacionesotrascuentasToAttach = em.getReference(operacionesotrascuentasList1NewOperacionesotrascuentasToAttach.getClass(), operacionesotrascuentasList1NewOperacionesotrascuentasToAttach.getIdOperacionOC());
+                attachedOperacionesotrascuentasList1New.add(operacionesotrascuentasList1NewOperacionesotrascuentasToAttach);
             }
-            transferenciaListNew = attachedTransferenciaListNew;
-            cuenta.setTransferenciaList(transferenciaListNew);
-            List<Transferencia> attachedTransferenciaList1New = new ArrayList<Transferencia>();
-            for (Transferencia transferenciaList1NewTransferenciaToAttach : transferenciaList1New) {
-                transferenciaList1NewTransferenciaToAttach = em.getReference(transferenciaList1NewTransferenciaToAttach.getClass(), transferenciaList1NewTransferenciaToAttach.getCodigoTransferencia());
-                attachedTransferenciaList1New.add(transferenciaList1NewTransferenciaToAttach);
+            operacionesotrascuentasList1New = attachedOperacionesotrascuentasList1New;
+            cuenta.setOperacionesotrascuentasList1(operacionesotrascuentasList1New);
+            List<Operacionescuentaspropias> attachedOperacionescuentaspropiasListNew = new ArrayList<Operacionescuentaspropias>();
+            for (Operacionescuentaspropias operacionescuentaspropiasListNewOperacionescuentaspropiasToAttach : operacionescuentaspropiasListNew) {
+                operacionescuentaspropiasListNewOperacionescuentaspropiasToAttach = em.getReference(operacionescuentaspropiasListNewOperacionescuentaspropiasToAttach.getClass(), operacionescuentaspropiasListNewOperacionescuentaspropiasToAttach.getIdOperacionCP());
+                attachedOperacionescuentaspropiasListNew.add(operacionescuentaspropiasListNewOperacionescuentaspropiasToAttach);
             }
-            transferenciaList1New = attachedTransferenciaList1New;
-            cuenta.setTransferenciaList1(transferenciaList1New);
-            List<Deposito> attachedDepositoListNew = new ArrayList<Deposito>();
-            for (Deposito depositoListNewDepositoToAttach : depositoListNew) {
-                depositoListNewDepositoToAttach = em.getReference(depositoListNewDepositoToAttach.getClass(), depositoListNewDepositoToAttach.getCodigoDeposito());
-                attachedDepositoListNew.add(depositoListNewDepositoToAttach);
+            operacionescuentaspropiasListNew = attachedOperacionescuentaspropiasListNew;
+            cuenta.setOperacionescuentaspropiasList(operacionescuentaspropiasListNew);
+            List<Prestamo> attachedPrestamoListNew = new ArrayList<Prestamo>();
+            for (Prestamo prestamoListNewPrestamoToAttach : prestamoListNew) {
+                prestamoListNewPrestamoToAttach = em.getReference(prestamoListNewPrestamoToAttach.getClass(), prestamoListNewPrestamoToAttach.getIdPrestamo());
+                attachedPrestamoListNew.add(prestamoListNewPrestamoToAttach);
             }
-            depositoListNew = attachedDepositoListNew;
-            cuenta.setDepositoList(depositoListNew);
-            List<Retiro> attachedRetiroListNew = new ArrayList<Retiro>();
-            for (Retiro retiroListNewRetiroToAttach : retiroListNew) {
-                retiroListNewRetiroToAttach = em.getReference(retiroListNewRetiroToAttach.getClass(), retiroListNewRetiroToAttach.getCodigoRetiro());
-                attachedRetiroListNew.add(retiroListNewRetiroToAttach);
-            }
-            retiroListNew = attachedRetiroListNew;
-            cuenta.setRetiroList(retiroListNew);
+            prestamoListNew = attachedPrestamoListNew;
+            cuenta.setPrestamoList(prestamoListNew);
             cuenta = em.merge(cuenta);
-            if (codigoClienteOld != null && !codigoClienteOld.equals(codigoClienteNew)) {
-                codigoClienteOld.getCuentaList().remove(cuenta);
-                codigoClienteOld = em.merge(codigoClienteOld);
+            if (idUsuarioOld != null && !idUsuarioOld.equals(idUsuarioNew)) {
+                idUsuarioOld.getCuentaList().remove(cuenta);
+                idUsuarioOld = em.merge(idUsuarioOld);
             }
-            if (codigoClienteNew != null && !codigoClienteNew.equals(codigoClienteOld)) {
-                codigoClienteNew.getCuentaList().add(cuenta);
-                codigoClienteNew = em.merge(codigoClienteNew);
+            if (idUsuarioNew != null && !idUsuarioNew.equals(idUsuarioOld)) {
+                idUsuarioNew.getCuentaList().add(cuenta);
+                idUsuarioNew = em.merge(idUsuarioNew);
             }
-            if (codigoTipoCuentaOld != null && !codigoTipoCuentaOld.equals(codigoTipoCuentaNew)) {
-                codigoTipoCuentaOld.getCuentaList().remove(cuenta);
-                codigoTipoCuentaOld = em.merge(codigoTipoCuentaOld);
+            if (idTipoCuentaOld != null && !idTipoCuentaOld.equals(idTipoCuentaNew)) {
+                idTipoCuentaOld.getCuentaList().remove(cuenta);
+                idTipoCuentaOld = em.merge(idTipoCuentaOld);
             }
-            if (codigoTipoCuentaNew != null && !codigoTipoCuentaNew.equals(codigoTipoCuentaOld)) {
-                codigoTipoCuentaNew.getCuentaList().add(cuenta);
-                codigoTipoCuentaNew = em.merge(codigoTipoCuentaNew);
+            if (idTipoCuentaNew != null && !idTipoCuentaNew.equals(idTipoCuentaOld)) {
+                idTipoCuentaNew.getCuentaList().add(cuenta);
+                idTipoCuentaNew = em.merge(idTipoCuentaNew);
             }
-            if (codigoEstadoOld != null && !codigoEstadoOld.equals(codigoEstadoNew)) {
-                codigoEstadoOld.getCuentaList().remove(cuenta);
-                codigoEstadoOld = em.merge(codigoEstadoOld);
-            }
-            if (codigoEstadoNew != null && !codigoEstadoNew.equals(codigoEstadoOld)) {
-                codigoEstadoNew.getCuentaList().add(cuenta);
-                codigoEstadoNew = em.merge(codigoEstadoNew);
-            }
-            for (Transferencia transferenciaListNewTransferencia : transferenciaListNew) {
-                if (!transferenciaListOld.contains(transferenciaListNewTransferencia)) {
-                    Cuenta oldCodigoCuentaOrigenOfTransferenciaListNewTransferencia = transferenciaListNewTransferencia.getCodigoCuentaOrigen();
-                    transferenciaListNewTransferencia.setCodigoCuentaOrigen(cuenta);
-                    transferenciaListNewTransferencia = em.merge(transferenciaListNewTransferencia);
-                    if (oldCodigoCuentaOrigenOfTransferenciaListNewTransferencia != null && !oldCodigoCuentaOrigenOfTransferenciaListNewTransferencia.equals(cuenta)) {
-                        oldCodigoCuentaOrigenOfTransferenciaListNewTransferencia.getTransferenciaList().remove(transferenciaListNewTransferencia);
-                        oldCodigoCuentaOrigenOfTransferenciaListNewTransferencia = em.merge(oldCodigoCuentaOrigenOfTransferenciaListNewTransferencia);
+            for (Operacionesotrascuentas operacionesotrascuentasListNewOperacionesotrascuentas : operacionesotrascuentasListNew) {
+                if (!operacionesotrascuentasListOld.contains(operacionesotrascuentasListNewOperacionesotrascuentas)) {
+                    Cuenta oldIdCuentaOrigenOfOperacionesotrascuentasListNewOperacionesotrascuentas = operacionesotrascuentasListNewOperacionesotrascuentas.getIdCuentaOrigen();
+                    operacionesotrascuentasListNewOperacionesotrascuentas.setIdCuentaOrigen(cuenta);
+                    operacionesotrascuentasListNewOperacionesotrascuentas = em.merge(operacionesotrascuentasListNewOperacionesotrascuentas);
+                    if (oldIdCuentaOrigenOfOperacionesotrascuentasListNewOperacionesotrascuentas != null && !oldIdCuentaOrigenOfOperacionesotrascuentasListNewOperacionesotrascuentas.equals(cuenta)) {
+                        oldIdCuentaOrigenOfOperacionesotrascuentasListNewOperacionesotrascuentas.getOperacionesotrascuentasList().remove(operacionesotrascuentasListNewOperacionesotrascuentas);
+                        oldIdCuentaOrigenOfOperacionesotrascuentasListNewOperacionesotrascuentas = em.merge(oldIdCuentaOrigenOfOperacionesotrascuentasListNewOperacionesotrascuentas);
                     }
                 }
             }
-            for (Transferencia transferenciaList1NewTransferencia : transferenciaList1New) {
-                if (!transferenciaList1Old.contains(transferenciaList1NewTransferencia)) {
-                    Cuenta oldCodigoCuentaDestinoOfTransferenciaList1NewTransferencia = transferenciaList1NewTransferencia.getCodigoCuentaDestino();
-                    transferenciaList1NewTransferencia.setCodigoCuentaDestino(cuenta);
-                    transferenciaList1NewTransferencia = em.merge(transferenciaList1NewTransferencia);
-                    if (oldCodigoCuentaDestinoOfTransferenciaList1NewTransferencia != null && !oldCodigoCuentaDestinoOfTransferenciaList1NewTransferencia.equals(cuenta)) {
-                        oldCodigoCuentaDestinoOfTransferenciaList1NewTransferencia.getTransferenciaList1().remove(transferenciaList1NewTransferencia);
-                        oldCodigoCuentaDestinoOfTransferenciaList1NewTransferencia = em.merge(oldCodigoCuentaDestinoOfTransferenciaList1NewTransferencia);
+            for (Operacionesotrascuentas operacionesotrascuentasList1NewOperacionesotrascuentas : operacionesotrascuentasList1New) {
+                if (!operacionesotrascuentasList1Old.contains(operacionesotrascuentasList1NewOperacionesotrascuentas)) {
+                    Cuenta oldIdCuentaDestinoOfOperacionesotrascuentasList1NewOperacionesotrascuentas = operacionesotrascuentasList1NewOperacionesotrascuentas.getIdCuentaDestino();
+                    operacionesotrascuentasList1NewOperacionesotrascuentas.setIdCuentaDestino(cuenta);
+                    operacionesotrascuentasList1NewOperacionesotrascuentas = em.merge(operacionesotrascuentasList1NewOperacionesotrascuentas);
+                    if (oldIdCuentaDestinoOfOperacionesotrascuentasList1NewOperacionesotrascuentas != null && !oldIdCuentaDestinoOfOperacionesotrascuentasList1NewOperacionesotrascuentas.equals(cuenta)) {
+                        oldIdCuentaDestinoOfOperacionesotrascuentasList1NewOperacionesotrascuentas.getOperacionesotrascuentasList1().remove(operacionesotrascuentasList1NewOperacionesotrascuentas);
+                        oldIdCuentaDestinoOfOperacionesotrascuentasList1NewOperacionesotrascuentas = em.merge(oldIdCuentaDestinoOfOperacionesotrascuentasList1NewOperacionesotrascuentas);
                     }
                 }
             }
-            for (Deposito depositoListNewDeposito : depositoListNew) {
-                if (!depositoListOld.contains(depositoListNewDeposito)) {
-                    Cuenta oldCodigoCuentaOfDepositoListNewDeposito = depositoListNewDeposito.getCodigoCuenta();
-                    depositoListNewDeposito.setCodigoCuenta(cuenta);
-                    depositoListNewDeposito = em.merge(depositoListNewDeposito);
-                    if (oldCodigoCuentaOfDepositoListNewDeposito != null && !oldCodigoCuentaOfDepositoListNewDeposito.equals(cuenta)) {
-                        oldCodigoCuentaOfDepositoListNewDeposito.getDepositoList().remove(depositoListNewDeposito);
-                        oldCodigoCuentaOfDepositoListNewDeposito = em.merge(oldCodigoCuentaOfDepositoListNewDeposito);
+            for (Operacionescuentaspropias operacionescuentaspropiasListNewOperacionescuentaspropias : operacionescuentaspropiasListNew) {
+                if (!operacionescuentaspropiasListOld.contains(operacionescuentaspropiasListNewOperacionescuentaspropias)) {
+                    Cuenta oldIdCuentaOfOperacionescuentaspropiasListNewOperacionescuentaspropias = operacionescuentaspropiasListNewOperacionescuentaspropias.getIdCuenta();
+                    operacionescuentaspropiasListNewOperacionescuentaspropias.setIdCuenta(cuenta);
+                    operacionescuentaspropiasListNewOperacionescuentaspropias = em.merge(operacionescuentaspropiasListNewOperacionescuentaspropias);
+                    if (oldIdCuentaOfOperacionescuentaspropiasListNewOperacionescuentaspropias != null && !oldIdCuentaOfOperacionescuentaspropiasListNewOperacionescuentaspropias.equals(cuenta)) {
+                        oldIdCuentaOfOperacionescuentaspropiasListNewOperacionescuentaspropias.getOperacionescuentaspropiasList().remove(operacionescuentaspropiasListNewOperacionescuentaspropias);
+                        oldIdCuentaOfOperacionescuentaspropiasListNewOperacionescuentaspropias = em.merge(oldIdCuentaOfOperacionescuentaspropiasListNewOperacionescuentaspropias);
                     }
                 }
             }
-            for (Retiro retiroListNewRetiro : retiroListNew) {
-                if (!retiroListOld.contains(retiroListNewRetiro)) {
-                    Cuenta oldCodigoCuentaOfRetiroListNewRetiro = retiroListNewRetiro.getCodigoCuenta();
-                    retiroListNewRetiro.setCodigoCuenta(cuenta);
-                    retiroListNewRetiro = em.merge(retiroListNewRetiro);
-                    if (oldCodigoCuentaOfRetiroListNewRetiro != null && !oldCodigoCuentaOfRetiroListNewRetiro.equals(cuenta)) {
-                        oldCodigoCuentaOfRetiroListNewRetiro.getRetiroList().remove(retiroListNewRetiro);
-                        oldCodigoCuentaOfRetiroListNewRetiro = em.merge(oldCodigoCuentaOfRetiroListNewRetiro);
+            for (Prestamo prestamoListNewPrestamo : prestamoListNew) {
+                if (!prestamoListOld.contains(prestamoListNewPrestamo)) {
+                    Cuenta oldIdCuentaOfPrestamoListNewPrestamo = prestamoListNewPrestamo.getIdCuenta();
+                    prestamoListNewPrestamo.setIdCuenta(cuenta);
+                    prestamoListNewPrestamo = em.merge(prestamoListNewPrestamo);
+                    if (oldIdCuentaOfPrestamoListNewPrestamo != null && !oldIdCuentaOfPrestamoListNewPrestamo.equals(cuenta)) {
+                        oldIdCuentaOfPrestamoListNewPrestamo.getPrestamoList().remove(prestamoListNewPrestamo);
+                        oldIdCuentaOfPrestamoListNewPrestamo = em.merge(oldIdCuentaOfPrestamoListNewPrestamo);
                     }
                 }
             }
@@ -326,7 +292,7 @@ public class CuentaJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = cuenta.getCodigoCuenta();
+                Integer id = cuenta.getIdCuenta();
                 if (findCuenta(id) == null) {
                     throw new NonexistentEntityException("The cuenta with id " + id + " no longer exists.");
                 }
@@ -347,56 +313,51 @@ public class CuentaJpaController implements Serializable {
             Cuenta cuenta;
             try {
                 cuenta = em.getReference(Cuenta.class, id);
-                cuenta.getCodigoCuenta();
+                cuenta.getIdCuenta();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The cuenta with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Transferencia> transferenciaListOrphanCheck = cuenta.getTransferenciaList();
-            for (Transferencia transferenciaListOrphanCheckTransferencia : transferenciaListOrphanCheck) {
+            List<Operacionesotrascuentas> operacionesotrascuentasListOrphanCheck = cuenta.getOperacionesotrascuentasList();
+            for (Operacionesotrascuentas operacionesotrascuentasListOrphanCheckOperacionesotrascuentas : operacionesotrascuentasListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Transferencia " + transferenciaListOrphanCheckTransferencia + " in its transferenciaList field has a non-nullable codigoCuentaOrigen field.");
+                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Operacionesotrascuentas " + operacionesotrascuentasListOrphanCheckOperacionesotrascuentas + " in its operacionesotrascuentasList field has a non-nullable idCuentaOrigen field.");
             }
-            List<Transferencia> transferenciaList1OrphanCheck = cuenta.getTransferenciaList1();
-            for (Transferencia transferenciaList1OrphanCheckTransferencia : transferenciaList1OrphanCheck) {
+            List<Operacionesotrascuentas> operacionesotrascuentasList1OrphanCheck = cuenta.getOperacionesotrascuentasList1();
+            for (Operacionesotrascuentas operacionesotrascuentasList1OrphanCheckOperacionesotrascuentas : operacionesotrascuentasList1OrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Transferencia " + transferenciaList1OrphanCheckTransferencia + " in its transferenciaList1 field has a non-nullable codigoCuentaDestino field.");
+                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Operacionesotrascuentas " + operacionesotrascuentasList1OrphanCheckOperacionesotrascuentas + " in its operacionesotrascuentasList1 field has a non-nullable idCuentaDestino field.");
             }
-            List<Deposito> depositoListOrphanCheck = cuenta.getDepositoList();
-            for (Deposito depositoListOrphanCheckDeposito : depositoListOrphanCheck) {
+            List<Operacionescuentaspropias> operacionescuentaspropiasListOrphanCheck = cuenta.getOperacionescuentaspropiasList();
+            for (Operacionescuentaspropias operacionescuentaspropiasListOrphanCheckOperacionescuentaspropias : operacionescuentaspropiasListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Deposito " + depositoListOrphanCheckDeposito + " in its depositoList field has a non-nullable codigoCuenta field.");
+                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Operacionescuentaspropias " + operacionescuentaspropiasListOrphanCheckOperacionescuentaspropias + " in its operacionescuentaspropiasList field has a non-nullable idCuenta field.");
             }
-            List<Retiro> retiroListOrphanCheck = cuenta.getRetiroList();
-            for (Retiro retiroListOrphanCheckRetiro : retiroListOrphanCheck) {
+            List<Prestamo> prestamoListOrphanCheck = cuenta.getPrestamoList();
+            for (Prestamo prestamoListOrphanCheckPrestamo : prestamoListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Retiro " + retiroListOrphanCheckRetiro + " in its retiroList field has a non-nullable codigoCuenta field.");
+                illegalOrphanMessages.add("This Cuenta (" + cuenta + ") cannot be destroyed since the Prestamo " + prestamoListOrphanCheckPrestamo + " in its prestamoList field has a non-nullable idCuenta field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Cliente codigoCliente = cuenta.getCodigoCliente();
-            if (codigoCliente != null) {
-                codigoCliente.getCuentaList().remove(cuenta);
-                codigoCliente = em.merge(codigoCliente);
+            Usuario idUsuario = cuenta.getIdUsuario();
+            if (idUsuario != null) {
+                idUsuario.getCuentaList().remove(cuenta);
+                idUsuario = em.merge(idUsuario);
             }
-            Tipocuenta codigoTipoCuenta = cuenta.getCodigoTipoCuenta();
-            if (codigoTipoCuenta != null) {
-                codigoTipoCuenta.getCuentaList().remove(cuenta);
-                codigoTipoCuenta = em.merge(codigoTipoCuenta);
-            }
-            Estado codigoEstado = cuenta.getCodigoEstado();
-            if (codigoEstado != null) {
-                codigoEstado.getCuentaList().remove(cuenta);
-                codigoEstado = em.merge(codigoEstado);
+            Tipocuenta idTipoCuenta = cuenta.getIdTipoCuenta();
+            if (idTipoCuenta != null) {
+                idTipoCuenta.getCuentaList().remove(cuenta);
+                idTipoCuenta = em.merge(idTipoCuenta);
             }
             em.remove(cuenta);
             em.getTransaction().commit();
@@ -452,152 +413,5 @@ public class CuentaJpaController implements Serializable {
             em.close();
         }
     }
-
-    public List<Object[]> listarCuentas() {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Cuenta.listar");
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<Object[]> listarCuentasPorCodigo(int codigocuentas) {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Cuenta.listarporcodigo");
-            q.setParameter("codigoCuenta", codigocuentas);
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public boolean insertarCuentas(Cuenta cuentas) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(cuentas);
-            em.getTransaction().commit();
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-    }
-
-    public boolean editarCuenta(int codigocuenta, Cuenta cuentaActualizado) {
-        EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        try {
-            transaction.begin();
-
-            Cuenta cuentaExistente = em.find(Cuenta.class, codigocuenta);
-            if (cuentaExistente != null) {
-                cuentaExistente.setCodigoCliente(cuentaActualizado.getCodigoCliente());
-                cuentaExistente.setNumeCuenta(cuentaActualizado.getNumeCuenta());
-                cuentaExistente.setCodigoTipoCuenta(cuentaActualizado.getCodigoTipoCuenta());
-                cuentaExistente.setSaldoCuenta(cuentaActualizado.getSaldoCuenta());
-                cuentaExistente.setCodigoEstado(cuentaActualizado.getCodigoEstado());
-                em.merge(cuentaExistente);
-
-                transaction.commit();
-                return true;
-            } else {
-
-                transaction.rollback();
-                return false;
-            }
-        } catch (Exception ex) {
-            System.out.println("error" + ex);
-
-            return false;
-        } finally {
-            em.close();
-        }
-
-    }
-
-    public boolean eliminarLogico(int codigocuenta, Estado estadoCuenta) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            Cuenta cuenta = em.find(Cuenta.class, codigocuenta);
-
-            if (cuenta != null) {
-
-                cuenta.setCodigoEstado(estadoCuenta);
-                em.merge(cuenta);
-                em.getTransaction().commit();
-                return true;
-            } else {
-
-                return false;
-            }
-        } catch (Exception ex) {
-
-            return false;
-        } finally {
-            em.close();
-        }
-    }
-
-    public Cuenta obtenerCodigoCuenta(String numeroCuenta) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createNamedQuery("Cuenta.findByNumeCuenta");
-            query.setParameter("numeCuenta", numeroCuenta);
-
-            Cuenta c = (Cuenta) query.getSingleResult();
-            return c;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public boolean retirarDinero(String numeroCuenta, double monto) {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Cuenta.findByNumeCuenta");
-            q.setParameter("numeCuenta", numeroCuenta);
-            Cuenta c = (Cuenta) q.getSingleResult();
-
-            if (c != null) {
-                em.getTransaction().begin();
-                double descontarSaldo = c.getSaldoCuenta();
-                if (descontarSaldo >= monto) {
-                    descontarSaldo = c.getSaldoCuenta() - monto;
-                } else {
-                    return false;
-                }
-                c.setSaldoCuenta(descontarSaldo);
-                em.getTransaction().commit();
-            }
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
-    }
-
-    public boolean ingresarDinero(String numeroCuenta, double monto) {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Cuenta.findByNumeCuenta");
-            q.setParameter("numeCuenta", numeroCuenta);
-            Cuenta c = (Cuenta) q.getSingleResult();
-
-            if (c != null) {
-                em.getTransaction().begin();
-                double aumentarSaldo = c.getSaldoCuenta() + monto;
-                c.setSaldoCuenta(aumentarSaldo);
-                em.getTransaction().commit();
-            }
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
-    }
+    
 }

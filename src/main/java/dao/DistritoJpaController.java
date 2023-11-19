@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import dao.exceptions.IllegalOrphanException;
@@ -11,13 +7,12 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import dto.Cliente;
+import dto.Datospersonales;
 import dto.Distrito;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -25,40 +20,37 @@ import javax.persistence.Persistence;
  */
 public class DistritoJpaController implements Serializable {
 
-    public DistritoJpaController() {
-    }
-
     public DistritoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
     public void create(Distrito distrito) {
-        if (distrito.getClienteList() == null) {
-            distrito.setClienteList(new ArrayList<Cliente>());
+        if (distrito.getDatospersonalesList() == null) {
+            distrito.setDatospersonalesList(new ArrayList<Datospersonales>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Cliente> attachedClienteList = new ArrayList<Cliente>();
-            for (Cliente clienteListClienteToAttach : distrito.getClienteList()) {
-                clienteListClienteToAttach = em.getReference(clienteListClienteToAttach.getClass(), clienteListClienteToAttach.getCodigoCliente());
-                attachedClienteList.add(clienteListClienteToAttach);
+            List<Datospersonales> attachedDatospersonalesList = new ArrayList<Datospersonales>();
+            for (Datospersonales datospersonalesListDatospersonalesToAttach : distrito.getDatospersonalesList()) {
+                datospersonalesListDatospersonalesToAttach = em.getReference(datospersonalesListDatospersonalesToAttach.getClass(), datospersonalesListDatospersonalesToAttach.getIdPersona());
+                attachedDatospersonalesList.add(datospersonalesListDatospersonalesToAttach);
             }
-            distrito.setClienteList(attachedClienteList);
+            distrito.setDatospersonalesList(attachedDatospersonalesList);
             em.persist(distrito);
-            for (Cliente clienteListCliente : distrito.getClienteList()) {
-                Distrito oldCodigoDistritoOfClienteListCliente = clienteListCliente.getCodigoDistrito();
-                clienteListCliente.setCodigoDistrito(distrito);
-                clienteListCliente = em.merge(clienteListCliente);
-                if (oldCodigoDistritoOfClienteListCliente != null) {
-                    oldCodigoDistritoOfClienteListCliente.getClienteList().remove(clienteListCliente);
-                    oldCodigoDistritoOfClienteListCliente = em.merge(oldCodigoDistritoOfClienteListCliente);
+            for (Datospersonales datospersonalesListDatospersonales : distrito.getDatospersonalesList()) {
+                Distrito oldIdDistritoOfDatospersonalesListDatospersonales = datospersonalesListDatospersonales.getIdDistrito();
+                datospersonalesListDatospersonales.setIdDistrito(distrito);
+                datospersonalesListDatospersonales = em.merge(datospersonalesListDatospersonales);
+                if (oldIdDistritoOfDatospersonalesListDatospersonales != null) {
+                    oldIdDistritoOfDatospersonalesListDatospersonales.getDatospersonalesList().remove(datospersonalesListDatospersonales);
+                    oldIdDistritoOfDatospersonalesListDatospersonales = em.merge(oldIdDistritoOfDatospersonalesListDatospersonales);
                 }
             }
             em.getTransaction().commit();
@@ -74,37 +66,37 @@ public class DistritoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Distrito persistentDistrito = em.find(Distrito.class, distrito.getCodigoDistrito());
-            List<Cliente> clienteListOld = persistentDistrito.getClienteList();
-            List<Cliente> clienteListNew = distrito.getClienteList();
+            Distrito persistentDistrito = em.find(Distrito.class, distrito.getIdDistrito());
+            List<Datospersonales> datospersonalesListOld = persistentDistrito.getDatospersonalesList();
+            List<Datospersonales> datospersonalesListNew = distrito.getDatospersonalesList();
             List<String> illegalOrphanMessages = null;
-            for (Cliente clienteListOldCliente : clienteListOld) {
-                if (!clienteListNew.contains(clienteListOldCliente)) {
+            for (Datospersonales datospersonalesListOldDatospersonales : datospersonalesListOld) {
+                if (!datospersonalesListNew.contains(datospersonalesListOldDatospersonales)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Cliente " + clienteListOldCliente + " since its codigoDistrito field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Datospersonales " + datospersonalesListOldDatospersonales + " since its idDistrito field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<Cliente> attachedClienteListNew = new ArrayList<Cliente>();
-            for (Cliente clienteListNewClienteToAttach : clienteListNew) {
-                clienteListNewClienteToAttach = em.getReference(clienteListNewClienteToAttach.getClass(), clienteListNewClienteToAttach.getCodigoCliente());
-                attachedClienteListNew.add(clienteListNewClienteToAttach);
+            List<Datospersonales> attachedDatospersonalesListNew = new ArrayList<Datospersonales>();
+            for (Datospersonales datospersonalesListNewDatospersonalesToAttach : datospersonalesListNew) {
+                datospersonalesListNewDatospersonalesToAttach = em.getReference(datospersonalesListNewDatospersonalesToAttach.getClass(), datospersonalesListNewDatospersonalesToAttach.getIdPersona());
+                attachedDatospersonalesListNew.add(datospersonalesListNewDatospersonalesToAttach);
             }
-            clienteListNew = attachedClienteListNew;
-            distrito.setClienteList(clienteListNew);
+            datospersonalesListNew = attachedDatospersonalesListNew;
+            distrito.setDatospersonalesList(datospersonalesListNew);
             distrito = em.merge(distrito);
-            for (Cliente clienteListNewCliente : clienteListNew) {
-                if (!clienteListOld.contains(clienteListNewCliente)) {
-                    Distrito oldCodigoDistritoOfClienteListNewCliente = clienteListNewCliente.getCodigoDistrito();
-                    clienteListNewCliente.setCodigoDistrito(distrito);
-                    clienteListNewCliente = em.merge(clienteListNewCliente);
-                    if (oldCodigoDistritoOfClienteListNewCliente != null && !oldCodigoDistritoOfClienteListNewCliente.equals(distrito)) {
-                        oldCodigoDistritoOfClienteListNewCliente.getClienteList().remove(clienteListNewCliente);
-                        oldCodigoDistritoOfClienteListNewCliente = em.merge(oldCodigoDistritoOfClienteListNewCliente);
+            for (Datospersonales datospersonalesListNewDatospersonales : datospersonalesListNew) {
+                if (!datospersonalesListOld.contains(datospersonalesListNewDatospersonales)) {
+                    Distrito oldIdDistritoOfDatospersonalesListNewDatospersonales = datospersonalesListNewDatospersonales.getIdDistrito();
+                    datospersonalesListNewDatospersonales.setIdDistrito(distrito);
+                    datospersonalesListNewDatospersonales = em.merge(datospersonalesListNewDatospersonales);
+                    if (oldIdDistritoOfDatospersonalesListNewDatospersonales != null && !oldIdDistritoOfDatospersonalesListNewDatospersonales.equals(distrito)) {
+                        oldIdDistritoOfDatospersonalesListNewDatospersonales.getDatospersonalesList().remove(datospersonalesListNewDatospersonales);
+                        oldIdDistritoOfDatospersonalesListNewDatospersonales = em.merge(oldIdDistritoOfDatospersonalesListNewDatospersonales);
                     }
                 }
             }
@@ -112,7 +104,7 @@ public class DistritoJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = distrito.getCodigoDistrito();
+                Integer id = distrito.getIdDistrito();
                 if (findDistrito(id) == null) {
                     throw new NonexistentEntityException("The distrito with id " + id + " no longer exists.");
                 }
@@ -133,17 +125,17 @@ public class DistritoJpaController implements Serializable {
             Distrito distrito;
             try {
                 distrito = em.getReference(Distrito.class, id);
-                distrito.getCodigoDistrito();
+                distrito.getIdDistrito();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The distrito with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Cliente> clienteListOrphanCheck = distrito.getClienteList();
-            for (Cliente clienteListOrphanCheckCliente : clienteListOrphanCheck) {
+            List<Datospersonales> datospersonalesListOrphanCheck = distrito.getDatospersonalesList();
+            for (Datospersonales datospersonalesListOrphanCheckDatospersonales : datospersonalesListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Distrito (" + distrito + ") cannot be destroyed since the Cliente " + clienteListOrphanCheckCliente + " in its clienteList field has a non-nullable codigoDistrito field.");
+                illegalOrphanMessages.add("This Distrito (" + distrito + ") cannot be destroyed since the Datospersonales " + datospersonalesListOrphanCheckDatospersonales + " in its datospersonalesList field has a non-nullable idDistrito field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -202,33 +194,5 @@ public class DistritoJpaController implements Serializable {
             em.close();
         }
     }
-
-    public List<Distrito> listarDistrito() {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Distrito.findAll");
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Distrito obtenerCodigoDistrito(String nombreDistrito) {
-        EntityManager em = getEntityManager();
-        try {
-
-            Query query = em.createNamedQuery("Distrito.findByNombreDistrito");
-            query.setParameter("nombreDistrito", nombreDistrito);
-
-            List<Distrito> results = query.getResultList();
-
-            if (!results.isEmpty()) {
-                return results.get(0);
-            } else {
-                return null;
-            }
-        } finally {
-            em.close();
-        }
-    }
+    
 }

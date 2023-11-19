@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import dao.exceptions.NonexistentEntityException;
@@ -10,12 +6,14 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import dto.Cliente;
+import dto.Tipoprestamo;
+import dto.Cuenta;
+import dto.Tipocomprobante;
+import dto.Detalleprestamo;
 import dto.Prestamo;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -23,13 +21,10 @@ import javax.persistence.Persistence;
  */
 public class PrestamoJpaController implements Serializable {
 
-    public PrestamoJpaController() {
-    }
-
     public PrestamoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -40,15 +35,42 @@ public class PrestamoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cliente codigoCliente = prestamo.getCodigoCliente();
-            if (codigoCliente != null) {
-                codigoCliente = em.getReference(codigoCliente.getClass(), codigoCliente.getCodigoCliente());
-                prestamo.setCodigoCliente(codigoCliente);
+            Tipoprestamo idTipoPrestamo = prestamo.getIdTipoPrestamo();
+            if (idTipoPrestamo != null) {
+                idTipoPrestamo = em.getReference(idTipoPrestamo.getClass(), idTipoPrestamo.getIdTipoPrestamo());
+                prestamo.setIdTipoPrestamo(idTipoPrestamo);
+            }
+            Cuenta idCuenta = prestamo.getIdCuenta();
+            if (idCuenta != null) {
+                idCuenta = em.getReference(idCuenta.getClass(), idCuenta.getIdCuenta());
+                prestamo.setIdCuenta(idCuenta);
+            }
+            Tipocomprobante idTipoComprobante = prestamo.getIdTipoComprobante();
+            if (idTipoComprobante != null) {
+                idTipoComprobante = em.getReference(idTipoComprobante.getClass(), idTipoComprobante.getIdTipoComprobante());
+                prestamo.setIdTipoComprobante(idTipoComprobante);
+            }
+            Detalleprestamo idDetallePrestamo = prestamo.getIdDetallePrestamo();
+            if (idDetallePrestamo != null) {
+                idDetallePrestamo = em.getReference(idDetallePrestamo.getClass(), idDetallePrestamo.getIdDetallePrestamo());
+                prestamo.setIdDetallePrestamo(idDetallePrestamo);
             }
             em.persist(prestamo);
-            if (codigoCliente != null) {
-                codigoCliente.getPrestamoList().add(prestamo);
-                codigoCliente = em.merge(codigoCliente);
+            if (idTipoPrestamo != null) {
+                idTipoPrestamo.getPrestamoList().add(prestamo);
+                idTipoPrestamo = em.merge(idTipoPrestamo);
+            }
+            if (idCuenta != null) {
+                idCuenta.getPrestamoList().add(prestamo);
+                idCuenta = em.merge(idCuenta);
+            }
+            if (idTipoComprobante != null) {
+                idTipoComprobante.getPrestamoList().add(prestamo);
+                idTipoComprobante = em.merge(idTipoComprobante);
+            }
+            if (idDetallePrestamo != null) {
+                idDetallePrestamo.getPrestamoList().add(prestamo);
+                idDetallePrestamo = em.merge(idDetallePrestamo);
             }
             em.getTransaction().commit();
         } finally {
@@ -63,27 +85,69 @@ public class PrestamoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Prestamo persistentPrestamo = em.find(Prestamo.class, prestamo.getCodigoPrestamo());
-            Cliente codigoClienteOld = persistentPrestamo.getCodigoCliente();
-            Cliente codigoClienteNew = prestamo.getCodigoCliente();
-            if (codigoClienteNew != null) {
-                codigoClienteNew = em.getReference(codigoClienteNew.getClass(), codigoClienteNew.getCodigoCliente());
-                prestamo.setCodigoCliente(codigoClienteNew);
+            Prestamo persistentPrestamo = em.find(Prestamo.class, prestamo.getIdPrestamo());
+            Tipoprestamo idTipoPrestamoOld = persistentPrestamo.getIdTipoPrestamo();
+            Tipoprestamo idTipoPrestamoNew = prestamo.getIdTipoPrestamo();
+            Cuenta idCuentaOld = persistentPrestamo.getIdCuenta();
+            Cuenta idCuentaNew = prestamo.getIdCuenta();
+            Tipocomprobante idTipoComprobanteOld = persistentPrestamo.getIdTipoComprobante();
+            Tipocomprobante idTipoComprobanteNew = prestamo.getIdTipoComprobante();
+            Detalleprestamo idDetallePrestamoOld = persistentPrestamo.getIdDetallePrestamo();
+            Detalleprestamo idDetallePrestamoNew = prestamo.getIdDetallePrestamo();
+            if (idTipoPrestamoNew != null) {
+                idTipoPrestamoNew = em.getReference(idTipoPrestamoNew.getClass(), idTipoPrestamoNew.getIdTipoPrestamo());
+                prestamo.setIdTipoPrestamo(idTipoPrestamoNew);
+            }
+            if (idCuentaNew != null) {
+                idCuentaNew = em.getReference(idCuentaNew.getClass(), idCuentaNew.getIdCuenta());
+                prestamo.setIdCuenta(idCuentaNew);
+            }
+            if (idTipoComprobanteNew != null) {
+                idTipoComprobanteNew = em.getReference(idTipoComprobanteNew.getClass(), idTipoComprobanteNew.getIdTipoComprobante());
+                prestamo.setIdTipoComprobante(idTipoComprobanteNew);
+            }
+            if (idDetallePrestamoNew != null) {
+                idDetallePrestamoNew = em.getReference(idDetallePrestamoNew.getClass(), idDetallePrestamoNew.getIdDetallePrestamo());
+                prestamo.setIdDetallePrestamo(idDetallePrestamoNew);
             }
             prestamo = em.merge(prestamo);
-            if (codigoClienteOld != null && !codigoClienteOld.equals(codigoClienteNew)) {
-                codigoClienteOld.getPrestamoList().remove(prestamo);
-                codigoClienteOld = em.merge(codigoClienteOld);
+            if (idTipoPrestamoOld != null && !idTipoPrestamoOld.equals(idTipoPrestamoNew)) {
+                idTipoPrestamoOld.getPrestamoList().remove(prestamo);
+                idTipoPrestamoOld = em.merge(idTipoPrestamoOld);
             }
-            if (codigoClienteNew != null && !codigoClienteNew.equals(codigoClienteOld)) {
-                codigoClienteNew.getPrestamoList().add(prestamo);
-                codigoClienteNew = em.merge(codigoClienteNew);
+            if (idTipoPrestamoNew != null && !idTipoPrestamoNew.equals(idTipoPrestamoOld)) {
+                idTipoPrestamoNew.getPrestamoList().add(prestamo);
+                idTipoPrestamoNew = em.merge(idTipoPrestamoNew);
+            }
+            if (idCuentaOld != null && !idCuentaOld.equals(idCuentaNew)) {
+                idCuentaOld.getPrestamoList().remove(prestamo);
+                idCuentaOld = em.merge(idCuentaOld);
+            }
+            if (idCuentaNew != null && !idCuentaNew.equals(idCuentaOld)) {
+                idCuentaNew.getPrestamoList().add(prestamo);
+                idCuentaNew = em.merge(idCuentaNew);
+            }
+            if (idTipoComprobanteOld != null && !idTipoComprobanteOld.equals(idTipoComprobanteNew)) {
+                idTipoComprobanteOld.getPrestamoList().remove(prestamo);
+                idTipoComprobanteOld = em.merge(idTipoComprobanteOld);
+            }
+            if (idTipoComprobanteNew != null && !idTipoComprobanteNew.equals(idTipoComprobanteOld)) {
+                idTipoComprobanteNew.getPrestamoList().add(prestamo);
+                idTipoComprobanteNew = em.merge(idTipoComprobanteNew);
+            }
+            if (idDetallePrestamoOld != null && !idDetallePrestamoOld.equals(idDetallePrestamoNew)) {
+                idDetallePrestamoOld.getPrestamoList().remove(prestamo);
+                idDetallePrestamoOld = em.merge(idDetallePrestamoOld);
+            }
+            if (idDetallePrestamoNew != null && !idDetallePrestamoNew.equals(idDetallePrestamoOld)) {
+                idDetallePrestamoNew.getPrestamoList().add(prestamo);
+                idDetallePrestamoNew = em.merge(idDetallePrestamoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = prestamo.getCodigoPrestamo();
+                Integer id = prestamo.getIdPrestamo();
                 if (findPrestamo(id) == null) {
                     throw new NonexistentEntityException("The prestamo with id " + id + " no longer exists.");
                 }
@@ -104,14 +168,29 @@ public class PrestamoJpaController implements Serializable {
             Prestamo prestamo;
             try {
                 prestamo = em.getReference(Prestamo.class, id);
-                prestamo.getCodigoPrestamo();
+                prestamo.getIdPrestamo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The prestamo with id " + id + " no longer exists.", enfe);
             }
-            Cliente codigoCliente = prestamo.getCodigoCliente();
-            if (codigoCliente != null) {
-                codigoCliente.getPrestamoList().remove(prestamo);
-                codigoCliente = em.merge(codigoCliente);
+            Tipoprestamo idTipoPrestamo = prestamo.getIdTipoPrestamo();
+            if (idTipoPrestamo != null) {
+                idTipoPrestamo.getPrestamoList().remove(prestamo);
+                idTipoPrestamo = em.merge(idTipoPrestamo);
+            }
+            Cuenta idCuenta = prestamo.getIdCuenta();
+            if (idCuenta != null) {
+                idCuenta.getPrestamoList().remove(prestamo);
+                idCuenta = em.merge(idCuenta);
+            }
+            Tipocomprobante idTipoComprobante = prestamo.getIdTipoComprobante();
+            if (idTipoComprobante != null) {
+                idTipoComprobante.getPrestamoList().remove(prestamo);
+                idTipoComprobante = em.merge(idTipoComprobante);
+            }
+            Detalleprestamo idDetallePrestamo = prestamo.getIdDetallePrestamo();
+            if (idDetallePrestamo != null) {
+                idDetallePrestamo.getPrestamoList().remove(prestamo);
+                idDetallePrestamo = em.merge(idDetallePrestamo);
             }
             em.remove(prestamo);
             em.getTransaction().commit();
@@ -167,16 +246,5 @@ public class PrestamoJpaController implements Serializable {
             em.close();
         }
     }
-
-    public boolean registrarPrestamos(Prestamo registrarPrest) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(registrarPrest);
-            em.getTransaction().commit();
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-    }
+    
 }
