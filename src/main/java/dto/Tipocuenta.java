@@ -31,50 +31,50 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tipocuenta.findAll", query = "SELECT t FROM Tipocuenta t"),
-    @NamedQuery(name = "Tipocuenta.findByCodigoTipoCuenta", query = "SELECT t FROM Tipocuenta t WHERE t.codigoTipoCuenta = :codigoTipoCuenta"),
-    @NamedQuery(name = "Tipocuenta.findByNombTipoCuenta", query = "SELECT t FROM Tipocuenta t WHERE t.nombTipoCuenta = :nombTipoCuenta")})
+    @NamedQuery(name = "Tipocuenta.findByIdTipoCuenta", query = "SELECT t FROM Tipocuenta t WHERE t.idTipoCuenta = :idTipoCuenta"),
+    @NamedQuery(name = "Tipocuenta.findByDenoTipoCuenta", query = "SELECT t FROM Tipocuenta t WHERE t.denoTipoCuenta = :denoTipoCuenta")})
 public class Tipocuenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "codigoTipoCuenta")
-    private Integer codigoTipoCuenta;
+    @Column(name = "IdTipoCuenta")
+    private Integer idTipoCuenta;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombTipoCuenta")
-    private String nombTipoCuenta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTipoCuenta")
+    @Size(min = 1, max = 50)
+    @Column(name = "DenoTipoCuenta")
+    private String denoTipoCuenta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoCuenta")
     private List<Cuenta> cuentaList;
 
     public Tipocuenta() {
     }
 
-    public Tipocuenta(Integer codigoTipoCuenta) {
-        this.codigoTipoCuenta = codigoTipoCuenta;
+    public Tipocuenta(Integer idTipoCuenta) {
+        this.idTipoCuenta = idTipoCuenta;
     }
 
-    public Tipocuenta(Integer codigoTipoCuenta, String nombTipoCuenta) {
-        this.codigoTipoCuenta = codigoTipoCuenta;
-        this.nombTipoCuenta = nombTipoCuenta;
+    public Tipocuenta(Integer idTipoCuenta, String denoTipoCuenta) {
+        this.idTipoCuenta = idTipoCuenta;
+        this.denoTipoCuenta = denoTipoCuenta;
     }
 
-    public Integer getCodigoTipoCuenta() {
-        return codigoTipoCuenta;
+    public Integer getIdTipoCuenta() {
+        return idTipoCuenta;
     }
 
-    public void setCodigoTipoCuenta(Integer codigoTipoCuenta) {
-        this.codigoTipoCuenta = codigoTipoCuenta;
+    public void setIdTipoCuenta(Integer idTipoCuenta) {
+        this.idTipoCuenta = idTipoCuenta;
     }
 
-    public String getNombTipoCuenta() {
-        return nombTipoCuenta;
+    public String getDenoTipoCuenta() {
+        return denoTipoCuenta;
     }
 
-    public void setNombTipoCuenta(String nombTipoCuenta) {
-        this.nombTipoCuenta = nombTipoCuenta;
+    public void setDenoTipoCuenta(String denoTipoCuenta) {
+        this.denoTipoCuenta = denoTipoCuenta;
     }
 
     @XmlTransient
@@ -89,7 +89,7 @@ public class Tipocuenta implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoTipoCuenta != null ? codigoTipoCuenta.hashCode() : 0);
+        hash += (idTipoCuenta != null ? idTipoCuenta.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +100,7 @@ public class Tipocuenta implements Serializable {
             return false;
         }
         Tipocuenta other = (Tipocuenta) object;
-        if ((this.codigoTipoCuenta == null && other.codigoTipoCuenta != null) || (this.codigoTipoCuenta != null && !this.codigoTipoCuenta.equals(other.codigoTipoCuenta))) {
+        if ((this.idTipoCuenta == null && other.idTipoCuenta != null) || (this.idTipoCuenta != null && !this.idTipoCuenta.equals(other.idTipoCuenta))) {
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ public class Tipocuenta implements Serializable {
 
     @Override
     public String toString() {
-        return "dto.Tipocuenta[ codigoTipoCuenta=" + codigoTipoCuenta + " ]";
+        return "dto.Tipocuenta[ idTipoCuenta=" + idTipoCuenta + " ]";
     }
     
 }

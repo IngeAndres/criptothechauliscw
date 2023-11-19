@@ -31,65 +31,95 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Distrito.findAll", query = "SELECT d FROM Distrito d"),
-    @NamedQuery(name = "Distrito.findByCodigoDistrito", query = "SELECT d FROM Distrito d WHERE d.codigoDistrito = :codigoDistrito"),
-    @NamedQuery(name = "Distrito.findByNombreDistrito", query = "SELECT d FROM Distrito d WHERE d.nombreDistrito = :nombreDistrito")})
+    @NamedQuery(name = "Distrito.findByIdDistrito", query = "SELECT d FROM Distrito d WHERE d.idDistrito = :idDistrito"),
+    @NamedQuery(name = "Distrito.findByDenoDistrito", query = "SELECT d FROM Distrito d WHERE d.denoDistrito = :denoDistrito"),
+    @NamedQuery(name = "Distrito.findByProvDistrito", query = "SELECT d FROM Distrito d WHERE d.provDistrito = :provDistrito"),
+    @NamedQuery(name = "Distrito.findByDepaDistrito", query = "SELECT d FROM Distrito d WHERE d.depaDistrito = :depaDistrito")})
 public class Distrito implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "codigoDistrito")
-    private Integer codigoDistrito;
+    @Column(name = "IdDistrito")
+    private Integer idDistrito;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombreDistrito")
-    private String nombreDistrito;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoDistrito")
-    private List<Cliente> clienteList;
+    @Size(min = 1, max = 50)
+    @Column(name = "DenoDistrito")
+    private String denoDistrito;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "ProvDistrito")
+    private String provDistrito;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "DepaDistrito")
+    private String depaDistrito;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDistrito")
+    private List<Datospersonales> datospersonalesList;
 
     public Distrito() {
     }
 
-    public Distrito(Integer codigoDistrito) {
-        this.codigoDistrito = codigoDistrito;
+    public Distrito(Integer idDistrito) {
+        this.idDistrito = idDistrito;
     }
 
-    public Distrito(Integer codigoDistrito, String nombreDistrito) {
-        this.codigoDistrito = codigoDistrito;
-        this.nombreDistrito = nombreDistrito;
+    public Distrito(Integer idDistrito, String denoDistrito, String provDistrito, String depaDistrito) {
+        this.idDistrito = idDistrito;
+        this.denoDistrito = denoDistrito;
+        this.provDistrito = provDistrito;
+        this.depaDistrito = depaDistrito;
     }
 
-    public Integer getCodigoDistrito() {
-        return codigoDistrito;
+    public Integer getIdDistrito() {
+        return idDistrito;
     }
 
-    public void setCodigoDistrito(Integer codigoDistrito) {
-        this.codigoDistrito = codigoDistrito;
+    public void setIdDistrito(Integer idDistrito) {
+        this.idDistrito = idDistrito;
     }
 
-    public String getNombreDistrito() {
-        return nombreDistrito;
+    public String getDenoDistrito() {
+        return denoDistrito;
     }
 
-    public void setNombreDistrito(String nombreDistrito) {
-        this.nombreDistrito = nombreDistrito;
+    public void setDenoDistrito(String denoDistrito) {
+        this.denoDistrito = denoDistrito;
+    }
+
+    public String getProvDistrito() {
+        return provDistrito;
+    }
+
+    public void setProvDistrito(String provDistrito) {
+        this.provDistrito = provDistrito;
+    }
+
+    public String getDepaDistrito() {
+        return depaDistrito;
+    }
+
+    public void setDepaDistrito(String depaDistrito) {
+        this.depaDistrito = depaDistrito;
     }
 
     @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
+    public List<Datospersonales> getDatospersonalesList() {
+        return datospersonalesList;
     }
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
+    public void setDatospersonalesList(List<Datospersonales> datospersonalesList) {
+        this.datospersonalesList = datospersonalesList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoDistrito != null ? codigoDistrito.hashCode() : 0);
+        hash += (idDistrito != null ? idDistrito.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +130,7 @@ public class Distrito implements Serializable {
             return false;
         }
         Distrito other = (Distrito) object;
-        if ((this.codigoDistrito == null && other.codigoDistrito != null) || (this.codigoDistrito != null && !this.codigoDistrito.equals(other.codigoDistrito))) {
+        if ((this.idDistrito == null && other.idDistrito != null) || (this.idDistrito != null && !this.idDistrito.equals(other.idDistrito))) {
             return false;
         }
         return true;
@@ -108,7 +138,7 @@ public class Distrito implements Serializable {
 
     @Override
     public String toString() {
-        return "dto.Distrito[ codigoDistrito=" + codigoDistrito + " ]";
+        return "dto.Distrito[ idDistrito=" + idDistrito + " ]";
     }
     
 }

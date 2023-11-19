@@ -31,65 +31,65 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tipodocumento.findAll", query = "SELECT t FROM Tipodocumento t"),
-    @NamedQuery(name = "Tipodocumento.findByCodigoTipoDocumento", query = "SELECT t FROM Tipodocumento t WHERE t.codigoTipoDocumento = :codigoTipoDocumento"),
-    @NamedQuery(name = "Tipodocumento.findByNombTipoDocumento", query = "SELECT t FROM Tipodocumento t WHERE t.nombTipoDocumento = :nombTipoDocumento")})
+    @NamedQuery(name = "Tipodocumento.findByIdTipoDocumento", query = "SELECT t FROM Tipodocumento t WHERE t.idTipoDocumento = :idTipoDocumento"),
+    @NamedQuery(name = "Tipodocumento.findByDenoTipoDocumento", query = "SELECT t FROM Tipodocumento t WHERE t.denoTipoDocumento = :denoTipoDocumento")})
 public class Tipodocumento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "codigoTipoDocumento")
-    private Integer codigoTipoDocumento;
+    @Column(name = "IdTipoDocumento")
+    private Integer idTipoDocumento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombTipoDocumento")
-    private String nombTipoDocumento;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTipoDocumento")
-    private List<Cliente> clienteList;
+    @Size(min = 1, max = 50)
+    @Column(name = "DenoTipoDocumento")
+    private String denoTipoDocumento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDocumento")
+    private List<Datospersonales> datospersonalesList;
 
     public Tipodocumento() {
     }
 
-    public Tipodocumento(Integer codigoTipoDocumento) {
-        this.codigoTipoDocumento = codigoTipoDocumento;
+    public Tipodocumento(Integer idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
-    public Tipodocumento(Integer codigoTipoDocumento, String nombTipoDocumento) {
-        this.codigoTipoDocumento = codigoTipoDocumento;
-        this.nombTipoDocumento = nombTipoDocumento;
+    public Tipodocumento(Integer idTipoDocumento, String denoTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
+        this.denoTipoDocumento = denoTipoDocumento;
     }
 
-    public Integer getCodigoTipoDocumento() {
-        return codigoTipoDocumento;
+    public Integer getIdTipoDocumento() {
+        return idTipoDocumento;
     }
 
-    public void setCodigoTipoDocumento(Integer codigoTipoDocumento) {
-        this.codigoTipoDocumento = codigoTipoDocumento;
+    public void setIdTipoDocumento(Integer idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
-    public String getNombTipoDocumento() {
-        return nombTipoDocumento;
+    public String getDenoTipoDocumento() {
+        return denoTipoDocumento;
     }
 
-    public void setNombTipoDocumento(String nombTipoDocumento) {
-        this.nombTipoDocumento = nombTipoDocumento;
+    public void setDenoTipoDocumento(String denoTipoDocumento) {
+        this.denoTipoDocumento = denoTipoDocumento;
     }
 
     @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
+    public List<Datospersonales> getDatospersonalesList() {
+        return datospersonalesList;
     }
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
+    public void setDatospersonalesList(List<Datospersonales> datospersonalesList) {
+        this.datospersonalesList = datospersonalesList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoTipoDocumento != null ? codigoTipoDocumento.hashCode() : 0);
+        hash += (idTipoDocumento != null ? idTipoDocumento.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +100,7 @@ public class Tipodocumento implements Serializable {
             return false;
         }
         Tipodocumento other = (Tipodocumento) object;
-        if ((this.codigoTipoDocumento == null && other.codigoTipoDocumento != null) || (this.codigoTipoDocumento != null && !this.codigoTipoDocumento.equals(other.codigoTipoDocumento))) {
+        if ((this.idTipoDocumento == null && other.idTipoDocumento != null) || (this.idTipoDocumento != null && !this.idTipoDocumento.equals(other.idTipoDocumento))) {
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ public class Tipodocumento implements Serializable {
 
     @Override
     public String toString() {
-        return "dto.Tipodocumento[ codigoTipoDocumento=" + codigoTipoDocumento + " ]";
+        return "dto.Tipodocumento[ idTipoDocumento=" + idTipoDocumento + " ]";
     }
     
 }
