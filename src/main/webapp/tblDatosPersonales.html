@@ -11,15 +11,15 @@
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-        
+
         <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
         <!-- Custom icons for this template -->
         <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
-        
+
+
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link
@@ -263,7 +263,53 @@
 
                     </nav>
                     <!-- End of Topbar -->
+                    <!-- DataTales Datos Personales -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Datos Personales</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-sm"  id="dataTableDatosPersonales" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center">Id</th>
+                                            <th style="text-align: center">Tipo Documento</th>
+                                            <th style="text-align: center">N° Documento</th>
+                                            <th style="text-align: center">Ap. Paterno</th>
+                                            <th style="text-align: center">Ap. Materno</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center">Celular</th>
+                                            <th style="text-align: center">Correo Electronico</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="text-align: center">Id</th>
+                                            <th style="text-align: center">Tipo Documento</th>
+                                            <th style="text-align: center">N° Documento</th>
+                                            <th style="text-align: center">Ap. Paterno</th>
+                                            <th style="text-align: center">Ap. Materno</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center">Celular</th>
+                                            <th style="text-align: center">Correo Electronico</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                            <div class="my-2"></div>
+                            <a href="insertardatospersonales.html" class="btn btn-success btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </span>
+                                <span class="text">Insertas nuevos Datos</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <!-- End of Main Content -->
 
@@ -373,7 +419,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Modal Sesión Expirada -->
         <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -393,7 +439,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
             <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
@@ -437,10 +483,14 @@
 
         </div>
 
-        
+
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -453,7 +503,10 @@
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
-        
+
+        <!-- Listar -->
+        <script src="js/datos_persona/listarDatosPersona.js"></script>
+
         <!-- chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
