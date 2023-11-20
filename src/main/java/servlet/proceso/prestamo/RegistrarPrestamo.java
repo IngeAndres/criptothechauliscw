@@ -21,12 +21,11 @@ import dto.Tipoinformacionbien;
 import dto.Tipoprestamo;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -122,7 +121,7 @@ public class RegistrarPrestamo extends HttpServlet {
                 if (resultado) {
                     responses.addProperty("resultado", "ok");
                     responses.addProperty("idDetalle", resultadoDet);
-
+                    responses.addProperty("TipoPrest", IngTipoPres.getDenoTipoPrestamo());
                     out.print(responses);
 
                 } else {

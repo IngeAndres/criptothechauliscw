@@ -7,7 +7,9 @@ package servlet.proceso.prestamo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dao.DetalleprestamoJpaController;
+import dao.PrestamoJpaController;
 import dto.Detalleprestamo;
+import dto.Prestamo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
@@ -42,9 +44,11 @@ public class ListarAporteMensual extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             DetalleprestamoJpaController objDetalle = new DetalleprestamoJpaController();
-
+          
+            
             int idDetalle = Integer.parseInt(request.getParameter("idDetallePres"));
 
+           
             Detalleprestamo detalle = objDetalle.findDetalleprestamo(idDetalle);
             Gson g = new Gson();
             JsonObject responses = new JsonObject();

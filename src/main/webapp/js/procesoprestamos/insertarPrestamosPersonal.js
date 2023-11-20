@@ -14,8 +14,6 @@ $(document).ready(function () {
                 if (item.CATEGORIA === tp) {
                     selectTipoPrestamo.append('<option value="' + item.ID + '">' + item.NOMBRE + '</option>');
                 }
-
-
             });
             $.each(data.Tipocomprobante, function (index, item) {
                 selectTipoComprobante.append('<option value="' + item.IDT + '">' + item.NOMBRET + '</option>');
@@ -67,6 +65,7 @@ $(document).ready(function () {
         $.getJSON("registrarprestamo", parametro, function (data) {
             if (data.resultado === "ok") {
                 sessionStorage.setItem("idDetalle", data.idDetalle);
+                sessionStorage.setItem("tipP", data.TipoPrest);
                 window.location.href = 'tablaAporteMensual.html';
             } else {
                 limpiarCampos();
