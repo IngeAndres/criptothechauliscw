@@ -288,8 +288,20 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label">Monto: (S/.)</label>
+                                    <label class="control-label">Monto: </label>
                                     <input type="text" id="Monto" class="form-control" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="control-label">Moneda:</label>
+                                    <br>
+                                    <label for="Soles">
+                                      <input type="radio" id="Soles" name="moneda" value="Soles" /> Soles (S/.)
+                                    </label>
+                                    <!-- No disponible por el momento (Dolares)-->
+                                    <!--label for="Dolares">
+                                      <input type="radio" id="Dolares" name="moneda" value="Dolares" /> Dolares ($)
+                                    </label-->
                                 </div>
 
                                 <div class="form-group">
@@ -469,6 +481,8 @@
                             <br>
                             <h5>Monto a enviar:</h5>
                             <p id="datoMonto"></p>
+                            <h5>Tipo de Moneda:</h5>
+                            <p id="datoMoneda"></p>
                         </div>
                         <p id="mensajeErrorDatos"></p>
                     </div>

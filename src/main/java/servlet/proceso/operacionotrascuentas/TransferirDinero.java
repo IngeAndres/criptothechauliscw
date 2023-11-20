@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.operacionotrascuentas;
+package servlet.proceso.operacionotrascuentas;
 
 import dao.CuentaJpaController;
 import dao.OperacionesotrascuentasJpaController;
@@ -75,7 +75,14 @@ public class TransferirDinero extends HttpServlet {
 
                     if (resultado2) {
                         resultado3 = objTransfer.insertTransfer(transfer);
-                        out.print("{\"resultado\":\"ok\"}");
+                        
+                        if (resultado3) {
+                            out.print("{\"resultado\":\"ok\"}");
+                        } else {
+                            objCuenta.retirarDinero(numeroCuentaDestino, monto);
+                            objCuenta.ingresarDinero(numeroCuentaOrigen, monto);
+                            out.print("{\"resultado\":\"error5\"}");
+                        }
                     } else {
                         out.print("{\"resultado\":\"error1\"}");
                     }

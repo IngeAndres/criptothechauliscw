@@ -14,7 +14,7 @@ $(document).ready(function () {
             "url": "/CriptoTheChaulisCW/json/es-ES.json"
         },
         "ajax": {
-            "url": "/CriptoTheChaulisCW/listartransferencias",
+            "url": "/CriptoTheChaulisCW/listarTransferencias",
             "dataSrc": ""
         },
         "columns": [
@@ -23,11 +23,12 @@ $(document).ready(function () {
             {"data": "APPAORIGEN"},
             {"data": "APMAORIGEN"},
             {"data": "NOMBORIGEN"},
-            {"data": "MONTO"},
             {"data": "NUMECUENTADESTINO"},
             {"data": "NOMBDESTINO"},
             {"data": "APPADESTINO"},
             {"data": "APMADESTINO"},
+            {"data": "MONTO"},
+            {"data": "MONEDA"},
             {
                 "data": "FECHA",
                 "render": function (data) {

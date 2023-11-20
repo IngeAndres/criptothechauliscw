@@ -418,6 +418,27 @@ public class CuentaJpaController implements Serializable {
         }
     }
     
+    public List<Object[]> listarCuentas() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.listar");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Object[]> listarCuentasPorId(int codigocuentas) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.listarporcodigo");
+            q.setParameter("codigoCuenta", codigocuentas);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
     public Cuenta getCodCuenta(String numeroCuenta) {
         EntityManager em = getEntityManager();
         try {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.operacionotrascuentas;
+package servlet.proceso.operacionotrascuentas;
 
 import dao.CuentaJpaController;
 import dao.DatospersonalesJpaController;
@@ -45,7 +45,6 @@ public class ConfirmarDatosCuentas extends HttpServlet {
             
             String numeroCuentaOrigen = request.getParameter("cuentaOrigen");
             String numeroCuentaDestino = request.getParameter("cuentaDestino");
-            double monto = Double.parseDouble(request.getParameter("monto"));
             
             Cuenta cuentaOrigen = objCuenta.getCodCuenta(numeroCuentaOrigen);
             Cuenta cuentaDestino = objCuenta.getCodCuenta(numeroCuentaDestino);

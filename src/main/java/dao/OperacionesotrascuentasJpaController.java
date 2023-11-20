@@ -231,6 +231,7 @@ public class OperacionesotrascuentasJpaController implements Serializable {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return false;
         }
     }

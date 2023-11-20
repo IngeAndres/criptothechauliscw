@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package servlet.operacionotrascuentas;
+package servlet.mantenimiento.cuentas;
 
 import com.google.gson.Gson;
-import dao.OperacionesotrascuentasJpaController;
+import dao.CuentaJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Jeff
+ * @author Antho
  */
-@WebServlet(name = "ListarTransferencias", urlPatterns = {"/listarTransferencias"})
-public class ListarTransferencias extends HttpServlet {
+@WebServlet(name = "ListarCuentas", urlPatterns = {"/listarcuentas"})
+public class ListarCuentas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,29 +35,27 @@ public class ListarTransferencias extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            OperacionesotrascuentasJpaController objTransfer = new OperacionesotrascuentasJpaController();
-            List<Object[]> transferencias = objTransfer.listTransfer();
-            List<Map<String, Object>> transferMapList = new ArrayList<>();
+            CuentaJpaController objCuentasJpaController = new CuentaJpaController();
+            List<Object[]> cuentas = objCuentasJpaController.listarCuentas();
+            List<Map<String, Object>> cuentasMapList = new ArrayList<>();
 
-            for (Object[] transferData : transferencias) {
-                Map<String, Object> transferMap = new HashMap<>();
-                transferMap.put("CODTRANSFER", transferData[0]);
-                transferMap.put("NUMECUENTAORIGEN", transferData[1]);
-                transferMap.put("APPAORIGEN", transferData[2]);
-                transferMap.put("APMAORIGEN", transferData[3]);
-                transferMap.put("NOMBORIGEN", transferData[4]);
-                transferMap.put("NUMECUENTADESTINO", transferData[5]);
-                transferMap.put("APPADESTINO", transferData[6]);
-                transferMap.put("APMADESTINO", transferData[7]);
-                transferMap.put("NOMBDESTINO", transferData[8]);
-                transferMap.put("MONTO", transferData[9]);
-                transferMap.put("MONEDA", transferData[10]);
-                transferMap.put("FECHA", transferData[11]);
-                transferMapList.add(transferMap);
+            for (Object[] cuentaData : cuentas) {
+                String estadoCuenta = (String) cuentaData[6]; 
+               if (estadoCuenta.equals("Activo")) {
+                    Map<String, Object> cuentaMap = new HashMap<>();
+                    cuentaMap.put("CODIGOCUENTA", cuentaData[0]);
+                    cuentaMap.put("DOCUMENTO", cuentaData[1]);
+                    cuentaMap.put("NUMERO", cuentaData[2]);
+                    cuentaMap.put("TIPO", cuentaData[3]);
+                    cuentaMap.put("SALDO", cuentaData[4]);
+                    cuentaMap.put("FECHA", cuentaData[5]);
+                    cuentaMap.put("ESTADO", estadoCuenta);
+                    cuentasMapList.add(cuentaMap);
+               }
             }
 
             Gson gson = new Gson();
-            String resultado = gson.toJson(transferMapList);
+            String resultado = gson.toJson(cuentasMapList);
             out.print(resultado);
         }
     }
