@@ -18,7 +18,6 @@ $(document).ready(function () {
         let saldocuenta = $("#saldo").val();
         let estadocuenta = $("#Estado").val();
 
-
         if (!documentocliente || !numerocuenta || !tipocuenta || !saldocuenta || !estadocuenta) {
             $("#alertCamposIncompletos").modal('show');
             return;

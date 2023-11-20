@@ -13,12 +13,12 @@
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-        
-          <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
+
+        <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
 
-        
+
         <!-- Custom icons for this template -->
         <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,11 +81,17 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Mantenimiento:</h6>
-                            <a class="collapse-item" href="tablesClientes.html"><i class="fa fa-user" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablesClientes.html">
+                                <i class="fa fa-address-book" aria-hidden="true"></i>
                                 <span>Clientes</span>
                             </a>
-                            <a class="collapse-item" href="tablesCuentas.html"><i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablesCuentas.html">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <span>Cuentas</span>
+                            </a>
+                            <a class="collapse-item" href="tablesDatosPersonales.html">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
+                                <span>Datos Personales</span>
                             </a>
                         </div>
                     </div>
@@ -118,49 +124,6 @@
                                 <span>Transferencias</span></a>
                         </div>
                     </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Addons
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
-                            <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Nav Item - Charts -->
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Charts</span></a>
-                </li>
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -443,9 +406,8 @@
                 </div>
             </div>
         </div>
-        
-        
-  <!-- Círculo con Ícono de Mensaje -->
+
+        <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
             <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -502,16 +464,16 @@
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="js/tables/tablaTransferencias.js"></script>
-
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
         
-         <!-- chat -->
+        <!-- Mantenimiento -->
+        <script src="js/tables/tablaTransferencias.js"></script>
+
+        <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

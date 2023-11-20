@@ -11,23 +11,22 @@
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-        
-        <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
-        <!-- Custom icons for this template -->
+
+        <!-- Custom icons -->
         <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
-        
-        <!-- Custom fonts for this template-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
 
-        <!-- Custom styles for this template-->
+        <!-- Custom fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+        <!-- Custom styles-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/chat-admin.css" rel="stylesheet">
+
+        <!-- Chat-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
 
     </head>
 
@@ -75,13 +74,16 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Mantenimiento:</h6>
-                            <a class="collapse-item" href="tablesClientes.html"><i class="fa fa-user" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablesClientes.html">
+                                <i class="fa fa-address-book" aria-hidden="true"></i>
                                 <span>Clientes</span>
                             </a>
-                            <a class="collapse-item" href="tablesCuentas.html"><i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablesCuentas.html">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <span>Cuentas</span>
                             </a>
-                            <a class="collapse-item" href="tblDatosPersonales.html"><i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablesDatosPersonales.html">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
                                 <span>Datos Personales</span>
                             </a>
                         </div>
@@ -115,49 +117,6 @@
                                 <span>Transferencias</span></a>
                         </div>
                     </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Addons
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="index.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
-                            <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Nav Item - Charts -->
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Charts</span></a>
-                </li>
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -288,6 +247,26 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
+        <!-- Modal Sesión Expirada -->
+        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Su sesión ya expiró. Inicie sesión nuevamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href = 'index.html'">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal cierre de sesión-->
         <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -309,7 +288,7 @@
             </div>
         </div>
 
-        <!-- Modal cambio de contraseña -->
+        <!-- Modal Cambio de Contraseña -->
         <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -373,27 +352,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Su sesión ya expiró. Inicie sesión nuevamente.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href = 'index.html'">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+
         <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
             <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
@@ -437,7 +396,6 @@
 
         </div>
 
-        
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -453,8 +411,8 @@
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
-        
-        <!-- chat -->
+
+        <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

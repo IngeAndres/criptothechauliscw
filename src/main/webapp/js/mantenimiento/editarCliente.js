@@ -22,7 +22,6 @@ $(document).ready(function () {
         let telefono = $("#Telefono").val();
         let estadocliente = 1;
 
-
         if (!documento || !numerodoc || !paterno || !materno || !nombre || !distrito || !direccion || !telefono) {
             $("#alertCamposIncompletos").modal('show');
             return;

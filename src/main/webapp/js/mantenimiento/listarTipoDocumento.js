@@ -6,7 +6,6 @@ $(document).ready(function () {
         url: '/CriptoTheChaulisCW/listartipodocumento',
         type: 'GET',
         success: function (response) {
-
             try {
                 var documento = JSON.parse(response);
                 var combobox = document.getElementById("Documento");
@@ -17,11 +16,10 @@ $(document).ready(function () {
                         var option = document.createElement("option");
                         option.text = listarDocumento.NOMBRE;
                         combobox.appendChild(option);
-
                     }
                 }
             } catch (error) {
-
+                console.log('Error ', error);
             }
         },
         error: function (xhr, status, error) {

@@ -6,8 +6,6 @@ $(document).ready(function () {
         url: '/CriptoTheChaulisCW/listartipocuenta',
         type: 'GET',
         success: function (response) {
-
-
             try {
                 var tipoCuenta = JSON.parse(response);
                 var combobox = document.getElementById("TipoCuenta");
@@ -18,7 +16,6 @@ $(document).ready(function () {
                         var option = document.createElement("option");
                         option.text = listarTipoCuenta.NOMBRE;
                         combobox.appendChild(option);
-
                     }
                 }
             } catch (error) {

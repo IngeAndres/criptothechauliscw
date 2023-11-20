@@ -2,33 +2,35 @@
 <html lang="en">
 
     <head>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Préstamos del Cliente - The Chauli's</title>
+        <title>Datos Personales - The Chauli's</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
 
-        <!-- Custom fonts for this template -->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
-        
-        <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
+        <!-- Custom icons -->
+        <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Custom fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+        <!-- Custom styles-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/chat-admin.css" rel="stylesheet">
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+        <!-- Chat-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
 
-        
-        <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this page -->
-        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     </head>
 
     <body id="page-top">
@@ -51,7 +53,7 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="principal.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
@@ -74,12 +76,18 @@
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 id="headingTwo" class="collapse-header">Mantenimiento:</h6>
-                            <a class="collapse-item" href="tablesClientes.html"><i class="fa fa-user" aria-hidden="true"></i>
+                            <h6 class="collapse-header">Mantenimiento:</h6>
+                            <a class="collapse-item" href="tablesClientes.html">
+                                <i class="fa fa-address-book" aria-hidden="true"></i>
                                 <span>Clientes</span>
                             </a>
-                            <a class="collapse-item" href="tablesCuentas.html"><i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablesCuentas.html">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <span>Cuentas</span>
+                            </a>
+                            <a class="collapse-item" href="tablesDatosPersonales.html">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
+                                <span>Datos Personales</span>
                             </a>
                         </div>
                     </div>
@@ -95,7 +103,7 @@
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 id="headingUtilities" class="collapse-header">Procesos:</h6>
+                            <h6 class="collapse-header">Procesos:</h6>
                             <a class="collapse-item" href="tablesPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
@@ -112,49 +120,6 @@
                                 <span>Transferencias</span></a>
                         </div>
                     </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Addons
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
-                            <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Nav Item - Charts -->
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Charts</span></a>
-                </li>
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -178,11 +143,9 @@
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                         <!-- Sidebar Toggle (Topbar) -->
-                        <form class="form-inline">
-                            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                        </form>
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
 
                         <!-- Topbar Search -->
                         <form
@@ -262,55 +225,51 @@
 
                     </nav>
                     <!-- End of Topbar -->
+                    <!-- DataTales Datos Personales -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Datos Personales</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-sm"  id="dataTableDatosPersonales" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center">Tipo Documento</th>
+                                            <th style="text-align: center">N° Documento</th>
+                                            <th style="text-align: center">Ap. Paterno</th>
+                                            <th style="text-align: center">Ap. Materno</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center">Celular</th>
+                                            <th style="text-align: center">Correo Electrónico</th>
+                                            <th style="text-align: center;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Préstamos</h1>
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Registro de préstamos de la cuenta</h6>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="text-align: center">Tipo Documento</th>
+                                            <th style="text-align: center">N° Documento</th>
+                                            <th style="text-align: center">Ap. Paterno</th>
+                                            <th style="text-align: center">Ap. Materno</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center">Celular</th>
+                                            <th style="text-align: center">Correo Electrónico</th>
+                                            <th style="text-align: center;">Acciones</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-sm"  id="dataTableP" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center">Código del préstamo</th>
-                                                <th style="text-align: center">Plazo (días)</th>
-                                                <th style="text-align: center">Tasas (%)</th>
-                                                <th style="text-align: center">Total (S/.)</th>
-                                                <th style="text-align: center">Fecha</th>
-                                                <th style="text-align: center">Total del préstamo (S/.)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th style="text-align: center">Código del préstamo</th>
-                                                <th style="text-align: center">Plazo (días)</th>
-                                                <th style="text-align: center">Tasas (%)</th>
-                                                <th style="text-align: center">Total (S/.)</th>
-                                                <th style="text-align: center">Fecha</th>
-                                                <th style="text-align: center">Total del préstamo (S/.)</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
-                                <div class="my-2"></div>
-                                <a href="tablesPrestamos.html" class="btn btn-primary btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-arrow-left"></i>
-                                    </span>
-                                    <span class="text">Regresar</span>
-                                </a>
-                            </div>
+                            <div class="my-2"></div>
+                            <a href="insertarDatosPersonales.html" class="btn btn-success btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </span>
+                                <span class="text">Insertar nuevos datos personales</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -336,6 +295,26 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+        <!-- Modal Sesión Expirada -->
+        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Su sesión ya expiró. Inicie sesión nuevamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href = 'index.html'">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal cierre de sesión-->
         <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
@@ -394,7 +373,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnCancelarCambio" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="limpiarCampos()">Cancelar</button>
                         <button id="btnCambiarClave" type="button" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -407,20 +386,22 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Cambio de contraseña</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                onclick="window.location.href = 'index.html'">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="mensajeCambioClave"></p>
+                        <p>Contraseña actualizada correctamente. Por favor, inicie sesión nuevamente</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                onclick="window.location.href = 'index.html'">Aceptar</button>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
             <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
@@ -478,16 +459,16 @@
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="js/procesos/prestamosCuenta.js"></script>
-
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
-        
-         <!-- chat -->
+
+        <!-- Mantenimiento -->
+        <script src="js/tables/tablaDatosPersonales.js"></script>
+
+        <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

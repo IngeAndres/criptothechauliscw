@@ -32,10 +32,7 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, full, meta) {
-
                     var codigoCuenta = full.CODIGOCUENTA;
-
-
                     return  `<td align="center">
                         <button class="btn btn-info btn-sm btnEditar" data-codigocuenta="${codigoCuenta}">
                             <i class="far fa-edit text-white"></i>

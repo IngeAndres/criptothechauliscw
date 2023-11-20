@@ -41,7 +41,7 @@ $(document).ready(function () {
             error: function () {
                 showErrorMessage("Error interno del servidor. Inténtelo más tarde.");
             },
-            timeout: 3000
+            timeout: 10000
         });
     });
 

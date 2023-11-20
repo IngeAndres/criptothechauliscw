@@ -25,12 +25,9 @@ $(document).ready(function () {
             {"data": "NOMBRE"},
             {"data": "DISTRITO"},
             {"data": "DIRECCION"},
-
             {
                 "render": function (data, type, full, meta) {
-
                     var numCuenta = full.NUMERODOC;
-
                     return `<td align="center">
         <button class="btn btn-warning btn-sm btnInformacion" data-numcliente="${numCuenta}" onclick="redirectToPrestamosCuenta(${numCuenta})">
 
