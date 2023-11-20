@@ -47,36 +47,24 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: "/WebAppBancoV01/insertarDP",
-            data: parametro,
-            success: function (data, textStatus, jqXHR) {
-                if (data.resultado === "ok") {
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.datospersonales/insertarDatos",
+            contentType: "application/json",
+            data: JSON.stringify(parametro),
+            dataType: "json",
+            success: function (data) {
+                if (data.success === true) {
                     $("#alertClienteRegistrado").modal('show');
                     setTimeout(function () {
                         $("#alertClienteRegistrado").modal('hide');
                         setTimeout(function () {
-                            window.location.href = "datospersonales.html";
+                            window.location.href = "tblDatosPersonales.html";
                         }, 1000);
                     }, 2000);
                 } else {
                     alert("Error");
                 }
             }
-        }
-        );
-
-        /*$.getJSON("insertarDP", parametro, function (data) {
-         if (data.resultado === "ok") {
-         $("#alertClienteRegistrado").modal('show');
-         setTimeout(function () {
-         $("#alertClienteRegistrado").modal('hide');
-         setTimeout(function () {
-         window.location.href = "datospersonales.html";
-         }, 1000);
-         }, 2000);
-         } else {
-         alert("Error");
-         }
-         });*/
+            
+        });
     });
 });

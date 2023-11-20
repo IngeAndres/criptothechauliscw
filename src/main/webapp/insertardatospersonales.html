@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Tabla Datos Personal</title>
+        <title>Insertar Datos Personales</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -263,51 +263,76 @@
 
                     </nav>
                     <!-- End of Topbar -->
-                    <!-- DataTales Datos Personales -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Datos Personales</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-sm"  id="dataTableDatosPersonales" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center">Id</th>
-                                            <th style="text-align: center">Tipo Documento</th>
-                                            <th style="text-align: center">N° Documento</th>
-                                            <th style="text-align: center">Ap. Paterno</th>
-                                            <th style="text-align: center">Ap. Materno</th>
-                                            <th style="text-align: center">Nombre</th>
-                                            <th style="text-align: center">Celular</th>
-                                            <th style="text-align: center">Correo Electronico</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                    <!-- Insertar Cliente -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Insertar Datos de una Persona</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="TipoDocumentoDatoPersona" class="control-label">Tipo de documento:</label>
+                                <input type="text" id="TipoDocumentoDatoPersona" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="NumDocDatoPersona" class="control-label">N° de documento:</label>
+                                <input type="text" id="NumDocDatoPersona" class="form-control" />
 
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th style="text-align: center">Id</th>
-                                            <th style="text-align: center">Tipo Documento</th>
-                                            <th style="text-align: center">N° Documento</th>
-                                            <th style="text-align: center">Ap. Paterno</th>
-                                            <th style="text-align: center">Ap. Materno</th>
-                                            <th style="text-align: center">Nombre</th>
-                                            <th style="text-align: center">Celular</th>
-                                            <th style="text-align: center">Correo Electronico</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                            </div>
+                            <div class="form-group">
+                                <label for="RUCDatoPersona" class="control-label">RUC:</label>
+                                <input type="text" id="RUCDatoPersona" class="form-control" />
+
+                            </div>
+                            <!-- Agrega más campos de texto aquí -->
+                            <div class="form-group">
+                                <label for="NombreDatoPersona" class="control-label">Nombres:</label>
+                                <input type="text" id="NombreDatoPersona" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="ApellidoPaternoDatoPersona" class="control-label">Apellido paterno:</label>
+                                <input type="text" id="ApellidoPaternoDatoPersona" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="ApellidoMaternoDatoPersona" class="control-label">Apellido materno:</label>
+                                <input type="text" id="ApellidoMaternoDatoPersona" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="GeneroDatoPersona" class="control-label">Genero:</label>
+                                <input type="text" id="GeneroDatoPersona" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento:</label>
+                                <input type="text" id="fechaNacimiento" class="form-control" />
                             </div>
 
-                            <div class="my-2"></div>
-                            <a href="insertardatospersonales.html" class="btn btn-success btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </span>
-                                <span class="text">Insertas nuevos Datos</span>
-                            </a>
+                            <div class="form-group">
+                                <label for="DireccionDatoPersona" class="control-label">Direccion: </label>
+                                <input type="text" id="DireccionDatoPersona" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="Distrito" class="control-label">Distrito:</label>
+                                <input type="text" id="Distrito" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Celular" class="control-label">Celular:</label>
+                                <input type="text" id="Celular" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="Email" class="control-label">Correo Electronico:</label>
+                                <input type="text" id="Email" class="form-control" />
+
+                            </div>
+
+                            <div class="form-group">
+                                <input id="btnInsertarDatosPersonales" type="submit" value="Registrar" class="btn btn-primary" />
+                                <a id="btnAtras" class="btn btn-secondary" href="datospersonales.html">Cancelar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -420,6 +445,40 @@
             </div>
         </div>
 
+        <!-- Modal Datos Personales Registrado -->
+        <div id="alertClienteRegistrado" class="modal" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Alerta...!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Datos Personales Registrados
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Campos Incompletos -->
+        <div id="alertCamposIncompletos" class="modal" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Alerta...!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Campos incompletos. Ingrese todos los campos por favor.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal Sesión Expirada -->
         <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -488,10 +547,6 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -504,8 +559,8 @@
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
 
-        <!-- Listar -->
-        <script src="js/datos_persona/listarDatosPersona.js"></script>
+        <!-- Insertando Datos -->
+        <script src="js/datos_persona/insertarDatosPersona.js"></script>
 
         <!-- chat -->
         <script src="js/chat/cargarMensaje.js"></script>
