@@ -9,6 +9,7 @@ import javax.persistence.criteria.Root;
 import dto.Tipooperacion;
 import dto.Cuenta;
 import dto.Operacionesotrascuentas;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -220,5 +221,63 @@ public class OperacionesotrascuentasJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public boolean insertTransfer(Operacionesotrascuentas transferencia) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(transferencia);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+    
+    public List<Object[]> listTransfer() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Operacionesotrascuentas.listar");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static void main(String[] args) {
+        OperacionesotrascuentasJpaController objTransferenciaJpaController = new OperacionesotrascuentasJpaController();
+        
+        List<Object[]> transferencias = objTransferenciaJpaController.listTransfer();
+        
+        for (Object[] transferData : transferencias) {
+            int codTransfer = (int) transferData[0];
+            String numeCuentaOrigen = (String) transferData[1];
+            String apellidoPaternoOrigen = (String) transferData[2];
+            String apellidoMaternoOrigen = (String) transferData[3];
+            String nombreOrigen = (String) transferData[4];
+            String numeCuentaDestino = (String) transferData[5];
+            String apellidoPaternoDestino = (String) transferData[6];
+            String apellidoMaternoDestino = (String) transferData[7];
+            String nombreDestino = (String) transferData[8];
+            double monto = (double) transferData[9];
+            String moneda = (String) transferData[10];
+            Date fecha = (Date) transferData[11];
 
+            System.out.println("--------------------------");
+            System.out.println("Cod Transfer: " + codTransfer);
+            System.out.println("Número de Cuenta Origen: " + numeCuentaOrigen);
+            System.out.println("Apellido Paterno Origen: " + apellidoPaternoOrigen);
+            System.out.println("Apellido Materno Origen: " + apellidoMaternoOrigen);
+            System.out.println("Nombre Origen: " + nombreOrigen);
+            System.out.println("Número de Cuenta Destino: " + numeCuentaDestino);
+            System.out.println("Apellido Paterno Destino: " + apellidoPaternoDestino);
+            System.out.println("Apellido Materno Destino: " + apellidoMaternoDestino);
+            System.out.println("Nombre Destino: " + nombreDestino);
+            System.out.println("Monto: " + monto);
+            System.out.println("Moneda: " + moneda);
+            System.out.println("Fecha: " + fecha);
+            System.out.println("--------------------------\n\n");
+        }
+    }
 }

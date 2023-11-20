@@ -418,4 +418,61 @@ public class CuentaJpaController implements Serializable {
         }
     }
     
+    public Cuenta getCodCuenta(String numeroCuenta) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            q.setParameter("numbCuenta", numeroCuenta);
+
+            Cuenta c = (Cuenta) q.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public boolean retirarDinero(String numeroCuenta, double monto) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            q.setParameter("numbCuenta", numeroCuenta);
+            Cuenta c = (Cuenta) q.getSingleResult();
+
+            if (c != null) {
+                em.getTransaction().begin();
+                double descontarSaldo = c.getSaldoDisponible();
+                if (descontarSaldo >= monto) {
+                    descontarSaldo = c.getSaldoDisponible() - monto;
+                } else {
+                    return false;
+                }
+                c.setSaldoDisponible(descontarSaldo);
+                em.getTransaction().commit();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean ingresarDinero(String numeroCuenta, double monto) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            q.setParameter("numbCuenta", numeroCuenta);
+            Cuenta c = (Cuenta) q.getSingleResult();
+
+            if (c != null) {
+                em.getTransaction().begin();
+                double aumentarSaldo = c.getSaldoDisponible() + monto;
+                c.setSaldoDisponible(aumentarSaldo);
+                em.getTransaction().commit();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
