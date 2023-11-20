@@ -256,5 +256,4 @@ public class DatospersonalesJpaController implements Serializable {
             em.close();
         }
     }
-    
 }

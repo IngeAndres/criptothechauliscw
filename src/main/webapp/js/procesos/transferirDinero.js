@@ -13,14 +13,24 @@ $(document).ready(function () {
         let cuentaOrigen = $("#NumeroCuentaOrigen").val();
         let cuentaDestino = $("#NumeroCuentaDestino").val();
         let monto = $("#Monto").val();
-
+        let moneda = "";
+        
+        var radioSelect = document.getElementsByName('moneda');
+        for (var i = 0; i < radioSelect.length; i++) {
+            if (radioSelect[i].checked) {
+                moneda = radioSelect[i].value;
+                break;
+            }
+        }
+        
         let parametro = {
             cuentaOrigen: cuentaOrigen,
             cuentaDestino: cuentaDestino,
-            monto: monto
+            monto: monto,
+            moneda: moneda
         };
 
-        $.getJSON("confirmardatos", parametro, function (data) {
+        $.getJSON("confirmarDatosCuentas", parametro, function (data) {
             if (data.resultado === "ok") {
                 let numeCuentaOrigen = data.numeCuentaOrigen;
                 let nombCuentaOrigen = data.nombCuentaOrigen;
@@ -33,6 +43,7 @@ $(document).ready(function () {
                 $('#nombCuentaDestino').text(nombCuentaDestino);
 
                 $('#datoMonto').text(monto);
+                $('#datoMoneda').text(moneda);
 
                 $('#datosTransferencia').show();
                 $('#mensajeErrorDatos').hide();
@@ -64,14 +75,24 @@ $(document).ready(function () {
         let cuentaOrigen = $("#NumeroCuentaOrigen").val();
         let cuentaDestino = $("#NumeroCuentaDestino").val();
         let monto = $("#Monto").val();
+        let moneda = "";
+        
+        var radioSelect = document.getElementsByName('moneda');
+        for (var i = 0; i < radioSelect.length; i++) {
+            if (radioSelect[i].checked) {
+                moneda = radioSelect[i].value;
+                break;
+            }
+        }
 
         let parametro = {
             cuentaOrigen: cuentaOrigen,
             cuentaDestino: cuentaDestino,
-            monto: monto
+            monto: monto,
+            moneda: moneda
         };
 
-        $.getJSON("transferirdinero", parametro, function (data) {
+        $.getJSON("transferirDinero", parametro, function (data) {
             if (data.resultado === "ok") {
                 //alert("God");
                 $('#mensajeTransferencia').text("La transferencia se ha realizado correctamente.");
@@ -94,7 +115,7 @@ $(document).ready(function () {
 
             } else {
                 //alert("Error ambos");
-                $('#mensajeTransferencia').text("La transferencia no se ha podido realizar. (Error 05");
+                $('#mensajeTransferencia').text("La transferencia no se ha podido realizar. (Error 05)");
             }
 
             $('#confirmarTransferenciaModal').modal('hide');

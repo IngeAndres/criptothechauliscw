@@ -257,4 +257,16 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
+    public Usuario getCodUsuario(int idUsuario) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Usuario.findByIdUsuario");
+            q.setParameter("IdUsuario", idUsuario);
+
+            Usuario u = (Usuario) q.getSingleResult();
+            return u;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

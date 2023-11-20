@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -13,12 +13,7 @@
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-        
-          <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
 
-        
         <!-- Custom icons for this template -->
         <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,6 +30,18 @@
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+        <style>
+            /* Estilos adicionales para alinear los botones */
+            .btn-container {
+                display: flex;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+            .btn-lg {
+                padding: 14px 21px; /* Ajusta el tamaño del padding para hacer los botones más grandes */
+                font-size: 24px; /* Aumenta el tamaño del texto en los botones */
+            }
+        </style>
     </head>
 
     <body id="page-top">
@@ -273,45 +280,28 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Préstamos</h1>
+          
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
+                                <h1 class="h3 mb-2 text-gray-800">Realizar Nuevo Préstamo</h1>
+                            </div>
+                            <div class="container mt-5">
+                             
+                                <h4 class="m-0 font-weight-bold text-primary">Seleccionar Tipo de Préstamo</h4>
+                                <br>
+                                <div class="btn-container">
+                                    <button type="button" class="btn btn-primary btn-lg" id="btnPPersonales">Préstamos Personales</button>
+                                    <button type="button" class="btn btn-secondary btn-lg" id="btnPVivienda">Préstamos Mi Vivienda</button>
+                                </div>
+                            </div>
+                            <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Listado de los clientes registrados</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-sm"  id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center">Documento</th>
-                                                <th style="text-align: center">N° de documento</th>
-                                                <th style="text-align: center">Ap. Paterno</th>
-                                                <th style="text-align: center">Ap. Materno</th>
-                                                <th style="text-align: center">Nombres</th>
-                                                <th style="text-align: center">Distrito</th>
-                                                <th style="text-align: center">Dirección</th>
-                                                <th style="text-align: center">Registro de préstamos</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th style="text-align: center">Documento</th>
-                                                <th style="text-align: center">N° de documento</th>
-                                                <th style="text-align: center">Ap. Paterno</th>
-                                                <th style="text-align: center">Ap. Materno</th>
-                                                <th style="text-align: center">Nombres</th>
-                                                <th style="text-align: center">Distrito</th>
-                                                <th style="text-align: center">Dirección</th>
-                                                <th style="text-align: center">Registro de préstamos</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+
 
                                 <div class="my-2"></div>
                                 <a href="insertarPrestamos.html" class="btn btn-success btn-icon-split">
@@ -368,7 +358,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href = 'index.html'">Cerrar sesión</button>
+                        <button id="btnCerrarSesion" type="button" class="btn btn-primary">Cerrar sesión</button>
                     </div>
                 </div>
             </div>
@@ -436,49 +426,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Círculo con Ícono de Mensaje -->
-        <div class="circle-container" onclick="toggleDiv()">
-            <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8l4 3V2a2 2 0 0 0-2-2H2zm6 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-            </svg>
-        </div>
-
-        <!-- Contenedor oculto -->
-        <div class="hidden-div" id="myDiv">
-            <div class="hidden-div-content">
-                <!-- Botón de cierre, con font-size ajustado -->
-                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <span style="font-size: 1.2em;">Asistencia</span>
-                    <span class="close-button" onclick="toggleDiv()" style="font-size: 1.2em; margin-left: auto;">×</span>
-                </div>
-
-                <div class="message-container">
-                    <!-- Aquí se mostrarán los mensajes -->
-                </div>
-
-                <!-- Contenedor para centrar el contenedor de borde azul -->
-                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-                    <!-- Nuevo contenedor con borde azul, bordes redondeados, altura y ancho reducidos -->
-                    <div id="message" class="additional-container" style="border: 2px solid #007bff; padding: 10px; border-radius: 15px; height: 325px; width: 350px; overflow-y: auto;">
-
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <input id="mensaje" type="text" class="message-input" placeholder="Escribe tu mensaje...">
-                    <button id="Enviar" class="send-button">
-                        <!-- Utiliza un ícono de enviar de Bootstrap (puedes cambiarlo según tus necesidades) -->
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM7.93 1.047a6.5 6.5 0 0 1 0 13 6.5 6.5 0 0 1 0-13zM8 2a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 8 2z"/>
-                        <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 1 0v5.793l2.854-2.853a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7 9.293V3.5z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -495,17 +442,15 @@
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
         <!-- Page level custom scripts -->
-        <script src="js/tables/tablaPrestamos.js" ></script>
 
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
-        
-         <!-- chat -->
-        <script src="js/chat/cargarMensaje.js"></script>
-        <script src="js/chat/conexion.js"></script>
+         <!-- FuncionesJS -->
+       
+         <script src="js/procesoprestamos/listarClientePrestamo.js" ></script>
     </body>
 
 </html>

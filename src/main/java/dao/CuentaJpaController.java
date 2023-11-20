@@ -417,5 +417,101 @@ public class CuentaJpaController implements Serializable {
             em.close();
         }
     }
+     public Cuenta obtenerPorNumCuenta(String NumberCuenta) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            query.setParameter("numbCuenta", NumberCuenta);
+
+            List<Cuenta> results = query.getResultList();
+
+            if (!results.isEmpty()) {
+                return results.get(0);
+            } else {
+                return null;
+            }
+        } finally {
+            em.close();
+        }
+
+    }
     
+    public List<Object[]> listarCuentas() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.listar");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Object[]> listarCuentasPorId(int codigocuentas) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.listarporcodigo");
+            q.setParameter("codigoCuenta", codigocuentas);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Cuenta getCodCuenta(String numeroCuenta) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            q.setParameter("numbCuenta", numeroCuenta);
+
+            Cuenta c = (Cuenta) q.getSingleResult();
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public boolean retirarDinero(String numeroCuenta, double monto) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            q.setParameter("numbCuenta", numeroCuenta);
+            Cuenta c = (Cuenta) q.getSingleResult();
+
+            if (c != null) {
+                em.getTransaction().begin();
+                double descontarSaldo = c.getSaldoDisponible();
+                if (descontarSaldo >= monto) {
+                    descontarSaldo = c.getSaldoDisponible() - monto;
+                } else {
+                    return false;
+                }
+                c.setSaldoDisponible(descontarSaldo);
+                em.getTransaction().commit();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean ingresarDinero(String numeroCuenta, double monto) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            q.setParameter("numbCuenta", numeroCuenta);
+            Cuenta c = (Cuenta) q.getSingleResult();
+
+            if (c != null) {
+                em.getTransaction().begin();
+                double aumentarSaldo = c.getSaldoDisponible() + monto;
+                c.setSaldoDisponible(aumentarSaldo);
+                em.getTransaction().commit();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }

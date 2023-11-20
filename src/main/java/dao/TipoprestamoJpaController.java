@@ -199,4 +199,13 @@ public class TipoprestamoJpaController implements Serializable {
         }
     }
 
+    public List<Tipoprestamo> listarTipoprestamo() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Tipoprestamo.findAll");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

@@ -2,21 +2,22 @@
 <html lang="en">
 
     <head>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Nuevo Préstamo - The Chauli's</title>
+        <title>Préstamos - The Chauli's</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-        
-        <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
-        
+
+        <!-- Custom icons for this template -->
+        <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link
@@ -28,6 +29,22 @@
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+        <style>
+            /* Estilos adicionales para alinear los botones */
+            .btn-container {
+                display: flex;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+            .btn-lg {
+                padding: 14px 21px; /* Ajusta el tamaño del padding para hacer los botones más grandes */
+                font-size: 24px; /* Aumenta el tamaño del texto en los botones */
+            }
+        </style>
+
+
+
     </head>
 
     <body id="page-top">
@@ -73,7 +90,7 @@
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 id="headingTwo" class="collapse-header">Mantenimiento:</h6>
+                            <h6 class="collapse-header">Mantenimiento:</h6>
                             <a class="collapse-item" href="tablesClientes.html"><i class="fa fa-user" aria-hidden="true"></i>
                                 <span>Clientes</span>
                             </a>
@@ -94,7 +111,7 @@
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 id="headingUtilities" class="collapse-header">Procesos:</h6>
+                            <h6 class="collapse-header">Procesos:</h6>
                             <a class="collapse-item" href="tablesPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
@@ -263,95 +280,166 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div class="container">
+                    <div class="container-fluid">
 
-                        <h1 class="h3 mb-2 text-gray-800">Agregar nuevo préstamo</h1>
+                        <!-- Page Heading -->
 
-                        <!-- Insertar Préstamo -->
-                        <div class="row">
-                            <div class="col-md-3">
-                                <!-- Formulario -->
-                                <form>
-                                    <div class="form-group">
-                                        <label for="NumeroDoc" class="control-label">N° de documento:</label>
-                                        <input type="text" id="NumeroDoc" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="plazoPrestamo" class="control-label">Plazo del préstamo: (días)</label>
-                                        <input type="text" id="plazoPrestamo" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tazaPrestamo" class="control-label">Tasa de préstamo: (%)</label>
-                                        <input type="text" id="tazaPrestamo" class="form-control" oninput="calcularMontoTotal()" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="montoPrestamo" class="control-label">Monto de préstamo: (S/.)</label>
-                                        <input type="text" id="montoPrestamo" class="form-control" oninput="calcularMontoTotal()" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="montoPrestamoTot" class="control-label">Monto total de préstamo: (S/.)</label>
-                                        <input type="text" id="montoPrestamoTot" class="form-control" readonly />
-                                    </div>
-                                    <div class="form-group">
-                                        <input id="btnRegistrarP" type="submit" value="Agregar" class="btn btn-primary" />
-                                        <a id="btnRegresar" class="btn btn-secondary" href="tablesPrestamos.html">Cancelar</a>
-                                    </div>
-                                </form>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <h1 class="h3 mb-2 text-gray-800">Préstamo Personales</h1>
                             </div>
 
-                            <div class="col-md-9">
-                                <!-- Tabla -->
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0 font-weight-bold text-primary">Listado de los clientes registrados</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align: center">Documento</th>
-                                                        <th style="text-align: center">N° de documento</th>
-                                                        <th style="text-align: center">Ap. Paterno</th>
-                                                        <th style="text-align: center">Ap. Materno</th>
-                                                        <th style="text-align: center">Nombres</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Agrega aquí los datos de la tabla -->
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th style="text-align: center">Documento</th>
-                                                        <th style="text-align: center">N° de documento</th>
-                                                        <th style="text-align: center">Ap. Paterno</th>
-                                                        <th style="text-align: center">Ap. Materno</th>
-                                                        <th style="text-align: center">Nombres</th>
-                                                    </tr>
-                                                </tfoot>
+                            <div class="container mt-5">
+                                <div class="row">
+                                    <div class="col-md-5">
 
-                                            </table>
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Tipo de Préstamo</label>
+                                                <select id="TipoPrestamos" class="form-control"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="CuentaNum" class="control-label">N° de Cuenta:</label>
+                                                <input type="text" id="CuentaNum" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Tipo de Comprobante</label>
+                                                <select id="TipoComprobante" class="form-control"></select>
+                                            </div>
+
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <label class="mr-2">Cuotas Adicionales</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="siNo">
+                                                    <label class="form-check-label" for="siNo">Sí</label>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label>Tipo de Informacion de Bien</label>
+                                                <select id="TipoInformacion" class="form-control"></select>
+                                            </div>
+                                            <hr>
+
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <label class="mr-2">Moneda</label>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="moneda" id="soles" value="Soles">
+                                                        <label class="form-check-label" for="soles">Soles</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="moneda" id="dolares" value="Dolares">
+                                                        <label class="form-check-label" for="dolares">Dólares</label>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <br>
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <label for="Monto" class="control-label mr-2">Monto</label>
+                                                </div>
+                                                <div class="col-auto ml-auto">
+                                                    <input type="text" id="Monto" class="form-control form-control-lg " style="width: 250px;">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <label for="Tasa" class="control-label mr-2">¿A qué tasa (%)?</label>
+                                                </div>
+                                                <div class="col-auto ml-auto">
+                                                    <input type="text" id="Tasa" class="form-control form-control-lg" style="width: 250px;">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <label for="Tiempo" class="control-label mr-2">¿Por Cuánto Tiempo? (Meses)</label>
+                                                </div>
+                                                <div class="col-auto ml-auto">
+                                                    <input type="text" id="Tiempo" class="form-control form-control-lg" style="width: 250px;">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <label for="TiempoFecha" class="control-label mr-2">Fechas de Pago (yyyy-mm-dd)</label>
+                                                </div>
+                                                <div class="col-auto ml-auto">
+                                                    <input type="text" id="TiempoFecha" class="form-control form-control-lg" style="width: 250px;">
+                                                </div>
+                                            </div>
+                                            <br><!-- comment -->
+                                            <br>
+                                            <div>
+                                                <button type="button" class="btn btn-primary" id="btnConfirmarPres">Registrar</button>
+
+                                                <a id="btnRegresar" class="btn btn-secondary" href="tablesPrestamos.html">Cancelar</a>
+                                            </div>
+                                            <br>
+                                        </form>
+
+                                    </div>
+                                    <div class="col-md-9">
+                                        <!-- Tabla -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                                <h6 class="m-0 font-weight-bold text-primary">Listado de cuentas registradas</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0" data-searching="false">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th style="text-align: center">N° de Cuenta</th>
+                                                                <th style="text-align: center">Ap. Paterno</th>
+                                                                <th style="text-align: center">Ap. Materno</th>
+                                                                <th style="text-align: center">Nombres</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Agrega aquí los datos de la tabla -->
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+
+                                                                <th style="text-align: center">N° de Cuenta</th>
+                                                                <th style="text-align: center">Ap. Paterno</th>
+                                                                <th style="text-align: center">Ap. Materno</th>
+                                                                <th style="text-align: center">Nombres</th>
+                                                            </tr>
+                                                        </tfoot>
+
+                                                    </table>
+                                                </div>
+
+                                                <div class="my-2"></div>
+                                            </div>
                                         </div>
-                                        <div class="my-2"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script>
-                    function calcularMontoTotal() {
-                        var tazaPrestamo = parseFloat(document.getElementById("tazaPrestamo").value);
-                        var montoPrestamo = parseFloat(document.getElementById("montoPrestamo").value);
 
-                        if (!isNaN(tazaPrestamo) && !isNaN(montoPrestamo)) {
-                            var montoTotal = montoPrestamo * (1 + tazaPrestamo / 100);
-                            document.getElementById("montoPrestamoTot").value = montoTotal.toFixed(2);
-                        } else {
-                            document.getElementById("montoPrestamoTot").value = "";
-                        }
-                    }
-                </script>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <!-- End of Page Content -->
+
+                </div>
 
                 <!-- End of Main Content -->
 
@@ -391,14 +479,15 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href = 'index.html'">Cerrar sesión</button>
+                        <button id="btnCerrarSesion" type="button" class="btn btn-primary">Cerrar sesión</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Modal cambio de contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel" aria-hidden="true">
+        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -459,82 +548,6 @@
             </div>
         </div>
 
-        <!-- Préstamo Registrado -->
-        <div id="prestamoRegis" class="modal" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Alerta...!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Prestamo Registrado
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Préstamo Fallido -->
-        <div id="prestamoFallido" class="modal" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Alerta...!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Datos Inválidos
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-         <!-- Círculo con Ícono de Mensaje -->
-        <div class="circle-container" onclick="toggleDiv()">
-            <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8l4 3V2a2 2 0 0 0-2-2H2zm6 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-            </svg>
-        </div>
-
-        <!-- Contenedor oculto -->
-        <div class="hidden-div" id="myDiv">
-            <div class="hidden-div-content">
-                <!-- Botón de cierre, con font-size ajustado -->
-                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <span style="font-size: 1.2em;">Asistencia</span>
-                    <span class="close-button" onclick="toggleDiv()" style="font-size: 1.2em; margin-left: auto;">×</span>
-                </div>
-
-                <div class="message-container">
-                    <!-- Aquí se mostrarán los mensajes -->
-                </div>
-
-                <!-- Contenedor para centrar el contenedor de borde azul -->
-                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-                    <!-- Nuevo contenedor con borde azul, bordes redondeados, altura y ancho reducidos -->
-                    <div id="message" class="additional-container" style="border: 2px solid #007bff; padding: 10px; border-radius: 15px; height: 325px; width: 350px; overflow-y: auto;">
-
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <input id="mensaje" type="text" class="message-input" placeholder="Escribe tu mensaje...">
-                    <button id="Enviar" class="send-button">
-                        <!-- Utiliza un ícono de enviar de Bootstrap (puedes cambiarlo según tus necesidades) -->
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM7.93 1.047a6.5 6.5 0 0 1 0 13 6.5 6.5 0 0 1 0-13zM8 2a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 8 2z"/>
-                        <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 1 0v5.793l2.854-2.853a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7 9.293V3.5z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-        </div>
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -542,25 +555,24 @@
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
 
         <!-- Page level plugins -->
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-        <script src="js/procesos/listarClientePrestamo.js"></script>
+
         <!-- Page level custom scripts -->
-        <script src="js/procesos/registrarPrestamos.js"></script>
+        <script src="js/tables/tablaPrestamos.js" ></script>
 
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
-        
-         <!-- chat -->
-        <script src="js/chat/cargarMensaje.js"></script>
-        <script src="js/chat/conexion.js"></script>
+        <!-- FuncionesJS -->
+        <script src="js/procesoprestamos/insertarPrestamosPersonal.js" ></script>
     </body>
 
 </html>
