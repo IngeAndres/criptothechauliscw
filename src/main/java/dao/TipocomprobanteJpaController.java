@@ -199,4 +199,14 @@ public class TipocomprobanteJpaController implements Serializable {
         }
     }
     
+    public List<Tipocomprobante> listarTipocomprobante() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Tipocomprobante.findAll");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
 }

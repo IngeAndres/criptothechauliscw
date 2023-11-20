@@ -199,4 +199,13 @@ public class TipoinformacionbienJpaController implements Serializable {
         }
     }
 
+    public List<Tipoinformacionbien> listarTipoinformacion() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Tipoinformacionbien.findAll");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

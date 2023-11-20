@@ -417,6 +417,24 @@ public class CuentaJpaController implements Serializable {
             em.close();
         }
     }
+     public Cuenta obtenerPorNumCuenta(String NumberCuenta) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Cuenta.findByNumbCuenta");
+            query.setParameter("numbCuenta", NumberCuenta);
+
+            List<Cuenta> results = query.getResultList();
+
+            if (!results.isEmpty()) {
+                return results.get(0);
+            } else {
+                return null;
+            }
+        } finally {
+            em.close();
+        }
+
+    }
     
     public List<Object[]> listarCuentas() {
         EntityManager em = getEntityManager();

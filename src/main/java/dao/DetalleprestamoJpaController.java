@@ -228,4 +228,17 @@ public class DetalleprestamoJpaController implements Serializable {
         }
     }
     
+     public Integer registrarDetPrestamos(Detalleprestamo registrarDetPrest) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(registrarDetPrest);
+            em.getTransaction().commit();
+            em.refresh(registrarDetPrest); // Actualiza el objeto con el ID generado
+
+            return registrarDetPrest.getIdDetallePrestamo();
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
 }

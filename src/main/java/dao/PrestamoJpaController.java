@@ -251,4 +251,15 @@ public class PrestamoJpaController implements Serializable {
         }
     }
 
-}
+    public boolean registrarPrestamos(Prestamo registrarPrest) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(registrarPrest);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+    }
