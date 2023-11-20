@@ -8,7 +8,7 @@ $(document).ready(function () {
 //    }
 //
 //    document.getElementById('txtLogi').textContent = logi;
-
+//    FALTA AGREGAR LA SECCION DE SEGURIDAD
     $("#btnInsertarDatosPersonales").click(function () {
         let documento = $("#TipoDocumentoDatoPersona").val();
         let numerodoc = $("#NumDocDatoPersona").val();
