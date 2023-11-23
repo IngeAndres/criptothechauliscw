@@ -9,21 +9,25 @@ $(document).ready(function () {
 
     document.getElementById('txtLogi').textContent = logi;
 
-    $('#dataTable').DataTable({
+    $('#dataTableCuenta').DataTable({
         "language": {
             "url": "/CriptoTheChaulisCW/json/es-ES.json"
         },
         "ajax": {
-            "url": "/CriptoTheChaulisCW/listarcuentas",
+            "url": "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/listarcuenta",
             "dataSrc": ""
         },
         "columns": [
-            {"data": "DOCUMENTO"},
-            {"data": "NUMERO"},
-            {"data": "TIPO"},
-            {"data": "SALDO"},
+            {"data": "apPaPersona"},
+            {"data": "apMaPersona"},
+            {"data": "nombPersona"},
+            {"data": "denoTipoCuenta"},
+            {"data": "numbCuenta"},
+            {"data": "saldoDisponible"},
+            {"data": "saldoContable"},
+            {"data": "estadoCuenta"},
             {
-                "data": "FECHA",
+                "data": "fechaApertura",
                 "render": function (data, type, full, meta) {
                     var fechaFormateada = new Date(data);
                     var options = {year: 'numeric', month: '2-digit', day: '2-digit'};
@@ -49,7 +53,7 @@ $(document).ready(function () {
         ]
     });
 
-    $('#dataTable').on('click', '.btnEditar', function () {
+    $('#dataTableCuenta').on('click', '.btnEditar', function () {
         var codigocuenta = $(this).data('codigocuenta');
         window.location.href = 'editarCuentas.html?codigoCuentas=' + codigocuenta;
     });
