@@ -4,52 +4,53 @@ $(document).ready(function () {
     let parametro = {
         idDetallePres: idDetalle
     };
-
-
     let Meses;
     let Monto;
     let Taza;
     let Fechad;
+    $.ajax({
+        type: 'GET',
+        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.prestamo/listaraporte/" + idDetalle,
+        dataType: "json",
+        success: function (data) {
+            if (data.resultado === "ok") {
+                Meses = data.Meses;
+                Monto = data.Monto;
+                Taza = data.Tasa;
+                Fechad = data.Fecha;
 
-    $.getJSON("listaraportemensual", parametro, function (data) {
-        if (data.resultado === "ok") {
+                mostrarDetalles(Monto, Taza, Meses, tipP);
 
-            Meses = data.Meses;
-            Monto = data.Monto;
-            Taza = data.Tasa;
-            Fechad = data.Fecha;
+                llenarTabla(Meses, Monto, Taza, Fechad);
+            } else {
 
-            mostrarDetalles(Monto, Taza, Meses,tipP)
-
-            llenarTabla(Meses, Monto, Taza, Fechad);
-        } else {
-            alert("error");
+                alert("Error");
+            }
         }
+
     });
-
-
 //Fin
 });
-function mostrarDetalles(monto, tasa, tiempo,tip) {
+function mostrarDetalles(monto, tasa, tiempo, tip) {
 
     let tp = sessionStorage.getItem("Ptipo");
     $(".card-header").find("h1").text("Préstamo " + tp);
-    
-    
+
+
     let mensaje = tip;
     $("#mensaje").text(mensaje);
-    
+
     let montot = "Importe Solicitado : " + monto;
     $("#monto").text(montot);
-    
-    let cuota = calcularCuota(monto,tasa,tiempo);
+
+    let cuota = calcularCuota(monto, tasa, tiempo);
     let cuotat = "Cuota:" + cuota.toFixed(5);
     $("#cuota").text(cuotat);
-    
+
     let duraciont = "Duración Total:" + tiempo + " Meses";
     $("#duracion").text(duraciont);
-    
-     let tasaT = "Tasa De Interés: " + tasa * 100 + "%";
+
+    let tasaT = "Tasa De Interés: " + tasa * 100 + "%";
     $("#tasa").text(tasaT);
 }
 function calcularCuota(monto, tasa, tiempo) {
