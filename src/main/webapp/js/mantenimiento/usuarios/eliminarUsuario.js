@@ -1,7 +1,4 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
-    const token = getCookie("token");
-
     $('#dataTable').on('click', '.eliminarCliente', function () {
         var codigoCliente = $(this).data('codigocliente');
 

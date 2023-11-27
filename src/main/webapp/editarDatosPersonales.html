@@ -9,14 +9,10 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Clientes - The Chauli's</title>
+        <title>Nuevo Registro</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-
-        <!-- Custom icons -->
-        <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- Custom fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -77,15 +73,15 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Mantenimiento:</h6>
-                            <a class="collapse-item" href="tablesClientes.html">
+                            <a class="collapse-item" href="tablaUsuarios.html">
                                 <i class="fa fa-address-book" aria-hidden="true"></i>
                                 <span>Clientes</span>
                             </a>
-                            <a class="collapse-item" href="tablesCuentas.html">
+                            <a class="collapse-item" href="tablaCuentas.html">
                                 <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <span>Cuentas</span>
                             </a>
-                            <a class="collapse-item" href="tablesDatosPersonales.html">
+                            <a class="collapse-item" href="tablaDatosPersonales.html">
                                 <i class="fa fa-id-card" aria-hidden="true"></i>
                                 <span>Datos Personales</span>
                             </a>
@@ -196,7 +192,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span id="txtLogi" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                                    <span id="txtUsuario" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                                     <img class="img-profile rounded-circle"
                                          src="img/undraw_profile.svg">
                                 </a>
@@ -232,69 +228,133 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Actualizar Registro</h1><br>
 
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                                <h6 class="m-0 font-weight-bold text-primary">Listado de los clientes registrados</h6>
-                                <div>
-                                    <a class="nav-link" href="REPORTESCLIENTES.jsp">
-                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                        <span>Generar PDF</span>
-                                    </a>
+                        <!-- Editar Datos Personales -->
+                        <div class="row">
+                            <!-- Lado Izquierdo -->
+                            <div class="col-md-6 border-right px-5">
+                                <div class="form-group">
+                                    <label for="denoTipoDocumento" class="col-form-label">Tipo de documento:</label>
+                                    <select id="denoTipoDocumento" class="form-control"></select>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="docuPersona" class="col-form-label">N° de documento:</label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="ruc" class="col-form-label">RUC:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" id="docuPersona" class="form-control" />
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" id="ruc" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nombPersona" class="col-form-label">Nombres:</label>
+                                    <input type="text" id="nombPersona" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="apPaPersona" class="col-form-label">Apellido Paterno:</label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="apMaPersona" class="col-form-label">Apellido Materno:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" id="apPaPersona" class="form-control"/>
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" id="apMaPersona" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Sexo:</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="generoM" name="genero" class="form-check-input" value="M" />
+                                        <label for="generoM" class="form-check-label">Masculino</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="generoF" name="genero" class="form-check-input" value="F" />
+                                        <label for="generoF" class="form-check-label">Femenino</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">Documento</th>
-                                                <th style="text-align: center;">N° de documento</th>
-                                                <th style="text-align: center;">Ap. Paterno</th>
-                                                <th style="text-align: center;">Ap. Materno</th>
-                                                <th style="text-align: center;">Nombres</th>
-                                                <th style="text-align: center;">Distrito</th>
-                                                <th style="text-align: center;">Dirección</th>
-                                                <th style="text-align: center;">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th style="text-align: center;">Documento</th>
-                                                <th style="text-align: center;">N° de documento</th>
-                                                <th style="text-align: center;">Ap. Paterno</th>
-                                                <th style="text-align: center;">Ap. Materno</th>
-                                                <th style="text-align: center;">Nombres</th>
-                                                <th style="text-align: center;">Distrito</th>
-                                                <th style="text-align: center;">Dirección</th>
-                                                <th style="text-align: center;">Acciones</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-
+                            <!-- Lado Derecho -->
+                            <div class="col-md-6 px-5">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="fechPersona" class="col-form-label">Fecha de nacimiento:</label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="celuPersona" class="col-form-label">Celular:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="date" id="fechPersona" class="form-control" />
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" id="celuPersona" class="form-control" />
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="my-2"></div>
-                                <a href="insertarClientes.html" class="btn btn-success btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="text">Nuevo cliente</span>
-                                </a>
-
+                                <div class="form-group">
+                                    <label for="direPersona" class="col-form-label">Dirección:</label>
+                                    <input type="text" id="direPersona" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="emailPersona" class="col-form-label">Email:</label>
+                                    <input type="email" id="emailPersona" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="denoDepartamento" class="col-form-label">Departamento:</label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="denoProvincia" class="col-form-label">Provincia:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <select id="denoDepartamento" class="form-control"></select>
+                                        </div>
+                                        <div class="col">
+                                            <select id="denoProvincia" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="denoDistrito" class="col-form-label">Distrito:</label>
+                                    <select id="denoDistrito" class="form-control"></select>
+                                </div>
                             </div>
-
                         </div>
-
+                        <!-- Botones al final -->
+                        <div class="row">
+                            <div class="col-md-6 px-5">
+                                <div class="form-group">
+                                    <input id="btnEditar" type="submit" value="Actualizar" class="btn btn-primary" />
+                                    <a id="btnRegresar" class="btn btn-secondary mx-2" href="tablaDatosPersonales.html">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- End of Page Content -->
-
                 </div>
+
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
@@ -309,6 +369,7 @@
 
             </div>
             <!-- End of Content Wrapper -->
+
         </div>
         <!-- End of Page Wrapper -->
 
@@ -318,11 +379,11 @@
         </a>
 
         <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
+        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
+                        <h5 class="modal-title">Sesión expirada</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -337,12 +398,12 @@
             </div>
         </div>
 
-        <!-- Modal cierre de sesión-->
-        <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
+        <!-- Modal Cierre de Sesión-->
+        <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="sesionModalLabel">Cierre de sesión</h5>
+                        <h5 class="modal-title">Cierre de sesión</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -358,13 +419,12 @@
             </div>
         </div>
 
-        <!-- Modal cambio de contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
-             aria-hidden="true">
+        <!-- Modal Cambio de Contraseña -->
+        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="claveModalLabel">Cambio de contraseña</h5>
+                        <h5 class="modal-title">Cambio de contraseña</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -372,8 +432,8 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="txtPass" class="col-form-label">Contraseña Actual:</label>
-                                <input type="password" class="form-control" id="txtPass">
+                                <label for="txtPassUsuario" class="col-form-label">Contraseña Actual:</label>
+                                <input type="password" class="form-control" id="txtPassUsuario">
                             </div>
                             <div class="form-group">
                                 <label for="txtNewPass1" class="col-form-label">Nueva contraseña:</label>
@@ -402,7 +462,7 @@
         </div>
 
         <!-- Modal Contraseña Actualizada -->
-        <div class="modal" tabindex="-1" role="dialog" id="modalClaveActualizada">
+        <div class="modal fade"  id="modalClaveActualizada" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -423,22 +483,38 @@
             </div>
         </div>
 
-        <!-- Modal Eliminar Registro -->
-        <div class="modal fade" id="eliminarRegistroModal" tabindex="-1" role="dialog" aria-labelledby="eliminarRegistroModalLabel" aria-hidden="true">
+        <!-- Modal Datos Personales Actualizados -->
+        <div class="modal" id="modalDatosPersonalesActualizados" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarRegistroModalLabel">Confirmar eliminación</h5>
+                        <h5 class="modal-title">Actualización</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar este registro?
+                        Los datos personales se actualizaron correctamente.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Datos Personales Incompletos -->
+        <div class="modal fade" id="modalDatosPersonalesIncompletos" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Datos Incompletos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Por favor, complete todos los campos necesarios.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="confirmarEliminar">Eliminar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
                     </div>
                 </div>
             </div>
@@ -501,17 +577,19 @@
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+        <!-- Page level custom scripts -->
+        <script src="js/mantenimiento/listarTipoDocumento.js" async></script>
+        <script src="js/mantenimiento/listarDepartamento.js" async></script>
+        <script src="js/mantenimiento/datospersonales/buscarDatosPersonales.js" async></script>
+        <script src="js/mantenimiento/datospersonales/editarDatosPersonales.js"></script>
+
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
 
-        <!-- Mantenimiento -->
-        <script src="js/tables/tablaClientes.js"></script>
-        <script src="js/mantenimiento/eliminarCliente.js"></script>
-
-        <!-- Chat -->
+        <!-- chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

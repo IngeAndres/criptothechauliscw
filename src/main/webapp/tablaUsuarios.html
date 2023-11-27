@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Préstamos - The Chauli's</title>
+        <title>Usuarios - The Chauli's</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -31,17 +31,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
 
-        <style>
-            .btn-container {
-                display: flex;
-                justify-content: flex-start;
-                gap: 10px;
-            }
-            .btn-lg {
-                padding: 14px 21px;
-                font-size: 24px;
-            }
-        </style>
     </head>
 
     <body id="page-top">
@@ -90,7 +79,7 @@
                             <h6 class="collapse-header">Mantenimiento:</h6>
                             <a class="collapse-item" href="tablaUsuarios.html">
                                 <i class="fa fa-address-book" aria-hidden="true"></i>
-                                <span>Clientes</span>
+                                <span>Usuarios</span>
                             </a>
                             <a class="collapse-item" href="tablaCuentas.html">
                                 <i class="fa fa-credit-card" aria-hidden="true"></i>
@@ -114,7 +103,7 @@
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Procesos:</h6>
+                            <h6 id="headingUtilities" class="collapse-header">Procesos:</h6>
                             <a class="collapse-item" href="tablesPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
@@ -243,32 +232,57 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h1 class="h3 mb-2 text-gray-800">Realizar Nuevo Préstamo</h1>
-                            </div>
-                            <div class="container mt-5">
-
-                                <h4 class="m-0 font-weight-bold text-primary">Seleccionar Tipo de Préstamo</h4>
-                                <br>
-                                <div class="btn-container">
-                                    <button type="button" class="btn btn-primary btn-lg" id="btnPPersonales">Préstamos Personales</button>
-                                    <button type="button" class="btn btn-secondary btn-lg" id="btnPVivienda">Préstamos Mi Vivienda</button>
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary">Listado de los clientes registrados</h6>
+                                <div>
+                                    <a class="nav-link" href="REPORTESCLIENTES.jsp">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        <span>Generar PDF</span>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Listado de los clientes registrados</h6>
-                            </div>
                             <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-sm"  id="dataTableClientes" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center">Tipo Documento</th>
+                                            <th style="text-align: center">N° Documento</th>
+                                            <th style="text-align: center">Ap. Paterno</th>
+                                            <th style="text-align: center">Ap. Materno</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="text-align: center">Tipo Documento</th>
+                                            <th style="text-align: center">N° Documento</th>
+                                            <th style="text-align: center">Ap. Paterno</th>
+                                            <th style="text-align: center">Ap. Materno</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center;">Acciones</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                                </div>
+
                                 <div class="my-2"></div>
-                                <a href="insertarPrestamos.html" class="btn btn-success btn-icon-split">
+                                <a href="insertarUsuario.html" class="btn btn-success btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </span>
-                                    <span class="text">Nuevo préstamo</span>
+                                    <span class="text">Nuevo usuario</span>
                                 </a>
+
                             </div>
 
                         </div>
@@ -277,7 +291,6 @@
                     <!-- End of Page Content -->
 
                 </div>
-
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
@@ -292,7 +305,6 @@
 
             </div>
             <!-- End of Content Wrapper -->
-
         </div>
         <!-- End of Page Wrapper -->
 
@@ -336,7 +348,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <button id="btnCerrarSesion" type="button" class="btn btn-primary">Cerrar sesión</button>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href = 'index.html'">Cerrar sesión</button>
                     </div>
                 </div>
             </div>
@@ -378,7 +390,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnCancelarCambio" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="limpiarCampos()">Cancelar</button>
                         <button id="btnCambiarClave" type="button" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -391,15 +403,38 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Cambio de contraseña</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                onclick="window.location.href = 'index.html'">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Contraseña actualizada correctamente. Por favor, inicie sesión nuevamente</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                onclick="window.location.href = 'index.html'">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Eliminar Registro -->
+        <div class="modal fade" id="eliminarRegistroModal" tabindex="-1" role="dialog" aria-labelledby="eliminarRegistroModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eliminarRegistroModalLabel">Confirmar eliminación</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="mensajeCambioClave"></p>
+                        ¿Estás seguro de que deseas eliminar este registro?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmarEliminar">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -469,7 +504,7 @@
         <script src="js/principal/principal.js"></script>
 
         <!-- Mantenimiento -->
-        <script src="js/procesoprestamos/listarClientePrestamo.js" ></script>
+        <script src="js/tables/tablaUsuarios.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>

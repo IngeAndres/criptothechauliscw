@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Nuevo Cliente - The Chauli's</title>
+        <title>Editar Cliente - The Chauli's</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -73,15 +73,15 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Mantenimiento:</h6>
-                            <a class="collapse-item" href="tablesClientes.html">
+                            <a class="collapse-item" href="tablaUsuarios.html">
                                 <i class="fa fa-address-book" aria-hidden="true"></i>
                                 <span>Clientes</span>
                             </a>
-                            <a class="collapse-item" href="tablesCuentas.html">
+                            <a class="collapse-item" href="tablaCuentas.html">
                                 <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <span>Cuentas</span>
                             </a>
-                            <a class="collapse-item" href="tablesDatosPersonales.html">
+                            <a class="collapse-item" href="tablaDatosPersonales.html">
                                 <i class="fa fa-id-card" aria-hidden="true"></i>
                                 <span>Datos Personales</span>
                             </a>
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                 </li>
-
+                
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -192,7 +192,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span id="txtLogi" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                                    <span id="txtUsuario" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                                     <img class="img-profile rounded-circle"
                                          src="img/undraw_profile.svg">
                                 </a>
@@ -228,9 +228,9 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Registrar nuevo cliente</h1><br>
+                        <h1 class="h3 mb-2 text-gray-800">Actualizar datos del cliente</h1><br>
 
-                        <!-- Insertar Cliente -->
+                        <!-- Editar Cliente -->
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -256,7 +256,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="NombreCliente" class="control-label">Nombres:</label>
+                                    <label for="NombreCliente" class="control-label">Nombres</label>
                                     <input type="text" id="NombreCliente" class="form-control" />
 
                                 </div>
@@ -276,10 +276,10 @@
                                     <input type="text" id="Telefono" class="form-control" />
 
                                 </div>
-
+                                <br>
                                 <div class="form-group">
-                                    <input id="btnInsertar" type="submit" value="Registrar" class="btn btn-primary" />
-                                    <a id="btnRegresar" class="btn btn-secondary" href="tablesClientes.html">Cancelar</a>
+                                    <input id="btnEditar" type="submit" value="Actualizar" class="btn btn-primary" />
+                                    <a id="btnRegresar" class="btn btn-secondary" href="tablaUsuarios.html">Cancelar</a>
                                 </div>
                             </div>
                         </div>
@@ -309,26 +309,6 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-        <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Su sesión ya expiró. Inicie sesión nuevamente.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href = 'index.html'">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Modal cierre de sesión-->
         <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -350,9 +330,8 @@
             </div>
         </div>
 
-        <!-- Modal Ccambio de Contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
-             aria-hidden="true">
+        <!-- Modal cambio de contraseña -->
+        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -386,7 +365,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="limpiarCampos()">Cancelar</button>
+                        <button id="btnCancelarCambio" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button id="btnCambiarClave" type="button" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -399,24 +378,22 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Cambio de contraseña</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                onclick="window.location.href = 'index.html'">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Contraseña actualizada correctamente. Por favor, inicie sesión nuevamente</p>
+                        <p id="mensajeCambioClave"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                onclick="window.location.href = 'index.html'">Aceptar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal Cliente Registrado -->
-        <div id="alertClienteRegistrado" class="modal" style="display: none;">
+        <!-- Modal Cliente Editado -->
+        <div id="alertClienteEditado" class="modal" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -426,7 +403,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Nuevo cliente registrado
+                        Cliente editado
                     </div>
                 </div>
             </div>
@@ -448,6 +425,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
@@ -506,18 +484,19 @@
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+        <!-- Page level custom scripts -->
+        <script src="js/mantenimiento/editarClienteListar.js"></script>
+        <script src="js/mantenimiento/listarDistrito.js"></script>
+        <script src="js/mantenimiento/listarTipoDocumento.js"></script>
+        <script src="js/mantenimiento/editarCliente.js"></script>
+
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/principal/principal.js"></script>
 
-        <!-- Mantenimiento -->
-        <script src="js/mantenimiento/listarDistrito.js"></script>
-        <script src="js/mantenimiento/listarTipoDocumento.js"></script>
-        <script src="js/mantenimiento/insertarCliente.js"></script>
-
-        <!-- Chat -->
+        <!-- chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

@@ -1,20 +1,19 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
-    const token = getCookie("token");
-
     $.ajax({
-        url: '/CriptoTheChaulisCW/listartipodocumento',
-        type: 'GET',
+        type: "GET",
+        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.tipodocumento/listartipodocumento",
+        contentType: "application/json",
+        dataType: "json",
         success: function (response) {
             try {
-                var documento = JSON.parse(response);
-                var combobox = document.getElementById("Documento");
+                var listado = response;
+                var combobox = document.getElementById("denoTipoDocumento");
 
-                for (var i = 0; i < documento.length; i++) {
-                    var listarDocumento = documento[i];
-                    if (listarDocumento && listarDocumento.NOMBRE) {
+                for (var i = 0; i < listado.length; i++) {
+                    var tipoDocumento = listado[i];
+                    if (tipoDocumento && tipoDocumento.denoTipoDocumento) {
                         var option = document.createElement("option");
-                        option.text = listarDocumento.NOMBRE;
+                        option.text = tipoDocumento.denoTipoDocumento;
                         combobox.appendChild(option);
                     }
                 }
@@ -26,15 +25,4 @@ $(document).ready(function () {
             console.log('Error', status, error);
         }
     });
-
-    function getCookie(name) {
-        const cookies = document.cookie.split("; ");
-        for (let i = 0; i < cookies.length; i++) {
-            const cookiePair = cookies[i].split("=");
-            if (cookiePair[0] === name) {
-                return cookiePair[1];
-            }
-        }
-        return null;
-    }
 });

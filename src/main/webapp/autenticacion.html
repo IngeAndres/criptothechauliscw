@@ -2,13 +2,13 @@
 <html lang="en">
 
     <head>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        
+
         <title>Autenticación de 2 pasos</title>
 
         <!-- Favicon-->
@@ -75,7 +75,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <p>¡Hola, <span id="txtLogi"></span>!
+                                            <p>¡Hola, <span id="txtUsuario"></span>!
                                             <p>Parece que estás intentando iniciar sesión.</p>
                                             <p>Como medida de seguridad adicional, introduce el código de 6 dígitos generado por tu aplicación móvil.</p>
                                             <div class="verification-code">
@@ -108,11 +108,11 @@
         </div>
 
         <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
+        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
+                        <h5 class="modal-title">Sesión expirada</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
                             <span aria-hidden="true">&times;</span>
                         </button>

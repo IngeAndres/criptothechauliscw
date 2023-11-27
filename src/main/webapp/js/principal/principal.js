@@ -1,30 +1,31 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
     const auth = getCookie("auth");
 
-    if (!logi || !token || !auth) {
-        window.location.href = "index.html";
+    if (!idUsuario || !usuario || !token || !auth) {
+        $("#sesionExpiradaModal").modal('show');
         return;
     }
 
-    document.getElementById('txtLogi').textContent = logi;
+    document.getElementById('txtUsuario').textContent = usuario;
 
     $("#btnCambiarClave").click(function () {
-        let pass = $("#txtPass").val();
+        let passUsuario = $("#txtPassUsuario").val();
         let newPass1 = $("#txtNewPass1").val();
         let newPass2 = $("#txtNewPass2").val();
 
-        if (!pass || !newPass1 || !newPass2) {
+        if (!passUsuario || !newPass1 || !newPass2) {
             showErrorMessage("Por favor, complete todos los campos.");
             return;
         }
 
         let parametros = {
-            logi: logi,
-            pass: encrypt(pass),
-            newpass1: encrypt(newPass1),
-            newpass2: encrypt(newPass2)
+            idUsuario: idUsuario,
+            passUsuario: encrypt(passUsuario),
+            newPass1: encrypt(newPass1),
+            newPass2: encrypt(newPass2)
         };
 
         $.ajax({

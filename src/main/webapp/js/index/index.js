@@ -1,20 +1,22 @@
 $(document).ready(function () {
-    ["logi", "token", "auth"].forEach(cookie => {
+    ["id", "usuario", "token", "auth"].forEach(cookie => {
         document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
     localStorage.removeItem('chatMessages');
-    
-    
-    $("#btnIniciar").click(function () {
-        const logi = $("#txtLogi").val();
-        const pass = $("#txtPass").val();
 
-        if (!logi || !pass) {
+    $("#btnIniciarSesion").click(function () {
+        const idUsuario = $("#txtIdUsuario").val();
+        const passUsuario = $("#txtPassUsuario").val();
+
+        if (!idUsuario || !passUsuario) {
             showErrorMessage("Por favor, complete todos los campos.");
             return;
         }
 
-        const parametros = {logi: logi, pass: encrypt(pass)};
+        const parametros = {
+            idUsuario: idUsuario,
+            passUsuario: encrypt(passUsuario)
+        };
 
         $.ajax({
             type: "POST",
@@ -25,7 +27,8 @@ $(document).ready(function () {
             success: function (data) {
                 switch (data.status) {
                     case 200:
-                        document.cookie = "logi=" + logi + "; path=/";
+                        document.cookie = "id=" + idUsuario + "; path=/";
+                        document.cookie = "usuario=" + data.usuario + "; path=/";
                         document.cookie = "token=" + data.token + "; path=/";
 
                         window.location.href = "autenticacion.html";
@@ -38,8 +41,9 @@ $(document).ready(function () {
                         break;
                 }
             },
-            error: function () {
-                showErrorMessage("Error interno del servidor. Inténtelo más tarde.");
+            error: function (xhr, status, error) {
+                console.error(xhr, status, error);
+                showErrorMessage("Error interno del servidor. Por favor, inténtelo de nuevo más tarde.");
             },
             timeout: 10000
         });

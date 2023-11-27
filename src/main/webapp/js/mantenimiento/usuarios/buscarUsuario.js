@@ -3,12 +3,12 @@ $(document).ready(function () {
     const token = getCookie("token");
 
     var urlParams = new URLSearchParams(window.location.search);
-    var codigoCliente = urlParams.get('codigoCliente');
+    var codigoPersona = urlParams.get('codigoPersona');
 
     $.ajax({
         type: "GET",
-        url: "buscarcliente",
-        data: {codigo: codigoCliente},
+        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/obtenercliente",
+        data: JSON.stringify({codigopersona: codigoPersona}),
         dataType: "json",
         success: function (data) {
             $("#Nombre").val(data[0].NUMERODOC);

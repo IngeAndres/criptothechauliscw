@@ -1,8 +1,6 @@
 /* global CryptoJS */
 
 $(document).ready(function () {
-
-    console.clear();
     openSocket();
 
     $("#mensaje").keypress(function (e) {

@@ -1,13 +1,15 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    if (!logi || !token) {
-        window.location.href = "index.html";
+    if (!idUsuario || !usuario || !token) {
+        $("#sesionExpiradaModal").modal('show');
         return;
     }
 
-    document.getElementById("txtLogi").textContent = logi;
+    document.getElementById('txtUsuario').textContent = usuario;
+
     generarCodigoQR();
 
     $(".verification-input").on("input", function (e) {
@@ -52,7 +54,7 @@ $(document).ready(function () {
         if (code.length === 6) {
             $("#btnVerificar").removeClass("btn-primary").addClass("btn-secondary");
             setTimeout(function () {
-                let parametros = {logi: logi, code: code};
+                let parametros = {idUsuario: idUsuario, code: code};
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/autenticacion",
@@ -86,7 +88,7 @@ $(document).ready(function () {
 
     function generarCodigoQR() {
         $("#codigoQR").empty();
-        let parametros = {logi: logi};
+        let parametros = {idUsuario: idUsuario};
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/generarurl",
