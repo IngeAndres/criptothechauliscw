@@ -2,14 +2,14 @@
 <html lang="en">
 
     <head>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Nuevo Cliente - The Chauli's</title>
+        <title>Nuevo Usuario - The Chauli's</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -228,55 +228,23 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Registrar nuevo cliente</h1><br>
+                        <h1 class="h3 mb-2 text-gray-800">Nuevo Registro</h1><br>
 
                         <!-- Insertar Cliente -->
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Documento</label>
-                                    <select id="Documento" class="form-control">
-                                        <!-- opciones de selección aquí -->
-                                    </select>
+                                    <label for="denoTipoUsuario" class="col-form-label">Tipo de usuario:</label>
+                                    <select id="denoTipoUsuario" class="form-control"></select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Nombre" class="control-label">N° de documento:</label>
-                                    <input type="text" id="Nombre" class="form-control" />
-
-                                </div>
-                                <!-- Agrega más campos de texto aquí -->
-                                <div class="form-group">
-                                    <label for="ApellidoPaterno" class="control-label">Apellido paterno:</label>
-                                    <input type="text" id="ApellidoPaterno" class="form-control" />
-
+                                    <label for="docuPersona" class="col-form-label">DNI:</label>
+                                    <select id="docuPersona" class="form-control"></select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="ApellidoMaterno" class="control-label">Apellido materno:</label>
-                                    <input type="text" id="ApellidoMaterno" class="form-control" />
-
+                                    <label for="passUsuario" class="col-form-label">Contraseña</label>
+                                    <input type="password" id="passUsuario" class="form-control" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="NombreCliente" class="control-label">Nombres:</label>
-                                    <input type="text" id="NombreCliente" class="form-control" />
-
-                                </div>
-                                <div class="form-group">
-                                    <label>Distrito</label>
-                                    <select id="Distrito" class="form-control">
-                                        <!-- opciones de selección aquí -->
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Direccion" class="control-label">Dirección:</label>
-                                    <input type="text" id="Direccion" class="form-control" />
-
-                                </div>
-                                <div class="form-group">
-                                    <label for="Telefono" class="control-label">Teléfono:</label>
-                                    <input type="text" id="Telefono" class="form-control" />
-
-                                </div>
-
                                 <div class="form-group">
                                     <input id="btnInsertar" type="submit" value="Registrar" class="btn btn-primary" />
                                     <a id="btnRegresar" class="btn btn-secondary" href="tablaUsuarios.html">Cancelar</a>
@@ -513,9 +481,8 @@
         <script src="js/principal/principal.js"></script>
 
         <!-- Mantenimiento -->
-        <script src="js/mantenimiento/listarDistrito.js"></script>
-        <script src="js/mantenimiento/listarTipoDocumento.js"></script>
-        <script src="js/mantenimiento/insertarCliente.js"></script>
+        <script src="js/mantenimiento/usuarios/listarTipoUsuario.js"></script>
+        <<script src="js/mantenimiento/usuarios/listarDocuPersona.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>

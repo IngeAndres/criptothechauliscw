@@ -237,7 +237,7 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                                <h6 class="m-0 font-weight-bold text-primary">Listado de las cuentas registradas</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Listado de Cuentas por Usuario</h6>
                                 <div>
                                     <a class="nav-link" href="REPORTESCUENTAS.jsp">
                                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
@@ -247,14 +247,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-sm"  id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered table-hover table-sm"  id="dataTableCuenta" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th style="text-align: center">Documento</th>
-                                                <th style="text-align: center">Numero de Cuenta</th>
-                                                <th style="text-align: center">Tipo</th>
-                                                <th style="text-align: center">Saldo</th>
-                                                <th style="text-align: center">Fecha</th>
+                                                <th style="text-align: center">Ap. Paterno</th>
+                                                <th style="text-align: center">Ap. Materno</th>
+                                                <th style="text-align: center">Nombres</th>
+                                                <th style="text-align: center">Tipo de Cuenta</th>
+                                                <th style="text-align: center">N° de Cuenta</th>
+                                                <th style="text-align: center">Saldo Disponible</th>
+                                                <th style="text-align: center">Saldo Contable</th>
+                                                <th style="text-align: center">Estado de Cuenta</th>
+                                                <th style="text-align: center">Fecha de Apertura</th>
                                                 <th style="text-align: center">Acciones</th>
                                             </tr>
                                         </thead>
@@ -263,11 +267,15 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th style="text-align: center">Documento</th>
-                                                <th style="text-align: center">Numero de Cuenta</th>
-                                                <th style="text-align: center">Tipo</th>
-                                                <th style="text-align: center">Saldo</th>
-                                                <th style="text-align: center">Fecha</th>
+                                                <th style="text-align: center">Ap. Paterno</th>
+                                                <th style="text-align: center">Ap. Materno</th>
+                                                <th style="text-align: center">Nombres</th>
+                                                <th style="text-align: center">Tipo de Cuenta</th>
+                                                <th style="text-align: center">N° de Cuenta</th>
+                                                <th style="text-align: center">Saldo Disponible</th>
+                                                <th style="text-align: center">Saldo Contable</th>
+                                                <th style="text-align: center">Estado de Cuenta</th>
+                                                <th style="text-align: center">Fecha de Apertura</th>
                                                 <th style="text-align: center">Acciones</th>
                                             </tr>
                                         </tfoot>
@@ -483,8 +491,6 @@
 
         <!-- Mantenimiento -->
         <script src="js/tables/tablaCuentas.js"></script>
-        <script src="js/mantenimiento/insertarCuenta.js"></script>
-        <script src="js/mantenimiento/eliminarCuenta.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>

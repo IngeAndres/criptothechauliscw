@@ -1,13 +1,15 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
+    const auth = getCookie("auth");
 
-    if (!logi || !token) {
-        window.location.href = "index.html";
+    if (!idUsuario || !usuario || !token || !auth) {
+        $("#sesionExpiradaModal").modal('show');
         return;
     }
 
-    document.getElementById('txtLogi').textContent = logi;
+    document.getElementById('txtUsuario').textContent = usuario;
 
     $("#btnInsertar").click(function () {
         let documentoCliente = $("#DocumentoCliente").val();

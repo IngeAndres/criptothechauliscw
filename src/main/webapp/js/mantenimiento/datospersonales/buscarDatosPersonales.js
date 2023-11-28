@@ -5,7 +5,7 @@ $(document).ready(function () {
     const auth = getCookie("auth");
 
     if (!idUsuario || !usuario || !token || !auth) {
-        $("#sesionExpiradaModal").modal('show');
+        window.location.href = "index.html";
         return;
     }
 
@@ -41,21 +41,6 @@ $(document).ready(function () {
                 $("#direPersona").val(data.datos.direPersona);
                 $("#celuPersona").val(data.datos.celuPersona);
                 $("#emailPersona").val(data.datos.emailPersona);
-                $("#denoTipoDocumento option").filter(function () {
-                    return $(this).text() === data.datos.denoTipoDocumento;
-                }).prop("selected", true);
-
-                $("#denoDepartamento option").filter(function () {
-                    return $(this).text() === data.datos.denoDepartamento;
-                }).prop("selected", true);
-
-                $("#denoProvincia option").filter(function () {
-                    return $(this).text() === data.datos.denoProvincia;
-                }).prop("selected", true);
-
-                $("#denoDistrito option").filter(function () {
-                    return $(this).text() === data.datos.denoDistrito;
-                }).prop("selected", true);
             } else if (data.resultado === "error") {
                 $("#sesionExpiradaModal").modal('show');
             }

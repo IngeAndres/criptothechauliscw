@@ -3,8 +3,8 @@ $(document).ready(function () {
     const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    if (!idUsuario || !usuario || !token) {
-        $("#sesionExpiradaModal").modal('show');
+    if (!idUsuario || !token) {
+        window.location.href = "index.html";
         return;
     }
 

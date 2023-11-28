@@ -1,7 +1,15 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
+    const auth = getCookie("auth");
 
+    if (!idUsuario || !usuario || !token || !auth) {
+        $("#sesionExpiradaModal").modal('show');
+        return;
+    }
+
+    document.getElementById('txtUsuario').textContent = usuario;
     $('#dataTable').on('click', '.eliminarCuenta', function () {
         var codigoCuenta = $(this).data('codigocuenta');
 

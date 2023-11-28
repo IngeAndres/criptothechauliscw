@@ -1,30 +1,32 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
+    const auth = getCookie("auth");
 
-    if (!logi || !token) {
-        window.location.href = "index.html";
+    if (!idUsuario || !usuario || !token || !auth) {
+        $("#sesionExpiradaModal").modal('show');
         return;
     }
 
-    document.getElementById('txtLogi').textContent = logi;
+    document.getElementById('txtUsuario').textContent = usuario;
 
     $('#dataTableClientes').DataTable({
-        "language": {
-            "url": "/CriptoTheChaulisCW/json/es-ES.json"
+        language: {
+            url: "/CriptoTheChaulisCW/json/es-ES.json"
         },
-        "ajax": {
-            "url": "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listarclientes",
-            "dataSrc": ""
+        ajax: {
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listarusuarios",
+            dataSrc: ""
         },
-        "columns": [
-            {"data": "denoTipoDocumento"},
-            {"data": "docuPersona"},
-            {"data": "apPaPersona"},
-            {"data": "apMaPersona"},
-            {"data": "nombPersona"},
+        columns: [
+            {data: "denoTipoDocumento"},
+            {data: "docuPersona"},
+            {data: "apPaPersona"},
+            {data: "apMaPersona"},
+            {data: "nombPersona"},
             {
-                "render": function (data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     var codigoPersona = full.idPersona;
                     return `<td style="text-align: center;">
                         <button class="btn btn-info btn-sm btnEditar" data-codigopersona="${codigoPersona}">

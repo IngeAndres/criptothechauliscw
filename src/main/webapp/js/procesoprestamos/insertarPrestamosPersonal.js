@@ -1,9 +1,9 @@
 $(document).ready(function () {
     let tp = sessionStorage.getItem("Ptipo");
     limpiarCampos();
-
+    mostrarDetalles();
     $.ajax({
-        url: 'listarTipoPrestamo',
+        "url": "http://localhost:8080/CriptoTheChaulis/webresources/dto.prestamo/llenarcombobox",
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -14,8 +14,6 @@ $(document).ready(function () {
                 if (item.CATEGORIA === tp) {
                     selectTipoPrestamo.append('<option value="' + item.ID + '">' + item.NOMBRE + '</option>');
                 }
-
-
             });
             $.each(data.Tipocomprobante, function (index, item) {
                 selectTipoComprobante.append('<option value="' + item.IDT + '">' + item.NOMBRET + '</option>');
@@ -28,6 +26,14 @@ $(document).ready(function () {
             console.error(xhr.responseText);
         }
     });
+
+    function mostrarDetalles() {
+
+        let tp = sessionStorage.getItem("Ptipo");
+        $(".card-header").find("h1").text("Préstamo " + tp);
+
+
+    }
 
 
     $('#btnConfirmarPres').click(function (event) {
@@ -62,27 +68,38 @@ $(document).ready(function () {
             IdTipoPrestamo: tipoPrestamo,
             NumeroCuenta: cuentaNum,
             IdTipoComprobante: tipoComprobante,
-            FechaPago : tiempopago
+            FechaPago: tiempopago
         };
-        $.getJSON("registrarprestamo", parametro, function (data) {
-            if (data.resultado === "ok") {
-                sessionStorage.setItem("idDetalle", data.idDetalle);
-                window.location.href = 'tablaAporteMensual.html';
-            } else {
-                limpiarCampos();
 
+        $.ajax({
+            type: 'POST',
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.prestamo/insertarPrestamo",
+            contentType: "application/json",
+            data: JSON.stringify(parametro),
+            dataType: "json",
+            success: function (data) {
+                if (data.resultado === "ok") {
+                    sessionStorage.setItem("idDetalle", data.idDetalle);
+                    sessionStorage.setItem("tipP", data.TipoPrest);
+                    window.location.href = 'tablaAporteMensual.html';
+                } else {
+                    limpiarCampos();
+                    alert("Error");
+                }
             }
+
         });
+
     });
 });
 
-function limpiarCampos(){
+function limpiarCampos() {
     $('#TipoPrestamos').val('');
     $('#CuentaNum').val('');
     $('#TipoComprobante').val('');
     $('#TipoInformacion').val('');
-    $('#siNo').prop('checked', false); // Desmarcar el checkbox
-    $('input[name="moneda"]').prop('checked', false); // Desmarcar todos los radios
+    $('#siNo').prop('checked', false);
+    $('input[name="moneda"]').prop('checked', false);
     $('#Monto').val('');
     $('#Tasa').val('');
     $('#Tiempo').val('');

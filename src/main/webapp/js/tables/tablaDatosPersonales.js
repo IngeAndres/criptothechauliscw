@@ -5,7 +5,7 @@ $(document).ready(function () {
     const auth = getCookie("auth");
 
     if (!idUsuario || !usuario || !token || !auth) {
-        $("#sesionExpiradaModal").modal('show');
+        window.location.href = "index.html";
         return;
     }
 

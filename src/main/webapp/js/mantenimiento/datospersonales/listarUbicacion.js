@@ -5,7 +5,7 @@ $(document).ready(function () {
     const auth = getCookie("auth");
 
     if (!idUsuario || !usuario || !token || !auth) {
-        $("#sesionExpiradaModal").modal('show');
+        window.location.href = "index.html";
         return;
     }
 
@@ -38,7 +38,7 @@ $(document).ready(function () {
             }
         });
     } else {
-        listarDepartamentos(null, null);
+        listarDepartamentos(null, null, null);
     }
 
     function listarDepartamentos(departamento, provincia, distrito) {

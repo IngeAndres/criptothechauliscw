@@ -1,37 +1,43 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
+    const auth = getCookie("auth");
 
-    if (!logi || !token) {
+    if (!idUsuario || !usuario || !token || !auth) {
         window.location.href = "index.html";
         return;
     }
 
-    document.getElementById('txtLogi').textContent = logi;
+    document.getElementById('txtUsuario').textContent = usuario;
 
-    $('#dataTable').DataTable({
-        "language": {
-            "url": "/CriptoTheChaulisCW/json/es-ES.json"
+    $('#dataTableCuenta').DataTable({
+        language: {
+            url: "/CriptoTheChaulisCW/json/es-ES.json"
         },
-        "ajax": {
-            "url": "/CriptoTheChaulisCW/listarcuentas",
-            "dataSrc": ""
+        ajax: {
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/listarcuenta",
+            dataSrc: ""
         },
-        "columns": [
-            {"data": "DOCUMENTO"},
-            {"data": "NUMERO"},
-            {"data": "TIPO"},
-            {"data": "SALDO"},
+        columns: [
+            {data: "apPaPersona"},
+            {data: "apMaPersona"},
+            {data: "nombPersona"},
+            {data: "denoTipoCuenta"},
+            {data: "numbCuenta"},
+            {data: "saldoDisponible"},
+            {data: "saldoContable"},
+            {data: "estadoCuenta"},
             {
-                "data": "FECHA",
-                "render": function (data, type, full, meta) {
+                data: "fechaApertura",
+                render: function (data, type, full, meta) {
                     var fechaFormateada = new Date(data);
                     var options = {year: 'numeric', month: '2-digit', day: '2-digit'};
                     return fechaFormateada.toLocaleDateString('es-ES', options);
                 }
             },
             {
-                "render": function (data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     var codigoCuenta = full.CODIGOCUENTA;
                     return  `<td align="center">
                         <button class="btn btn-info btn-sm btnEditar" data-codigocuenta="${codigoCuenta}">
@@ -49,7 +55,7 @@ $(document).ready(function () {
         ]
     });
 
-    $('#dataTable').on('click', '.btnEditar', function () {
+    $('#dataTableCuenta').on('click', '.btnEditar', function () {
         var codigocuenta = $(this).data('codigocuenta');
         window.location.href = 'editarCuentas.html?codigoCuentas=' + codigocuenta;
     });
