@@ -121,7 +121,7 @@
                             <a class="collapse-item" href="depositos.html">
                                 <i class="fas fa-coins" aria-hidden="true"></i>
                                 <span>Depósitos</span></a>
-                            <a class="collapse-item" href="tablesTransferencias.html">
+                            <a class="collapse-item" href="tablaTransferencias.html">
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i>
                                 <span>Transferencias</span></a>
                         </div>
@@ -285,19 +285,19 @@
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                            
+
                             <div class="card-header py-3">
                                 <h1 class="h3 mb-2 text-gray-800">Préstamo </h1>
                             </div>
 
                             <div class="container mt-5">
-                                 <p id="mensaje" style="text-align: center;" class="h3 mb-2 text-gray-800"></p>
-                                 <p id="monto" style="text-align: center;" ></p>
-                                 <br>
-                                 <p id="cuota" style="text-align: center;" ></p>
-                                 <p id="duracion" style="text-align: center;" ></p>
-                                 <p id="tasa" style="text-align: center;" ></p>
-                                 <br>
+                                <p id="mensaje" style="text-align: center;" class="h3 mb-2 text-gray-800"></p>
+                                <p id="monto" style="text-align: center;" ></p>
+                                <br>
+                                <p id="cuota" style="text-align: center;" ></p>
+                                <p id="duracion" style="text-align: center;" ></p>
+                                <p id="tasa" style="text-align: center;" ></p>
+                                <br>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-sm"  id="dataTable" width="100%" cellspacing="0">
                                         <thead>
@@ -362,7 +362,7 @@
         </a>
 
         <!-- Modal cierre de sesión-->
-        <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCierreSesion" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -383,7 +383,7 @@
         </div>
 
         <!-- Modal cambio de contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
+        <div class="modal fade"  id="modalCambioContrasena" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -426,7 +426,7 @@
         </div>
 
         <!-- Modal Contraseña Actualizada -->
-        <div class="modal" tabindex="-1" role="dialog" id="modalClaveActualizada">
+        <div class="modal" tabindex="-1" role="dialog" id="modalContrasenaActualizada">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -460,13 +460,13 @@
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
         <!-- Page level custom scripts -->
-        <script src="js/tables/tablaPrestamos.js" ></script>
+        <script src="js/tablas/tablaPrestamos.js" ></script>
 
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
-        <script src="js/principal/principal.js"></script>
+        <script src="js/inicio/principal.js"></script>
         <!-- FuncionesJS -->
         <script src="js/procesoprestamos/tablaAporteMensual.js" ></script>
     </body>

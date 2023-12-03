@@ -110,7 +110,7 @@
                             <a class="collapse-item" href="depositos.html">
                                 <i class="fas fa-coins" aria-hidden="true"></i>
                                 <span>Depósitos</span></a>
-                            <a class="collapse-item" href="tablesTransferencias.html">
+                            <a class="collapse-item" href="tablaTransferencias.html">
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i>
                                 <span>Transferencias</span></a>
                         </div>
@@ -262,7 +262,7 @@
 
                                 <div class="form-group">
                                     <input id="btnIniciarTransfer" type="submit" value="Aceptar" class="btn btn-primary" />
-                                    <a id="btnRegresar" class="btn btn-secondary" href="tablesTransferencias.html">Cancelar</a>
+                                    <a id="btnRegresar" class="btn btn-secondary" href="tablaTransferencias.html">Cancelar</a>
                                 </div>
                             </div>
 
@@ -331,7 +331,7 @@
         </a>
 
         <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalSesionExpirada" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -351,7 +351,7 @@
         </div>
 
         <!-- Modal cierre de sesión-->
-        <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCierreSesion" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -372,7 +372,7 @@
         </div>
 
         <!-- Modal cambio de contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
+        <div class="modal fade"  id="modalCambioContrasena" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -415,7 +415,7 @@
         </div>
 
         <!-- Modal Contraseña Actualizada -->
-        <div class="modal" tabindex="-1" role="dialog" id="modalClaveActualizada">
+        <div class="modal" tabindex="-1" role="dialog" id="modalContrasenaActualizada">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -556,11 +556,11 @@
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
-        <script src="js/principal/principal.js"></script>
+        <script src="js/inicio/principal.js"></script>
         
         <!-- Mantenimiento -->
-        <script src="js/procesos/listarCuentaTranferir.js"></script>
-        <script src="js/procesos/transferirDinero.js"></script>
+        <script src="js/proceso/listarCuentaTranferir.js"></script>
+        <script src="js/proceso/transferirDinero.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>

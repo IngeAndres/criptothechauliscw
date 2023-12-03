@@ -4,10 +4,13 @@ $(document).ready(function () {
     const token = getCookie("token");
     const auth = getCookie("auth");
 
-    if (!idUsuario || !usuario || !token || !auth) {
-        window.location.href = "index.html";
-        return;
-    }
+    $.getJSON("/CriptoTheChaulisCW/validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            console.log("ok");
+        } else if (data.resultado === "error") {
+            window.location.href = "index.html";
+        }
+    });
 
     document.getElementById('txtUsuario').textContent = usuario;
 
@@ -49,11 +52,11 @@ $(document).ready(function () {
                         showErrorMessage("La contraseña actual es incorrecta.");
                         break;
                     case "error":
-                        $("#sesionExpiradaModal").modal("show");
+                        $("#modalSesionExpirada").modal("show");
                         break;
                     case "ok":
-                        $("#cambiarClaveModal").modal("hide");
-                        $("#modalClaveActualizada").modal("show");
+                        $("#modalCambioContrasena").modal("hide");
+                        $("#modalContrasenaActualizada").modal("show");
                         limpiarCampos();
                         break;
                 }

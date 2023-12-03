@@ -5,43 +5,60 @@ $(document).ready(function () {
     const auth = getCookie("auth");
 
     if (!idUsuario || !usuario || !token || !auth) {
-        $("#sesionExpiradaModal").modal('show');
+        window.location.href = "index.html";
         return;
     }
 
     document.getElementById('txtUsuario').textContent = usuario;
 
-    $("#btnInsertar").click(function () {
-        let documentoCliente = $("#DocumentoCliente").val();
-        let numeroCuenta = $("#NumeroCuenta").val();
-        let tipoCuenta = $("#TipoCuenta").val();
-        let saldo = $("#Saldo").val();
-        let estado = $("#Estado").val();
+    $('#saldoDisponible').on('input', function () {
+        var saldoDisponibleValue = $(this).val();
+        $('#saldoContable').val(saldoDisponibleValue);
+    });
 
-        if (!documentoCliente || !numeroCuenta || !tipoCuenta || !estado) {
-            $("#alertCamposIncompletos").modal('show');
+    $("#btnInsertar").click(function () {
+        let idUsuario = $("#idUsuario").val();
+        let denoTipoCuenta = $("#denoTipoCuenta").val();
+        let saldoDisponible = $("#saldoDisponible").val();
+        let saldoContable = $("#saldoContable").val();
+
+        if (!idUsuario || !denoTipoCuenta || !saldoDisponible || !saldoContable) {
+            $("#modalCamposIncompletos").modal('show');
             return;
         }
 
-        let parametro = {
-            documentoCliente: documentoCliente,
-            numeroCuenta: numeroCuenta,
-            tipoCuenta: tipoCuenta,
-            saldoCuenta: saldo,
-            estadoCuenta: estado
+        let parametros = {
+            idUsuario: idUsuario,
+            denoTipoCuenta: denoTipoCuenta,
+            saldoDisponible: saldoDisponible,
+            saldoContable: saldoContable
         };
 
-        $.getJSON("insertarcuentas", parametro, function (data) {
-            if (data.resultado === "ok") {
-                $("#alertCuentaRegistrado").modal('show');
-                setTimeout(function () {
-                    $("#alertCuentaRegistrado").modal('hide');
-                    setTimeout(function () {
-                        window.location.href = "tablesCuentas.html";
-                    }, 1000);
-                }, 2000);
-            } else {
-                alert("error");
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/insertarcuenta",
+            contentType: "application/json",
+            data: JSON.stringify(parametros),
+            dataType: "json",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            success: function (data) {
+                if (data.resultado === "ok") {
+                    if (data.success === true) {
+                        $("#modalRegistroCompletado").modal('show');
+                        setTimeout(function () {
+                            $("#modalRegistroCompletado").modal('hide');
+                            setTimeout(function () {
+                                window.location.href = "tablaCuentas.html";
+                            }, 1000);
+                        }, 2000);
+                    } else {
+                        alert("Error");
+                    }
+                } else if (data.resultado === "error") {
+                    $("#modalSesionExpirada").modal('show');
+                }
             }
         });
     });

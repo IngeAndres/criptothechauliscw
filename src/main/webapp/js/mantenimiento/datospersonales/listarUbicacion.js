@@ -10,7 +10,7 @@ $(document).ready(function () {
     }
 
     document.getElementById('txtUsuario').textContent = usuario;
-    
+
     var urlParams = new URLSearchParams(window.location.search);
     var idPersona = urlParams.get('idPersona');
     let departamento;
@@ -25,8 +25,8 @@ $(document).ready(function () {
             data: idPersona,
             dataType: "json",
             headers: {
-                    Authorization: `Bearer ${token}`
-                },
+                Authorization: `Bearer ${token}`
+            },
             success: function (data) {
                 departamento = data.datos.denoDepartamento;
                 provincia = data.datos.denoProvincia;
@@ -140,7 +140,7 @@ $(document).ready(function () {
                             }));
                         }
                     }
-                    
+
                     if (denoDistrito !== null) {
                         $("#denoDistrito").val(denoDistrito);
                     }

@@ -5,7 +5,7 @@ $(document).ready(function () {
     const auth = getCookie("auth");
 
     if (!idUsuario || !usuario || !token || !auth) {
-        $("#sesionExpiradaModal").modal('show');
+        window.location.href = "index.html";
         return;
     }
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
                 || !apPaPersona || !apMaPersona || !genePersona
                 || !fechPersona || !direPersona || !celuPersona
                 || !emailPersona || !denoDistrito) {
-            $("#modalDatosPersonalesIncompletos").modal('show');
+            $("#modalCamposIncompletos").modal('show');
             return;
         }
 
@@ -60,9 +60,9 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.resultado === "ok") {
                     if (data.success === true) {
-                        $("#modalDatosPersonalesRegistrados").modal('show');
+                        $("#modalRegistroCompletado").modal('show');
                         setTimeout(function () {
-                            $("#modalDatosPersonalesRegistrados").modal('hide');
+                            $("#modalRegistroCompletado").modal('hide');
                             setTimeout(function () {
                                 window.location.href = "tablaDatosPersonales.html";
                             }, 1000);
@@ -71,7 +71,7 @@ $(document).ready(function () {
                         alert("Error");
                     }
                 } else if (data.resultado === "error") {
-                    $("#sesionExpiradaModal").modal('show');
+                    $("#modalSesionExpirada").modal('show');
                 }
             }
         });

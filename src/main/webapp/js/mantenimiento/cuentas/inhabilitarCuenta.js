@@ -10,15 +10,14 @@ $(document).ready(function () {
     }
 
     document.getElementById('txtUsuario').textContent = usuario;
-
-    $('#dataTableDatosPersonales').on('click', '.btnEliminar', function () {
-        var idPersona = $(this).data('idpersona');
+    $('#dataTableCuenta').on('click', '.btnEliminar', function () {
+        var idCuenta = $(this).data('idcuenta');
         $('#modalEliminarRegistro').modal('show');
         $('#confirmarEliminar').on('click', function () {
-            let parametro = {idPersona: idPersona};
+            let parametro = {idCuenta: idCuenta};
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.datospersonales/eliminardatospersonales",
+                url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/eliminarcuenta",
                 contentType: "application/json",
                 data: JSON.stringify(parametro),
                 dataType: "json",
@@ -42,4 +41,15 @@ $(document).ready(function () {
             });
         });
     });
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
+    }
 });

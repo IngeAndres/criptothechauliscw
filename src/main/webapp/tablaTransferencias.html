@@ -9,23 +9,31 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Nuevo Usuario - The Chauli's</title>
+        <title>Transferencias</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
 
-        <!-- Custom fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-
-        <!-- Custom styles-->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <link href="css/chat-admin.css" rel="stylesheet">
-        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-        <!-- Chat-->
+        <link rel="stylesheet" href="css/chat-admin.css" type="text/css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ecb.js"></script>
+
+
+        <!-- Custom icons for this template -->
+        <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Custom fonts for this template -->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this page -->
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     </head>
 
@@ -75,7 +83,7 @@
                             <h6 class="collapse-header">Mantenimiento:</h6>
                             <a class="collapse-item" href="tablaUsuarios.html">
                                 <i class="fa fa-address-book" aria-hidden="true"></i>
-                                <span>Clientes</span>
+                                <span>Usuarios</span>
                             </a>
                             <a class="collapse-item" href="tablaCuentas.html">
                                 <i class="fa fa-credit-card" aria-hidden="true"></i>
@@ -99,7 +107,7 @@
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 id="headingUtilities" class="collapse-header">Procesos:</h6>
+                            <h6 class="collapse-header">Procesos:</h6>
                             <a class="collapse-item" href="tablesPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
@@ -111,9 +119,10 @@
                             <a class="collapse-item" href="depositos.html">
                                 <i class="fas fa-coins" aria-hidden="true"></i>
                                 <span>Depósitos</span></a>
-                            <a class="collapse-item" href="tablesTransferencias.html">
+                            <a class="collapse-item" href="tablaTransferencias.html">
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i>
-                                <span>Transferencias</span></a>
+                                <span>Transferencias</span>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -149,7 +158,7 @@
                         <form
                             class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por..."
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                        aria-label="Search" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
@@ -199,17 +208,9 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Perfil
-                                    </a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClaveModal">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cambiar contraseña
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Registro de actividad
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cerrarSesionModal">
@@ -228,30 +229,69 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Nuevo Registro</h1><br>
+                        <h1 class="h3 mb-2 text-gray-800">Transferencias</h1>
 
-                        <!-- Insertar Cliente -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="denoTipoUsuario" class="col-form-label">Tipo de usuario:</label>
-                                    <select id="denoTipoUsuario" class="form-control"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="docuPersona" class="col-form-label">DNI:</label>
-                                    <select id="docuPersona" class="form-control"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="passUsuario" class="col-form-label">Contraseña</label>
-                                    <input type="password" id="passUsuario" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <input id="btnInsertar" type="submit" value="Registrar" class="btn btn-primary" />
-                                    <a id="btnRegresar" class="btn btn-secondary" href="tablaUsuarios.html">Cancelar</a>
-                                </div>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary">Listado de Transferencias</h6>
                             </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-sm"  id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center">Código</th>
+                                                <th style="text-align: center">N° Cuenta (Origen)</th>
+                                                <th style="text-align: center">Ap. Paterno (Origen)</th>
+                                                <th style="text-align: center">Ap. Materno (Origen)</th>
+                                                <th style="text-align: center">Nombre (Origen)</th>
+                                                <th style="text-align: center">N° Cuenta (Destino)</th>
+                                                <th style="text-align: center">Ap. Paterno (Destino)</th>
+                                                <th style="text-align: center">Ap. Materno (Destino)</th>
+                                                <th style="text-align: center">Nombres (Destino)</th>
+                                                <th style="text-align: center">Monto</th>
+                                                <th style="text-align: center">Moneda</th>
+                                                <th style="text-align: center">Fecha</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="text-align: center">Código</th>
+                                                <th style="text-align: center">N° Cuenta (Origen)</th>
+                                                <th style="text-align: center">Ap. Paterno (Origen)</th>
+                                                <th style="text-align: center">Ap. Materno (Origen)</th>
+                                                <th style="text-align: center">Nombre (Origen)</th>
+                                                <th style="text-align: center">N° Cuenta (Destino)</th>
+                                                <th style="text-align: center">Ap. Paterno (Destino)</th>
+                                                <th style="text-align: center">Ap. Materno (Destino)</th>
+                                                <th style="text-align: center">Nombres (Destino)</th>
+                                                <th style="text-align: center">Monto</th>
+                                                <th style="text-align: center">Moneda</th>
+                                                <th style="text-align: center">Fecha</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                <div class="my-2"></div>
+                                <a href="transferirDinero.html" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="text">Nueva transferencia</span>
+                                </a>
+                            </div>
+
                         </div>
+
                     </div>
+                    <!-- End of Page Content -->
+
                 </div>
 
                 <!-- End of Main Content -->
@@ -260,7 +300,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Banco The Chauli's 2023</span>
+                            <span>Copyright &copy; The Chauli's 2023</span>
                         </div>
                     </div>
                 </footer>
@@ -278,11 +318,11 @@
         </a>
 
         <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-labelledby="sesionExpiradaModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalSesionExpirada" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="sesionExpiradaModalLabel">Sesión expirada</h5>
+                        <h5 class="modal-title">Sesión expirada</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -297,12 +337,12 @@
             </div>
         </div>
 
-        <!-- Modal cierre de sesión-->
-        <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
+        <!-- Modal Cierre de Sesión-->
+        <div class="modal fade" id="modalCierreSesion" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="sesionModalLabel">Cierre de sesión</h5>
+                        <h5 class="modal-title">Cierre de sesión</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -318,13 +358,12 @@
             </div>
         </div>
 
-        <!-- Modal Ccambio de Contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="claveModalLabel"
-             aria-hidden="true">
+        <!-- Modal Cambio de Contraseña -->
+        <div class="modal fade"  id="modalCambioContrasena" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="claveModalLabel">Cambio de contraseña</h5>
+                        <h5 class="modal-title">Cambio de contraseña</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -332,8 +371,8 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="txtPass" class="col-form-label">Contraseña Actual:</label>
-                                <input type="password" class="form-control" id="txtPass">
+                                <label for="txtPassUsuario" class="col-form-label">Contraseña Actual:</label>
+                                <input type="password" class="form-control" id="txtPassUsuario">
                             </div>
                             <div class="form-group">
                                 <label for="txtNewPass1" class="col-form-label">Nueva contraseña:</label>
@@ -362,7 +401,7 @@
         </div>
 
         <!-- Modal Contraseña Actualizada -->
-        <div class="modal" tabindex="-1" role="dialog" id="modalClaveActualizada">
+        <div class="modal fade"  id="modalContrasenaActualizada" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -383,40 +422,6 @@
             </div>
         </div>
 
-        <!-- Modal Cliente Registrado -->
-        <div id="alertClienteRegistrado" class="modal" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Alerta...!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Nuevo cliente registrado
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Campos Incompletos -->
-        <div id="alertCamposIncompletos" class="modal" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Alerta...!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Campos incompletos. Ingrese todos los campos por favor.
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
             <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
@@ -425,7 +430,7 @@
             </svg>
         </div>
 
-        <!-- Contenedor oculto -->
+        <!-- Contenedor Oculto -->
         <div class="hidden-div" id="myDiv">
             <div class="hidden-div-content">
                 <!-- Botón de cierre, con font-size ajustado -->
@@ -442,7 +447,6 @@
                 <div style="display: flex; justify-content: center; margin-bottom: 10px;">
                     <!-- Nuevo contenedor con borde azul, bordes redondeados, altura y ancho reducidos -->
                     <div id="message" class="additional-container" style="border: 2px solid #007bff; padding: 10px; border-radius: 15px; height: 325px; width: 350px; overflow-y: auto;">
-
                     </div>
                 </div>
 
@@ -457,7 +461,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
 
         <!-- Bootstrap core JavaScript-->
@@ -478,11 +481,10 @@
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
-        <script src="js/principal/principal.js"></script>
+        <script src="js/inicio/principal.js"></script>
 
         <!-- Mantenimiento -->
-        <script src="js/mantenimiento/usuarios/listarTipoUsuario.js"></script>
-        <<script src="js/mantenimiento/usuarios/listarDocuPersona.js"></script>
+        <script src="js/tablas/tablaTransferencias.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>

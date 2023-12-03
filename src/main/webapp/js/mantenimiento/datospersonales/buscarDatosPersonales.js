@@ -42,7 +42,7 @@ $(document).ready(function () {
                 $("#celuPersona").val(data.datos.celuPersona);
                 $("#emailPersona").val(data.datos.emailPersona);
             } else if (data.resultado === "error") {
-                $("#sesionExpiradaModal").modal('show');
+                $("#modalSesionExpirada").modal('show');
             }
         },
         error: function () {

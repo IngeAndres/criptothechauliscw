@@ -41,7 +41,7 @@ $(document).ready(function () {
                         <button class="btn btn-warning btn-sm btnInformacion" data-idpersona="${idPersona}">
                             <i class="far fa-eye text-white"></i>
                         </button> 
-                        <button class="btn btn-danger btn-sm eliminarPersona" data-idpersona="${idPersona}">
+                        <button class="btn btn-danger btn-sm btnEliminar" data-idpersona="${idPersona}">
                             <i class="fa fa-trash text-white"></i>
                         </button>
                     </td>`;
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 $('#dataTableDatosPersonales').DataTable().clear().rows.add(json.datos).draw();
             } else if (json && json.resultado === "error") {
                 $('#dataTableDatosPersonales').DataTable().clear().draw();
-                $("#sesionExpiradaModal").modal('show');
+                $("#modalSesionExpirada").modal('show');
             }
         }
     });

@@ -3,10 +3,13 @@ $(document).ready(function () {
     const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    if (!idUsuario || !token) {
-        window.location.href = "index.html";
-        return;
-    }
+    $.getJSON("/CriptoTheChaulisCW/validarsessionauth", function (data) {
+        if (data.resultado === "ok") {
+            console.log("ok");
+        } else if (data.resultado === "error") {
+            window.location.href = "index.html";
+        }
+    });
 
     document.getElementById('txtUsuario').textContent = usuario;
 
@@ -67,7 +70,10 @@ $(document).ready(function () {
                     success: function (data) {
                         if (data.resultado === true) {
                             document.cookie = "auth= verificado; path=/";
-                            window.location.href = "principal.html";
+
+                            $.getJSON("/CriptoTheChaulisCW/registrarsessionprin", function (data) {
+                                window.location.href = "principal.html";
+                            });
                         } else if (data.resultado === false) {
                             showErrorMessage("El código de autenticación es incorrecto.");
                         } else if (data.resultado === "error") {

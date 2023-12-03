@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.datospersonales/listardocupersona",
+        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listarusuarios",
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -11,14 +11,12 @@ $(document).ready(function () {
 
                 for (var i = 0; i < listado.length; i++) {
                     var item = listado[i];
-                    if (item && item.docuPersona) {
+                    if (item && item.idUsuario) {
                         var option = document.createElement("option");
-                        option.text = item.docuPersona;
+                        option.text = item.idUsuario;
                         combobox.appendChild(option);
                     }
                 }
-
-                $("#passUsuario").val(listado[0].docuPersona);
             } catch (error) {
                 console.log('Error ', error);
             }
@@ -26,9 +24,5 @@ $(document).ready(function () {
         error: function (xhr, status, error) {
             console.log('Error', status, error);
         }
-    });
-
-    $("#idUsuario").change(function () {
-        $("#passUsuario").val($(this).val());
     });
 });

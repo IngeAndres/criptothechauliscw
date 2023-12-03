@@ -5,19 +5,22 @@ $(document).ready(function () {
     const auth = getCookie("auth");
 
     if (!idUsuario || !usuario || !token || !auth) {
-        $("#sesionExpiradaModal").modal('show');
+        window.location.href = "index.html";
         return;
     }
 
     document.getElementById('txtUsuario').textContent = usuario;
 
-    $('#dataTableClientes').DataTable({
+    $('#dataTableUsuarios').DataTable({
         language: {
             url: "/CriptoTheChaulisCW/json/es-ES.json"
         },
         ajax: {
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listarusuarios",
-            dataSrc: ""
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listarclientes",
+            dataSrc: "",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         },
         columns: [
             {data: "denoTipoDocumento"},
@@ -27,26 +30,26 @@ $(document).ready(function () {
             {data: "nombPersona"},
             {
                 render: function (data, type, full, meta) {
-                    var codigoPersona = full.idPersona;
+                    var idUsuario = full.idUsuario;
                     return `<td style="text-align: center;">
-                        <button class="btn btn-info btn-sm btnEditar" data-codigopersona="${codigoPersona}">
-                            <i class="far fa-edit text-white"></i> 
-                        </button> 
-                        <button class="btn btn-warning btn-sm btnInformacion" data-codigopersona="${codigoPersona}">
+                        <button class="btn btn-warning btn-sm btnInformacion" data-idusuario="${idUsuario}">
                             <i class="far fa-eye text-white"></i>
                         </button> 
-                        <button class="btn btn-danger btn-sm eliminarPersona" data-codigopersona="${codigoPersona}">
+                        <button class="btn btn-danger btn-sm btnEliminar" data-idusuario="${idUsuario}">
                             <i class="fa fa-trash text-white"></i>
                         </button>
                     </td>`;
                 }
             }
-        ]
-    });
-
-    $('#dataTable').on('click', '.btnEditar', function () {
-        var codigoPersona = $(this).data('codigopersona');
-        window.location.href = 'editarClientes.html?codigoPersona=' + codigoPersona;
+        ],
+        initComplete: function (settings, json) {
+            if (json && json.resultado === "ok") {
+                $('#dataTableUsuarios').DataTable().clear().rows.add(json.datos).draw();
+            } else if (json && json.resultado === "error") {
+                $('#dataTableUsuarios').DataTable().clear().draw();
+                $("#modalSesionExpirada").modal('show');
+            }
+        }
     });
 
     function getCookie(name) {

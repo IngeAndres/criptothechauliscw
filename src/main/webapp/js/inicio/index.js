@@ -2,7 +2,7 @@ $(document).ready(function () {
     ["id", "usuario", "token", "auth"].forEach(cookie => {
         document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
-    localStorage.removeItem('chatMessages');
+    localStorage.clear();
 
     $("#btnIniciarSesion").click(function () {
         const idUsuario = $("#txtIdUsuario").val();
@@ -31,6 +31,9 @@ $(document).ready(function () {
                         document.cookie = "usuario=" + data.usuario + "; path=/";
                         document.cookie = "token=" + data.token + "; path=/";
 
+                        $.getJSON("/CriptoTheChaulisCW/registrarsessionauth", function (data) {
+                            window.location.href = "autenticacion.html";
+                        });
                         window.location.href = "autenticacion.html";
                         break;
                     case 401:

@@ -111,7 +111,7 @@
                             <a class="collapse-item" href="depositos.html">
                                 <i class="fas fa-coins" aria-hidden="true"></i>
                                 <span>Depósitos</span></a>
-                            <a class="collapse-item" href="tablesTransferencias.html">
+                            <a class="collapse-item" href="tablaTransferencias.html">
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i>
                                 <span>Transferencias</span></a>
                         </div>
@@ -199,20 +199,12 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Perfil
-                                    </a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClaveModal">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCambioContrasena">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cambiar contraseña
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Registro de actividad
-                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cerrarSesionModal">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCierreSesion">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cerrar sesión
                                     </a>
@@ -379,7 +371,7 @@
         </a>
 
         <!-- Modal Sesión Expirada -->
-        <div class="modal fade" id="sesionExpiradaModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="modalSesionExpirada" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -399,7 +391,7 @@
         </div>
 
         <!-- Modal Cierre de Sesión-->
-        <div class="modal fade" id="cerrarSesionModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="modalCierreSesion" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -420,7 +412,7 @@
         </div>
 
         <!-- Modal Cambio de Contraseña -->
-        <div class="modal fade"  id="cambiarClaveModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade"  id="modalCambioContrasena" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -462,7 +454,7 @@
         </div>
 
         <!-- Modal Contraseña Actualizada -->
-        <div class="modal fade"  id="modalClaveActualizada" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade"  id="modalContrasenaActualizada" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -483,43 +475,6 @@
             </div>
         </div>
 
-        <!-- Modal Datos Personales Actualizados -->
-        <div class="modal" id="modalDatosPersonalesActualizados" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Actualización</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Los datos personales se actualizaron correctamente.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Datos Personales Incompletos -->
-        <div class="modal fade" id="modalDatosPersonalesIncompletos" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Datos Incompletos</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Por favor, complete todos los campos necesarios.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Círculo con Ícono de Mensaje -->
         <div class="circle-container" onclick="toggleDiv()">
             <!-- Utiliza un ícono de mensaje de Bootstrap (puedes cambiarlo según tus necesidades) -->
@@ -528,7 +483,7 @@
             </svg>
         </div>
 
-        <!-- Contenedor oculto -->
+        <!-- Contenedor Oculto -->
         <div class="hidden-div" id="myDiv">
             <div class="hidden-div-content">
                 <!-- Botón de cierre, con font-size ajustado -->
@@ -545,7 +500,6 @@
                 <div style="display: flex; justify-content: center; margin-bottom: 10px;">
                     <!-- Nuevo contenedor con borde azul, bordes redondeados, altura y ancho reducidos -->
                     <div id="message" class="additional-container" style="border: 2px solid #007bff; padding: 10px; border-radius: 15px; height: 325px; width: 350px; overflow-y: auto;">
-
                     </div>
                 </div>
 
@@ -560,7 +514,43 @@
                     </button>
                 </div>
             </div>
+        </div>
 
+        <!-- Modal Datos Actualizados -->
+        <div class="modal" id="modalDatosActualizados" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Actualización</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Los datos personales se actualizaron correctamente.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Campos Incompletos -->
+        <div class="modal fade" id="modalCamposIncompletos" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Datos Incompletos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Por favor, complete todos los campos necesarios.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Bootstrap core JavaScript-->
@@ -587,9 +577,9 @@
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
-        <script src="js/principal/principal.js"></script>
+        <script src="js/inicio/principal.js"></script>
 
-        <!-- chat -->
+        <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

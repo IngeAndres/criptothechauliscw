@@ -1,23 +1,43 @@
 $(document).ready(function () {
-    $('#dataTable').on('click', '.eliminarCliente', function () {
-        var codigoCliente = $(this).data('codigocliente');
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
+    const token = getCookie("token");
+    const auth = getCookie("auth");
 
-        $('#eliminarRegistroModal').modal('show');
+    if (!idUsuario || !usuario || !token || !auth) {
+        window.location.href = "index.html";
+        return;
+    }
 
+    document.getElementById('txtUsuario').textContent = usuario;
+
+    $('#dataTableUsuarios').on('click', '.btnEliminar', function () {
+        var idUsuario = $(this).data('idusuario');
+        $('#modalEliminarRegistro').modal('show');
         $('#confirmarEliminar').on('click', function () {
-            var estadocliente = 2;
-            location.reload();
+            let parametro = {idUsuario: idUsuario};
             $.ajax({
-                type: 'POST',
-                url: '/CriptoTheChaulisCW/eliminarcliente',
-                data: {codigocliente: codigoCliente, estadocliente: estadocliente},
+                type: "POST",
+                url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/eliminarusuario",
+                contentType: "application/json",
+                data: JSON.stringify(parametro),
+                dataType: "json",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
                 success: function (data) {
                     if (data.resultado === "ok") {
-                        location.reload();
+                        if (data.success === true) {
+                            location.reload();
+                        } else {
+                            alert("Error");
+                        }
+                    } else if (data.resultado === "error") {
+                        $("#modalSesionExpirada").modal('show');
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.error('Error al eliminar el cliente: ' + error);
+                    console.error('Error al eliminar el usuario: ' + error);
                 }
             });
         });

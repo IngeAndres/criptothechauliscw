@@ -1,56 +1,64 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const idUsuario = getCookie("id");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
+    const auth = getCookie("auth");
 
-    if (!logi || !token) {
+    if (!idUsuario || !usuario || !token || !auth) {
         window.location.href = "index.html";
         return;
     }
 
-    document.getElementById('txtLogi').textContent = logi;
+    document.getElementById('txtUsuario').textContent = usuario;
 
     $("#btnInsertar").click(function () {
-        let documento = $("#Documento").val();
-        let numerodoc = $("#Nombre").val();
-        let paterno = $("#ApellidoPaterno").val();
-        let materno = $("#ApellidoMaterno").val();
-        let nombre = $("#NombreCliente").val();
-        let distrito = $("#Distrito").val();
-        let direccion = $("#Direccion").val();
-        let telefono = $("#Telefono").val();
-        let estadocliente = 1;
+        let denoTipoUsuario = $("#denoTipoUsuario").val();
+        let idUsuario = $("#idUsuario").val();
+        let passUsuario = $("#passUsuario").val();
 
-        if (!documento || !numerodoc || !paterno || !materno || !nombre || !distrito || !direccion || !telefono) {
-            $("#alertCamposIncompletos").modal('show');
+        if (!denoTipoUsuario || !idUsuario || !passUsuario) {
+            $("#modalCamposIncompletos").modal('show');
             return;
         }
 
-        let parametro = {
-            documento: documento,
-            numerodoc: numerodoc,
-            paterno: paterno,
-            materno: materno,
-            nombre: nombre,
-            distrito: distrito,
-            direccion: direccion,
-            telefono: telefono,
-            estadocliente: estadocliente
+        let parametros = {
+            denoTipoUsuario: denoTipoUsuario,
+            idUsuario: idUsuario,
+            passUsuario: encrypt(passUsuario)
         };
 
-        $.getJSON("insertarcliente", parametro, function (data) {
-            if (data.resultado === "ok") {
-                $("#alertClienteRegistrado").modal('show');
-                setTimeout(function () {
-                    $("#alertClienteRegistrado").modal('hide');
-                    setTimeout(function () {
-                        window.location.href = "tablesClientes.html";
-                    }, 1000);
-                }, 2000);
-            } else {
-                alert("Error");
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/insertarusuario",
+            contentType: "application/json",
+            data: JSON.stringify(parametros),
+            dataType: "json",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            success: function (data) {
+                if (data.resultado === "ok") {
+                    if (data.success === true) {
+                        $("#modalRegistroCompletado").modal('show');
+                        setTimeout(function () {
+                            $("#modalRegistroCompletado").modal('hide');
+                            setTimeout(function () {
+                                window.location.href = "tablaUsuarios.html";
+                            }, 1000);
+                        }, 2000);
+                    } else {
+                        alert("Error");
+                    }
+                } else if (data.resultado === "error") {
+                    $("#modalSesionExpirada").modal('show');
+                }
             }
         });
     });
+
+    function encrypt(message) {
+        return CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
+    }
 
     function getCookie(name) {
         const cookies = document.cookie.split("; ");

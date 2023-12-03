@@ -2,13 +2,6 @@ $(document).ready(function () {
     const logi = getCookie("logi");
     const token = getCookie("token");
 
-    if (!logi || !token) {
-        window.location.href = "index.html";
-        return;
-    }
-
-    document.getElementById('txtLogi').textContent = logi;
-
     $("#btnIniciarTransfer").click(function () {
         let cuentaOrigen = $("#NumeroCuentaOrigen").val();
         let cuentaDestino = $("#NumeroCuentaDestino").val();
