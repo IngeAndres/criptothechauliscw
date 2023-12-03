@@ -1,13 +1,14 @@
 $(document).ready(function () {
-    const idUsuario = getCookie("id");
     const usuario = getCookie("usuario");
     const token = getCookie("token");
-    const auth = getCookie("auth");
 
-    if (!idUsuario || !usuario || !token || !auth) {
-        window.location.href = "index.html";
-        return;
-    }
+    $.getJSON("/CriptoTheChaulisCW/validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            console.log("ok");
+        } else if (data.resultado === "error") {
+            window.location.href = "index.html";
+        }
+    });
 
     document.getElementById('txtUsuario').textContent = usuario;
 
@@ -44,7 +45,7 @@ $(document).ready(function () {
     function listarDepartamentos(departamento, provincia, distrito) {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.departamento/listardepartamento",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.departamento/listardepartamentos",
             contentType: "application/json",
             dataType: "json",
             success: function (response) {
@@ -80,7 +81,7 @@ $(document).ready(function () {
     function listarProvincias(denoDepartamento, denoProvincia, denoDistrito) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.provincia/listarprovincia",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.provincia/listarprovincias",
             contentType: "application/json",
             data: denoDepartamento,
             dataType: "json",
@@ -120,7 +121,7 @@ $(document).ready(function () {
     function listarDistritos(denoProvincia, denoDistrito) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.distrito/listardistrito",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.distrito/listardistritos",
             contentType: "application/json",
             data: denoProvincia,
             dataType: "json",
@@ -156,11 +157,11 @@ $(document).ready(function () {
 
     $("#denoDepartamento").change(function () {
         let denoDepartamento = $(this).val();
-        listarProvincias(denoDepartamento, null);
+        listarProvincias(denoDepartamento, null, null);
     });
 
     $("#denoProvincia").change(function () {
         let denoProvincia = $(this).val();
-        listarDistritos(denoProvincia);
+        listarDistritos(denoProvincia, null);
     });
 });

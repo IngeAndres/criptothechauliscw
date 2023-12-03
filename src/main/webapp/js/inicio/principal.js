@@ -2,7 +2,6 @@ $(document).ready(function () {
     const idUsuario = getCookie("id");
     const usuario = getCookie("usuario");
     const token = getCookie("token");
-    const auth = getCookie("auth");
 
     $.getJSON("/CriptoTheChaulisCW/validarsessionprin", function (data) {
         if (data.resultado === "ok") {

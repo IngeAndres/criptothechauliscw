@@ -1,23 +1,25 @@
 $(document).ready(function () {
-    const idUsuario = getCookie("id");
     const usuario = getCookie("usuario");
     const token = getCookie("token");
-    const auth = getCookie("auth");
 
-    if (!idUsuario || !usuario || !token || !auth) {
-        window.location.href = "index.html";
-        return;
-    }
+    $.getJSON("/CriptoTheChaulisCW/validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            console.log("ok");
+        } else if (data.resultado === "error") {
+            window.location.href = "index.html";
+        }
+    });
 
     document.getElementById('txtUsuario').textContent = usuario;
-    $('#dataTableCuenta').on('click', '.btnEliminar', function () {
+    
+    $('#dataTableCuentas').on('click', '.btnInhabilitar', function () {
         var idCuenta = $(this).data('idcuenta');
         $('#modalEliminarRegistro').modal('show');
         $('#confirmarEliminar').on('click', function () {
             let parametro = {idCuenta: idCuenta};
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/eliminarcuenta",
+                url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/inhabilitarcuenta",
                 contentType: "application/json",
                 data: JSON.stringify(parametro),
                 dataType: "json",
@@ -36,7 +38,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.error('Error al eliminar los datos personales: ' + error);
+                    console.error('Error al inhabilitar la cuenta: ' + error);
                 }
             });
         });

@@ -1,13 +1,14 @@
 $(document).ready(function () {
-    const idUsuario = getCookie("id");
     const usuario = getCookie("usuario");
     const token = getCookie("token");
-    const auth = getCookie("auth");
 
-    if (!idUsuario || !usuario || !token || !auth) {
-        window.location.href = "index.html";
-        return;
-    }
+    $.getJSON("/CriptoTheChaulisCW/validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            console.log("ok");
+        } else if (data.resultado === "error") {
+            window.location.href = "index.html";
+        }
+    });
 
     document.getElementById('txtUsuario').textContent = usuario;
 
@@ -16,7 +17,7 @@ $(document).ready(function () {
             url: "/CriptoTheChaulisCW/json/es-ES.json"
         },
         ajax: {
-            type: "POST",
+            type: "GET",
             url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.datospersonales/listardatospersonales",
             dataSrc: "",
             headers: {

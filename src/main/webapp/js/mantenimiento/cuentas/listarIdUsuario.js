@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listarusuarios",
+        url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.usuario/listaridusuario",
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
