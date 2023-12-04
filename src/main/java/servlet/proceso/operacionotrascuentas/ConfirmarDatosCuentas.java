@@ -41,7 +41,7 @@ public class ConfirmarDatosCuentas extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             CuentaJpaController objCuenta = new CuentaJpaController();
             UsuarioJpaController objUsuario = new UsuarioJpaController();
-            
+            //Confirmar los datos ingresados
             String numeroCuentaOrigen = request.getParameter("cuentaOrigen");
             String numeroCuentaDestino = request.getParameter("cuentaDestino");
             
