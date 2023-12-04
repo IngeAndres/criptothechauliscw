@@ -8,6 +8,7 @@ $(document).ready(function () {
     let Monto;
     let Taza;
     let Fechad;
+    
     $.ajax({
         type: 'GET',
         url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.prestamo/listaraporte/" + idDetalle,
@@ -20,14 +21,11 @@ $(document).ready(function () {
                 Fechad = data.Fecha;
 
                 mostrarDetalles(Monto, Taza, Meses, tipP);
-
                 llenarTabla(Meses, Monto, Taza, Fechad);
             } else {
-
                 alert("Error");
             }
         }
-
     });
 //Fin
 });
@@ -95,7 +93,6 @@ function llenarTabla(Meses, Monto, Taza, fechita) {
             sumaT = sumaT + amortizacion;
             sumaI = sumaI + interes;
         } else {
-
             var ultimaFila = '<tr>' +
                     '<td>' + "" + '</td>' +
                     '<td>' + "Total" + '</td>' +
@@ -105,8 +102,6 @@ function llenarTabla(Meses, Monto, Taza, fechita) {
                     '<td>' + saldo.toFixed(3) + '</td>' +
                     '</tr>';
             tabla.append(ultimaFila);
-
         }
-
     }
 }

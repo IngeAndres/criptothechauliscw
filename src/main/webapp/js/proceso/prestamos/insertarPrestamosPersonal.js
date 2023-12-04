@@ -1,7 +1,22 @@
 $(document).ready(function () {
+    const usuario = getCookie("usuario");
+    const token = getCookie("token");
+
+    $.getJSON("validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            $("body").show();
+            document.getElementById('txtUsuario').textContent = usuario;
+        } else {
+            window.location.href = "index.html";
+            return;
+        }
+    });
+
     let tp = sessionStorage.getItem("Ptipo");
+
     limpiarCampos();
     mostrarDetalles();
+
     $.ajax({
         "url": "http://localhost:8080/CriptoTheChaulis/webresources/dto.prestamo/llenarcombobox",
         type: 'GET',
@@ -28,16 +43,11 @@ $(document).ready(function () {
     });
 
     function mostrarDetalles() {
-
         let tp = sessionStorage.getItem("Ptipo");
         $(".card-header").find("h1").text("Préstamo " + tp);
-
-
     }
 
-
     $('#btnConfirmarPres').click(function (event) {
-
         event.preventDefault();
 
         var tipoPrestamo = $('#TipoPrestamos').val();
@@ -51,12 +61,12 @@ $(document).ready(function () {
         var tiempo = $('#Tiempo').val();
         var tiempopago = $('#TiempoFecha').val();
         var charCuotasAdicionales;
+
         if (cuotasAdicionales) {
             charCuotasAdicionales = 's';
         } else {
             charCuotasAdicionales = 'n';
         }
-
 
         let parametro = {
             IdTipoInformacionBien: tipoinformacion,
@@ -91,6 +101,45 @@ $(document).ready(function () {
         });
 
     });
+
+    $('#dataTableCuentasPrestamos').DataTable({
+        language: {
+            url: "/CriptoTheChaulisCW/json/es-ES.json"
+        },
+        ajax: {
+            type: "GET",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/listarcuentas",
+            dataSrc: "",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        },
+        columns: [
+            {data: "numbCuenta"},
+            {data: "apPaPersona"},
+            {data: "apMaPersona"},
+            {data: "nombPersona"}
+        ],
+        initComplete: function (settings, json) {
+            if (json && json.resultado === "ok") {
+                $('#dataTableCuentasPrestamos').DataTable().clear().rows.add(json.datos).draw();
+            } else if (json && json.resultado === "error") {
+                $('#dataTableCuentasPrestamos').DataTable().clear().draw();
+                $("#modalSesionExpirada").modal('show');
+            }
+        }
+    });
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookiePair = cookies[i].split("=");
+            if (cookiePair[0] === name) {
+                return cookiePair[1];
+            }
+        }
+        return null;
+    }
 });
 
 function limpiarCampos() {

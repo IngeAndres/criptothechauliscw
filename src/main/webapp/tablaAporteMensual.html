@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Préstamos - The Chauli's</title>
+        <title>Aporte Mensual</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -65,7 +65,7 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="principal.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
@@ -89,11 +89,17 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Mantenimiento:</h6>
-                            <a class="collapse-item" href="tablaUsuarios.html"><i class="fa fa-user" aria-hidden="true"></i>
-                                <span>Clientes</span>
+                            <a class="collapse-item" href="tablaUsuarios.html">
+                                <i class="fa fa-address-book" aria-hidden="true"></i>
+                                <span>Usuarios</span>
                             </a>
-                            <a class="collapse-item" href="tablaCuentas.html"><i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <a class="collapse-item" href="tablaCuentas.html">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <span>Cuentas</span>
+                            </a>
+                            <a class="collapse-item" href="tablaDatosPersonales.html">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
+                                <span>Datos Personales</span>
                             </a>
                         </div>
                     </div>
@@ -110,7 +116,7 @@
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
-                            <a class="collapse-item" href="tablesPrestamos.html">
+                            <a class="collapse-item" href="tablaPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
                             </a>
@@ -123,52 +129,10 @@
                                 <span>Depósitos</span></a>
                             <a class="collapse-item" href="tablaTransferencias.html">
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i>
-                                <span>Transferencias</span></a>
+                                <span>Transferencias</span>
+                            </a>
                         </div>
                     </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Addons
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
-                            <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Nav Item - Charts -->
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Charts</span></a>
-                </li>
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -252,20 +216,12 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Perfil
-                                    </a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClaveModal">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCambioContrasena">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cambiar contraseña
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Registro de actividad
-                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cerrarSesionModal">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCierreSesion">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cerrar sesión
                                     </a>
@@ -326,11 +282,14 @@
                                         </tfoot>
                                     </table>
                                 </div>
-
                             </div>
-
-
-
+                            <div class="row">
+                                <div class="col-md-6 px-5">
+                                    <div class="form-group">
+                                        <a class="btn btn-secondary mx-2" href="tablaPrestamos.html">Regresar</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
