@@ -13,6 +13,54 @@ $(document).ready(function () {
     });
 
     $('#dataTableTransferencias').DataTable({
+        language: {
+            url: "/CriptoTheChaulisCW/json/es-ES.json"
+        },
+        ajax: {
+            type: "GET",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.operacionesotrascuentas/listartransferencias",
+            dataSrc: "",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        },
+        columns: [
+            {data: "CODTRANSFER"},
+            {data: "NUMECUENTAORIGEN"},
+            {data: "APPAORIGEN"},
+            {data: "APMAORIGEN"},
+            {data: "NOMBORIGEN"},
+            {data: "NUMECUENTADESTINO"},
+            {data: "APPADESTINO"},
+            {data: "APMADESTINO"},
+            {data: "NOMBDESTINO"},
+            {data: "MONTO"},
+            {data: "MONEDA"},
+            {
+                "data": "FECHA",
+                "render": function (data) {
+                    var date = new Date(data);
+                    var fechaFormateada = date.toLocaleDateString("es-ES", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit"
+                    });
+                    return fechaFormateada;
+                }
+            }
+        ],
+        initComplete: function (settings, json) {
+            if (json && json.resultado === "ok") {
+                $('#dataTableTransferencias').DataTable().clear().rows.add(json.datos).draw();
+            } else if (json && json.resultado === "error") {
+                $('#dataTableTransferencias').DataTable().clear().draw();
+                $("#modalSesionExpirada").modal('show');
+            }
+        }
+    });
+
+    //Listar en Servlet ListarTransferencias
+    /*$('#dataTableTransferencias').DataTable({
         "language": {
             "url": "/CriptoTheChaulisCW/json/es-ES.json"
         },
@@ -48,7 +96,7 @@ $(document).ready(function () {
                 }
             }
         ]
-    });
+    });*/
 
     function getCookie(name) {
         const cookies = document.cookie.split("; ");

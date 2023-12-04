@@ -44,20 +44,20 @@ public class ListarTransferencias extends HttpServlet {
             List<Map<String, Object>> transferMapList = new ArrayList<>();
 
             for (Object[] transferData : transferencias) {
-                Map<String, Object> transferMap = new HashMap<>();
-                transferMap.put("CODTRANSFER", transferData[0]);
-                transferMap.put("NUMECUENTAORIGEN", transferData[1]);
-                transferMap.put("APPAORIGEN", transferData[2]);
-                transferMap.put("APMAORIGEN", transferData[3]);
-                transferMap.put("NOMBORIGEN", transferData[4]);
-                transferMap.put("NUMECUENTADESTINO", transferData[5]);
-                transferMap.put("APPADESTINO", transferData[6]);
-                transferMap.put("APMADESTINO", transferData[7]);
-                transferMap.put("NOMBDESTINO", transferData[8]);
-                transferMap.put("MONTO", transferData[9]);
-                transferMap.put("MONEDA", transferData[10]);
-                transferMap.put("FECHA", transferData[11]);
-                transferMapList.add(transferMap);
+                Map<String, Object> mapa = new HashMap<>();
+                mapa.put("CODTRANSFER", transferData[0]);
+                mapa.put("NUMECUENTAORIGEN", transferData[1]);
+                mapa.put("APPAORIGEN", transferData[2]);
+                mapa.put("APMAORIGEN", transferData[3]);
+                mapa.put("NOMBORIGEN", transferData[4]);
+                mapa.put("NUMECUENTADESTINO", transferData[5]);
+                mapa.put("APPADESTINO", transferData[6]);
+                mapa.put("APMADESTINO", transferData[7]);
+                mapa.put("NOMBDESTINO", transferData[8]);
+                mapa.put("MONTO", transferData[9]);
+                mapa.put("MONEDA", transferData[10]);
+                mapa.put("FECHA", transferData[11]);
+                transferMapList.add(mapa);
             }
 
             Gson gson = new Gson();
