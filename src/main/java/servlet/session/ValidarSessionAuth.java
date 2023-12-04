@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import session.Session;
 
 /**
  *
@@ -30,11 +31,11 @@ public class ValidarSessionAuth extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
-            String logueado = session.getAttribute("logueadoAuth").toString();
+            String logueado = (String) session.getAttribute("logueadoAuth");
             if (logueado == null) {
                 out.println("{\"resultado\":\"error\"}");
             } else {
-                if (session.getAttribute("logueadoAuth").toString().equals("1")) {
+                if (Session.sesionvalidaAuth(session)) {
                     out.println("{\"resultado\":\"ok\"}");
                 } else {
                     out.println("{\"resultado\":\"error\"}");

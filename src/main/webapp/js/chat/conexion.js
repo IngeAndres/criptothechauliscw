@@ -71,7 +71,7 @@ function openSocket() {
 
 function send() {
     try {
-        var usuario = getCookie("logi");
+        var usuario = getCookie("usuario");
         var text = $("#mensaje").val();
         var cifrado = CryptoJS.AES.encrypt(text, "notieneclave").toString();
         var fecha = new Date();
@@ -121,11 +121,11 @@ function writeResponseJSON(text) {
     messageElement.style.clear = "both";
     messageElement.style.overflowWrap = "break-word";
 
-    messageElement.style.float = (msj.user === getCookie("logi")) ? "right" : "left";
-    messageElement.style.alignSelf = (msj.user === getCookie("logi")) ? "flex-end" : "flex-start";
-    messageElement.style.background = (msj.user === getCookie("logi")) ? "#e0f7fa" : "#007bff";
-    messageElement.style.color = (msj.user === getCookie("logi")) ? "black" : "white";
-    messageElement.innerHTML = (msj.user === getCookie("logi")) ? "Yo : " + decrypted : msj.user + " : " + decrypted;
+    messageElement.style.float = (msj.user === getCookie("usuario")) ? "right" : "left";
+    messageElement.style.alignSelf = (msj.user === getCookie("usuario")) ? "flex-end" : "flex-start";
+    messageElement.style.background = (msj.user === getCookie("usuario")) ? "#e0f7fa" : "#007bff";
+    messageElement.style.color = (msj.user === getCookie("usuario")) ? "black" : "white";
+    messageElement.innerHTML = (msj.user === getCookie("usuario")) ? "Yo : " + decrypted : msj.user + " : " + decrypted;
 
     messageContainer.appendChild(messageElement);
     messageContainer.appendChild(document.createElement("br"));

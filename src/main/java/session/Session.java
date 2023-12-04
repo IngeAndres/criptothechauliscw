@@ -10,7 +10,6 @@ public class Session {
 
     public static void crearsesion(HttpSession session) {
         session.setAttribute("logueadoAuth", "1");
-        session.setAttribute("logueadoPrin", "0");
     }
 
     public static boolean sesionvalidaAuth(HttpSession session) {

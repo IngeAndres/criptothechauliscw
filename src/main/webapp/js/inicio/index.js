@@ -31,10 +31,9 @@ $(document).ready(function () {
                         document.cookie = "usuario=" + data.usuario + "; path=/";
                         document.cookie = "token=" + data.token + "; path=/";
 
-                        $.getJSON("/CriptoTheChaulisCW/registrarsessionauth", function (data) {
+                        $.getJSON("registrarsessionauth", function (data) {
                             window.location.href = "autenticacion.html";
                         });
-                        window.location.href = "autenticacion.html";
                         break;
                     case 401:
                         showErrorMessage("El usuario y/o contraseña son incorrectos.");

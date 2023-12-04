@@ -3,17 +3,17 @@ $(document).ready(function () {
     const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    $.getJSON("/CriptoTheChaulisCW/validarsessionauth", function (data) {
+    $.getJSON("validarsessionauth", function (data) {
+        console.log(data);
         if (data.resultado === "ok") {
-            console.log("ok");
-        } else if (data.resultado === "error") {
+            $("body").show();
+            document.getElementById('txtUsuario').textContent = usuario;
+            generarCodigoQR();
+        } else {
             window.location.href = "index.html";
+            return;
         }
     });
-
-    document.getElementById('txtUsuario').textContent = usuario;
-
-    generarCodigoQR();
 
     $(".verification-input").on("input", function (e) {
         let $this = $(this);
@@ -71,7 +71,7 @@ $(document).ready(function () {
                         if (data.resultado === true) {
                             document.cookie = "auth= verificado; path=/";
 
-                            $.getJSON("/CriptoTheChaulisCW/registrarsessionprin", function (data) {
+                            $.getJSON("registrarsessionprin", function (data) {
                                 window.location.href = "principal.html";
                             });
                         } else if (data.resultado === false) {

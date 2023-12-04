@@ -14,8 +14,8 @@ import session.Session;
  *
  * @author Ing. Andres Gomez
  */
-@WebServlet(name = "ValidarSessionPrin", urlPatterns = {"/validarsessionprin"})
-public class ValidarSessionPrin extends HttpServlet {
+@WebServlet(name = "CerrarSession", urlPatterns = {"/cerrarsession"})
+public class CerrarSession extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,17 +31,8 @@ public class ValidarSessionPrin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
-            String logueadoAuth = (String) session.getAttribute("logueadoAuth");
-            String logueadoPrin = (String) session.getAttribute("logueadoPrin");
-            if (logueadoAuth == null || logueadoPrin == null) {
-                out.println("{\"resultado\":\"error\"}");
-            } else {
-                if (Session.sesionvalidaAuth(session) && Session.sesionvalidaPrin(session)) {
-                    out.println("{\"resultado\":\"ok\"}");
-                } else {
-                    out.println("{\"resultado\":\"error\"}");
-                }
-            }
+            Session.cerrarsesion(session);
+            out.println("{\"resultado\":\"ok\"}");
         }
     }
 

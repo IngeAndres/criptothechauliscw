@@ -3,15 +3,15 @@ $(document).ready(function () {
     const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    $.getJSON("/CriptoTheChaulisCW/validarsessionprin", function (data) {
+    $.getJSON("validarsessionprin", function (data) {
         if (data.resultado === "ok") {
-            console.log("ok");
-        } else if (data.resultado === "error") {
+            $("body").show();
+            document.getElementById('txtUsuario').textContent = usuario;
+        } else {
             window.location.href = "index.html";
+            return;
         }
     });
-
-    document.getElementById('txtUsuario').textContent = usuario;
 
     $("#btnCambiarClave").click(function () {
         let passUsuario = $("#txtPassUsuario").val();
@@ -93,3 +93,9 @@ $(document).ready(function () {
         return null;
     }
 });
+
+function cerrarSesion() {
+    $.getJSON("cerrarsession", function (data) {
+        window.location.href = "index.html";
+    });
+}
