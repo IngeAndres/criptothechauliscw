@@ -1,7 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dao;
 
 import dao.exceptions.IllegalOrphanException;
 import dao.exceptions.NonexistentEntityException;
+import dao.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -19,13 +24,13 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author Ing. Andres Gomez
+ * @author Jeff
  */
 public class UsuarioJpaController implements Serializable {
 
     public UsuarioJpaController() {
     }
-
+    
     public UsuarioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
@@ -35,7 +40,7 @@ public class UsuarioJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Usuario usuario) {
+    public void create(Usuario usuario) throws PreexistingEntityException, Exception {
         if (usuario.getCuentaList() == null) {
             usuario.setCuentaList(new ArrayList<Cuenta>());
         }
@@ -78,6 +83,11 @@ public class UsuarioJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (findUsuario(usuario.getIdUsuario()) != null) {
+                throw new PreexistingEntityException("Usuario " + usuario + " already exists.", ex);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -156,7 +166,7 @@ public class UsuarioJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = usuario.getIdUsuario();
+                String id = usuario.getIdUsuario();
                 if (findUsuario(id) == null) {
                     throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.");
                 }
@@ -169,7 +179,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -235,7 +245,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario findUsuario(Integer id) {
+    public Usuario findUsuario(String id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Usuario.class, id);
@@ -256,7 +266,7 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
-
+    
     public Usuario getCodUsuario(int idUsuario) {
         EntityManager em = getEntityManager();
         try {

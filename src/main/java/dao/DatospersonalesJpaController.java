@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dao;
 
 import dao.exceptions.IllegalOrphanException;
@@ -9,27 +13,22 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import dto.Tipodocumento;
-import dto.Distrito;
 import dto.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
- * @author Ing. Andres Gomez
+ * @author Jeff
  */
 public class DatospersonalesJpaController implements Serializable {
-
-    public DatospersonalesJpaController() {
-    }
 
     public DatospersonalesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CriptoTheChaulisCW_war_1.0-SNAPSHOTPU");
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -48,11 +47,6 @@ public class DatospersonalesJpaController implements Serializable {
                 idTipoDocumento = em.getReference(idTipoDocumento.getClass(), idTipoDocumento.getIdTipoDocumento());
                 datospersonales.setIdTipoDocumento(idTipoDocumento);
             }
-            Distrito idDistrito = datospersonales.getIdDistrito();
-            if (idDistrito != null) {
-                idDistrito = em.getReference(idDistrito.getClass(), idDistrito.getIdDistrito());
-                datospersonales.setIdDistrito(idDistrito);
-            }
             List<Usuario> attachedUsuarioList = new ArrayList<Usuario>();
             for (Usuario usuarioListUsuarioToAttach : datospersonales.getUsuarioList()) {
                 usuarioListUsuarioToAttach = em.getReference(usuarioListUsuarioToAttach.getClass(), usuarioListUsuarioToAttach.getIdUsuario());
@@ -63,10 +57,6 @@ public class DatospersonalesJpaController implements Serializable {
             if (idTipoDocumento != null) {
                 idTipoDocumento.getDatospersonalesList().add(datospersonales);
                 idTipoDocumento = em.merge(idTipoDocumento);
-            }
-            if (idDistrito != null) {
-                idDistrito.getDatospersonalesList().add(datospersonales);
-                idDistrito = em.merge(idDistrito);
             }
             for (Usuario usuarioListUsuario : datospersonales.getUsuarioList()) {
                 Datospersonales oldIdPersonaOfUsuarioListUsuario = usuarioListUsuario.getIdPersona();
@@ -93,8 +83,6 @@ public class DatospersonalesJpaController implements Serializable {
             Datospersonales persistentDatospersonales = em.find(Datospersonales.class, datospersonales.getIdPersona());
             Tipodocumento idTipoDocumentoOld = persistentDatospersonales.getIdTipoDocumento();
             Tipodocumento idTipoDocumentoNew = datospersonales.getIdTipoDocumento();
-            Distrito idDistritoOld = persistentDatospersonales.getIdDistrito();
-            Distrito idDistritoNew = datospersonales.getIdDistrito();
             List<Usuario> usuarioListOld = persistentDatospersonales.getUsuarioList();
             List<Usuario> usuarioListNew = datospersonales.getUsuarioList();
             List<String> illegalOrphanMessages = null;
@@ -113,10 +101,6 @@ public class DatospersonalesJpaController implements Serializable {
                 idTipoDocumentoNew = em.getReference(idTipoDocumentoNew.getClass(), idTipoDocumentoNew.getIdTipoDocumento());
                 datospersonales.setIdTipoDocumento(idTipoDocumentoNew);
             }
-            if (idDistritoNew != null) {
-                idDistritoNew = em.getReference(idDistritoNew.getClass(), idDistritoNew.getIdDistrito());
-                datospersonales.setIdDistrito(idDistritoNew);
-            }
             List<Usuario> attachedUsuarioListNew = new ArrayList<Usuario>();
             for (Usuario usuarioListNewUsuarioToAttach : usuarioListNew) {
                 usuarioListNewUsuarioToAttach = em.getReference(usuarioListNewUsuarioToAttach.getClass(), usuarioListNewUsuarioToAttach.getIdUsuario());
@@ -132,14 +116,6 @@ public class DatospersonalesJpaController implements Serializable {
             if (idTipoDocumentoNew != null && !idTipoDocumentoNew.equals(idTipoDocumentoOld)) {
                 idTipoDocumentoNew.getDatospersonalesList().add(datospersonales);
                 idTipoDocumentoNew = em.merge(idTipoDocumentoNew);
-            }
-            if (idDistritoOld != null && !idDistritoOld.equals(idDistritoNew)) {
-                idDistritoOld.getDatospersonalesList().remove(datospersonales);
-                idDistritoOld = em.merge(idDistritoOld);
-            }
-            if (idDistritoNew != null && !idDistritoNew.equals(idDistritoOld)) {
-                idDistritoNew.getDatospersonalesList().add(datospersonales);
-                idDistritoNew = em.merge(idDistritoNew);
             }
             for (Usuario usuarioListNewUsuario : usuarioListNew) {
                 if (!usuarioListOld.contains(usuarioListNewUsuario)) {
@@ -197,11 +173,6 @@ public class DatospersonalesJpaController implements Serializable {
                 idTipoDocumento.getDatospersonalesList().remove(datospersonales);
                 idTipoDocumento = em.merge(idTipoDocumento);
             }
-            Distrito idDistrito = datospersonales.getIdDistrito();
-            if (idDistrito != null) {
-                idDistrito.getDatospersonalesList().remove(datospersonales);
-                idDistrito = em.merge(idDistrito);
-            }
             em.remove(datospersonales);
             em.getTransaction().commit();
         } finally {
@@ -256,4 +227,5 @@ public class DatospersonalesJpaController implements Serializable {
             em.close();
         }
     }
+    
 }

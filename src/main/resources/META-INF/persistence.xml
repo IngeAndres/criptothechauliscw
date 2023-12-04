@@ -22,6 +22,8 @@
     <class>dto.Detalleprestamo</class>
     <class>dto.Operacionesotrascuentas</class>
     <class>dto.Tipocomprobante</class>
+    <class>dto.Provincia</class>
+    <class>dto.Departamento</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/criptothechaulis?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

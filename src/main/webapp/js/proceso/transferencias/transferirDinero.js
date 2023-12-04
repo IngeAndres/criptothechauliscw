@@ -114,7 +114,7 @@ $(document).ready(function () {
     });
 
     $("#btnConfirTransf").click(function () {
-        window.location.href = "tablesTransferencias.html";
+        window.location.href = "tablaTransferencias.html";
     });
 
     function getCookie(name) {
