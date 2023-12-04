@@ -1,22 +1,36 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    $('#dataTable').DataTable({
-        "language": {
-            "url": "/CriptoTheChaulisCW/json/es-ES.json"
+    $.getJSON("validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            $("body").show();
+            document.getElementById('txtUsuario').textContent = usuario;
+        } else {
+            window.location.href = "index.html";
+            return;
+        }
+    });
+
+    $('#dataTableCuentasTransferir').DataTable({
+        language: {
+            url: "/CriptoTheChaulisCW/json/es-ES.json"
         },
-        "ajax": {
-            "url": "/CriptoTheChaulisCW/listarcuentas",
-            "dataSrc": ""
+        ajax: {
+            type: "GET",
+            url: "http://localhost:8080/CriptoTheChaulis/webresources/dto.cuenta/listarcuentas",
+            dataSrc: "",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         },
-        "columns": [
-            {"data": "DOCUMENTO"},
-            {"data": "NUMERO"},
-            {"data": "TIPO"},
-            {"data": "SALDO"},
+        columns: [
+            {data: "docuPersona"},
+            {data: "denoTipoCuenta"},
+            {data: "numbCuenta"},
+            {data: "saldoDisponible"},
             {
-                "data": "FECHA",
+                "data": "fechaApertura",
                 "render": function (data) {
                     var date = new Date(data);
                     var fechaFormateada = date.toLocaleDateString("es-ES", {
@@ -27,22 +41,14 @@ $(document).ready(function () {
                     return fechaFormateada;
                 }
             }
-        ]
-    });
-
-    $('#dataTable').on('click', '.btnEditar', function () {
-        var codigocuenta = $(this).data('codigocuenta');
-        window.location.href = 'editarCuentas.html?codigoCuentas=' + codigocuenta;
-    });
-
-    function getCookie(name) {
-        const cookies = document.cookie.split("; ");
-        for (let i = 0; i < cookies.length; i++) {
-            const cookiePair = cookies[i].split("=");
-            if (cookiePair[0] === name) {
-                return cookiePair[1];
+        ],
+        initComplete: function (settings, json) {
+            if (json && json.resultado === "ok") {
+                $('#dataTableCuentasTransferir').DataTable().clear().rows.add(json.datos).draw();
+            } else if (json && json.resultado === "error") {
+                $('#dataTableCuentasTransferir').DataTable().clear().draw();
+                $("#modalSesionExpirada").modal('show');
             }
         }
-        return null;
-    }
+    });
 });

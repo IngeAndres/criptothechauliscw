@@ -1,7 +1,4 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
-    const token = getCookie("token");
-
     $("#btnIniciarTransfer").click(function () {
         let cuentaOrigen = $("#NumeroCuentaOrigen").val();
         let cuentaDestino = $("#NumeroCuentaDestino").val();

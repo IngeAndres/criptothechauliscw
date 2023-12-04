@@ -37,7 +37,7 @@
 
     </head>
 
-    <body id="page-top">
+    <body id="page-top" style="display: none">
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -208,12 +208,12 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClaveModal">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCambioContrasena">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cambiar contraseña
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cerrarSesionModal">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCierreSesion">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cerrar sesión
                                     </a>
@@ -239,7 +239,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-sm"  id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered table-hover table-sm"  id="dataTableTransferencias" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center">Código</th>
@@ -323,7 +323,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Sesión expirada</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'index.html'">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrarSesion()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -331,7 +331,7 @@
                         Su sesión ya expiró. Inicie sesión nuevamente.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href = 'index.html'">Aceptar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cerrarSesion()">Aceptar</button>
                     </div>
                 </div>
             </div>
@@ -352,7 +352,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href = 'index.html'">Cerrar sesión</button>
+                        <button type="button" class="btn btn-primary" onclick="cerrarSesion()">Cerrar sesión</button>
                     </div>
                 </div>
             </div>
@@ -407,7 +407,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title">Cambio de contraseña</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                onclick="window.location.href = 'index.html'">
+                                onclick="cerrarSesion()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -416,7 +416,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                onclick="window.location.href = 'index.html'">Aceptar</button>
+                                onclick="cerrarSesion()">Aceptar</button>
                     </div>
                 </div>
             </div>

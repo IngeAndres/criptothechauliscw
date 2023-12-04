@@ -1,8 +1,18 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    $('#dataTable').DataTable({
+    $.getJSON("validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            $("body").show();
+            document.getElementById('txtUsuario').textContent = usuario;
+        } else {
+            window.location.href = "index.html";
+            return;
+        }
+    });
+
+    $('#dataTableTransferencias').DataTable({
         "language": {
             "url": "/CriptoTheChaulisCW/json/es-ES.json"
         },
@@ -17,9 +27,9 @@ $(document).ready(function () {
             {"data": "APMAORIGEN"},
             {"data": "NOMBORIGEN"},
             {"data": "NUMECUENTADESTINO"},
-            {"data": "NOMBDESTINO"},
             {"data": "APPADESTINO"},
             {"data": "APMADESTINO"},
+            {"data": "NOMBDESTINO"},
             {"data": "MONTO"},
             {"data": "MONEDA"},
             {
