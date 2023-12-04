@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Préstamos - The Chauli's</title>
+        <title>Préstamos</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -44,7 +44,7 @@
         </style>
     </head>
 
-    <body id="page-top">
+    <body id="page-top" style="display: none">
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -90,7 +90,7 @@
                             <h6 class="collapse-header">Mantenimiento:</h6>
                             <a class="collapse-item" href="tablaUsuarios.html">
                                 <i class="fa fa-address-book" aria-hidden="true"></i>
-                                <span>Clientes</span>
+                                <span>Usuarios</span>
                             </a>
                             <a class="collapse-item" href="tablaCuentas.html">
                                 <i class="fa fa-credit-card" aria-hidden="true"></i>
@@ -115,7 +115,7 @@
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
-                            <a class="collapse-item" href="tablesPrestamos.html">
+                            <a class="collapse-item" href="tablaPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
                             </a>
@@ -128,7 +128,8 @@
                                 <span>Depósitos</span></a>
                             <a class="collapse-item" href="tablaTransferencias.html">
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i>
-                                <span>Transferencias</span></a>
+                                <span>Transferencias</span>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -214,17 +215,9 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Perfil
-                                    </a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClaveModal">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cambiar contraseña
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Registro de actividad
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cerrarSesionModal">
@@ -250,19 +243,14 @@
                                 <h1 class="h3 mb-2 text-gray-800">Realizar Nuevo Préstamo</h1>
                             </div>
                             <div class="container mt-5">
-
                                 <h4 class="m-0 font-weight-bold text-primary">Seleccionar Tipo de Préstamo</h4>
                                 <br>
                                 <div class="btn-container">
                                     <button type="button" class="btn btn-primary btn-lg" id="btnPPersonales">Préstamos Personales</button>
                                     <button type="button" class="btn btn-secondary btn-lg" id="btnPVivienda">Préstamos Mi Vivienda</button>
                                 </div>
+                                <br>
                             </div>
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Listado de los clientes registrados</h6>
-                            </div>
-                           
-
                         </div>
 
                     </div>
@@ -461,7 +449,7 @@
         <script src="js/inicio/principal.js"></script>
 
         <!-- Mantenimiento -->
-        <script src="js/proceso/prestamos/listarClientePrestamo.js"></script>
+        <script src="js/tablas/tablaPrestamos.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>

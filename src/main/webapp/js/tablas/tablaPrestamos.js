@@ -1,42 +1,26 @@
 $(document).ready(function () {
-    const logi = getCookie("logi");
+    const usuario = getCookie("usuario");
     const token = getCookie("token");
 
-    if (!logi || !token) {
-        window.location.href = "index.html";
-        return;
-    }
+    $.getJSON("validarsessionprin", function (data) {
+        if (data.resultado === "ok") {
+            $("body").show();
+            document.getElementById('txtUsuario').textContent = usuario;
+        } else {
+            window.location.href = "index.html";
+            return;
+        }
+    });
 
-    document.getElementById('txtLogi').textContent = logi;
+    $('#btnPPersonales').click(function () {
+        window.location.href = 'insertarPrestamos.html';
+        sessionStorage.setItem("Ptipo", "Personal");
 
-    $('#dataTable').DataTable({
-        "language": {
-            "url": "/CriptoTheChaulisCW/json/es-ES.json"
-        },
-        "ajax": {
-            "url": "/CriptoTheChaulisCW/listarcliente",
-            "dataSrc": ""
-        },
-        "columns": [
-            {"data": "DOCUMENTO"},
-            {"data": "NUMERODOC"},
-            {"data": "APELLIDO_PATERNO"},
-            {"data": "APELLIDO_MATERNO"},
-            {"data": "NOMBRE"},
-            {"data": "DISTRITO"},
-            {"data": "DIRECCION"},
-            {
-                "render": function (data, type, full, meta) {
-                    var numCuenta = full.NUMERODOC;
-                    return `<td align="center">
-        <button class="btn btn-warning btn-sm btnInformacion" data-numcliente="${numCuenta}" onclick="redirectToPrestamosCuenta(${numCuenta})">
+    });
 
-            <i class="far fa-eye text-white"></i>
-        </button>
-    </td>`;
-                }
-            }
-        ]
+    $('#btnPVivienda').click(function () {
+        window.location.href = 'insertarPrestamos.html';
+        sessionStorage.setItem("Ptipo", "Mi Vivienda");
 
     });
 
@@ -51,9 +35,4 @@ $(document).ready(function () {
         return null;
     }
 });
-
-function redirectToPrestamosCuenta(numCuenta) {
-    localStorage.setItem("codigocuenta", numCuenta);
-    window.location.href = "prestamosCuenta.html";
-}
 
