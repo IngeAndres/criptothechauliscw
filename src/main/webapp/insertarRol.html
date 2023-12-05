@@ -4,17 +4,15 @@
     <head>
 
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Página Principal</title>
+
+        <title>Nuevos Datos Personales</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
-
-        <!-- Custom icons -->
-        <link rel="stylesheet" href="vendor/fontawesome-free/css/v4-shims.min.css" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- Custom fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -23,6 +21,7 @@
         <!-- Custom styles-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <link href="css/chat-admin.css" rel="stylesheet">
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- Chat-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
@@ -50,7 +49,7 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="principal.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
@@ -86,10 +85,6 @@
                                 <i class="fa fa-id-card" aria-hidden="true"></i>
                                 <span>Datos Personales</span>
                             </a>
-                            <a class="collapse-item" href="tablaRol.html">
-                                <i class="fa fa-id-card" aria-hidden="true"></i>
-                                <span>Rol</span>
-                            </a>
                         </div>
                     </div>
                 </li>
@@ -104,7 +99,7 @@
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Procesos:</h6>
+                            <h6 id="headingUtilities" class="collapse-header">Procesos:</h6>
                             <a class="collapse-item" href="tablaPrestamos.html">
                                 <i class="fas fa-money-bill" aria-hidden="true"></i>
                                 <span>Préstamos</span>
@@ -145,9 +140,11 @@
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                         <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
+                        <form class="form-inline">
+                            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </form>
 
                         <!-- Topbar Search -->
                         <form
@@ -220,7 +217,43 @@
                     </nav>
                     <!-- End of Topbar -->
 
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Actualizar Registro</h1><br>
+
+                        <!-- Editar Datos Personales -->
+                        <div class="row">
+                            <!-- Lado Izquierdo -->
+                            <div class="col-md-6 border-right px-5">
+
+                                <div class="form-group">
+                                    <label for="nombPersona" class="col-form-label">Nombre:</label>
+                                    <input type="text" id="nombPersona" class="form-control" />
+                                </div>
+                                <div class="col">
+                                    <label for="fechPersona" class="col-form-label">Fecha de nacimiento:</label>
+                                </div>
+                                <div class="col">
+                                    <input type="date" id="fechPersona" class="form-control" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <br>
+                        <!-- Botones al final -->
+                        <div class="row">
+                            <div class="col-md-6 px-5">
+                                <div class="form-group">
+                                    <input id="btnInsertar" type="submit" value="Registrar" class="btn btn-primary" />
+                                    <a id="btnRegresar" class="btn btn-secondary mx-2" href="tablaRol.html">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
@@ -390,6 +423,43 @@
             </div>
         </div>
 
+        <!-- Modal Registro Completado -->
+        <div class="modal" id="modalRegistroCompletado" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registro</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Los datos se registraron correctamente.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Campos Incompletos -->
+        <div class="modal fade" id="modalCamposIncompletos" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Datos Incompletos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Por favor, complete todos los datos necesarios.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -400,13 +470,21 @@
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
 
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+
+        <script src="js/mantenimiento/rol/insertarRol.js" ></script>
+
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/inicio/principal.js"></script>
 
-        <!-- Chat -->
+        <!-- chat -->
         <script src="js/chat/cargarMensaje.js"></script>
         <script src="js/chat/conexion.js"></script>
     </body>

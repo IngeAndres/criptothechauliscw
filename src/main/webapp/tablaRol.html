@@ -4,10 +4,12 @@
     <head>
 
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Página Principal</title>
+
+        <title>Datos Personales</title>
 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/thechaulis.ico">
@@ -23,6 +25,7 @@
         <!-- Custom styles-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <link href="css/chat-admin.css" rel="stylesheet">
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- Chat-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
@@ -85,10 +88,6 @@
                             <a class="collapse-item" href="tablaDatosPersonales.html">
                                 <i class="fa fa-id-card" aria-hidden="true"></i>
                                 <span>Datos Personales</span>
-                            </a>
-                            <a class="collapse-item" href="tablaRol.html">
-                                <i class="fa fa-id-card" aria-hidden="true"></i>
-                                <span>Rol</span>
                             </a>
                         </div>
                     </div>
@@ -220,6 +219,62 @@
                     </nav>
                     <!-- End of Topbar -->
 
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Datos Personales</h1>
+
+                        <!-- DataTales Datos Personales -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary">Listado de Datos Personales</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-sm"  id="dataTableDatosPersonales" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center">id Rol</th>
+                                                <th style="text-align: center">Nombre Rol</th>
+                                                <th style="text-align: center">Fecha Rol</th>
+
+                                                <th style="text-align: center;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="text-align: center">id Rol</th>
+                                                <th style="text-align: center">Nombre Rol</th>
+                                                <th style="text-align: center">Fecha Rol</th>
+
+                                                <th style="text-align: center;">Acciones</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                <div class="my-2"></div>
+                                <a href="insertarRol.html" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="text">Nuevo registro</span>
+                                </a>
+                                <div class="my-2"></div>
+                                <a href="asignarRol.html" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="text">Asignar y quitar Rol</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Page Content -->
                 </div>
                 <!-- End of Main Content -->
 
@@ -390,6 +445,27 @@
             </div>
         </div>
 
+        <!-- Modal Eliminar Registro -->
+        <div class="modal fade" id="modalEliminarRegistro" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar eliminación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas eliminar este registro?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmarEliminar">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -400,11 +476,19 @@
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
 
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
         <!-- CriptoJS-->
         <script src="criptojs/rollups/sha256.js"></script>
 
         <!-- Principal -->
         <script src="js/inicio/principal.js"></script>
+
+        <!-- Mantenimiento -->
+        <script src="js/tablas/tablaRol.js"></script>
+        <script src="js/mantenimiento/datospersonales/eliminarDatosPersonales.js"></script>
 
         <!-- Chat -->
         <script src="js/chat/cargarMensaje.js"></script>
